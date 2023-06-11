@@ -4,11 +4,13 @@ const Schema = mongoose.Schema;
 const tracksSchema = new Schema({
   artist: {
     type: String,
-    required: true
+    required: true,
+    index: true  
   },
   song: {
     type: String,
-    required: true
+    required: true,
+    index: true  
   },
   reshares: {
     type: Number,
@@ -24,11 +26,12 @@ const tracksSchema = new Schema({
     type: Number,
     required: true,
     default: 0
-    },
-    genre: {
-        type: String,
-        required: true
-      },
+  },
+  genre: {
+    type: String,
+    required: true,
+    index: true  
+  },
 }, {
   timestamps: true
 });
