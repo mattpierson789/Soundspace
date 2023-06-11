@@ -8,6 +8,8 @@ const SidebarLinks = ({ isLoggedIn }) => {
   
   const loggedIn = useSelector(state => !!state.session.user);
   const dispatch = useDispatch();
+
+  debugger 
   
   const logoutUser = e => {
     e.preventDefault();

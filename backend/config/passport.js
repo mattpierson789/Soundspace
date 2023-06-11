@@ -22,6 +22,8 @@ passport.use(new LocalStrategy({
         done(null, false);
 }));
 
+debugger 
+
 exports.loginUser = async function (user) {
     const userInfo = {
         _id: user._id,
@@ -58,7 +60,6 @@ passport.use(new JwtStrategy(options, async (jwtPayload, done) => {
     }
 }));
 
-exports.requireUser = passport.authenticate('jwt', { session: false });
 
 exports.restoreUser = (req, res, next) => {
     return passport.authenticate('jwt', { session: false }, function(err, user) {
@@ -67,3 +68,5 @@ exports.restoreUser = (req, res, next) => {
       next();
     })(req, res, next);
   };
+
+exports.requireUser = passport.authenticate('jwt', { session: false });

@@ -13,13 +13,18 @@ import Tracks from './components/Tracks/Tracks';
 import Profile from './components/Profile/Profile';
 import { getCurrentUser } from './store/session';
 import TrackUpload from './components/Tracks/TrackUpload';
+import startSession from './store/session';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
   
   useEffect(() => {
+    // debugger 
+    // dispatch(startSession())
+    // debugger 
     dispatch(getCurrentUser()).then(() => setLoaded(true));
+    debugger
   }, [dispatch]);
 
   return loaded && (

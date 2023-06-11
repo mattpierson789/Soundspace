@@ -6,7 +6,7 @@ const debug = require('debug');
 const cors = require('cors');
 const csurf = require('csurf');
 const { isProduction } = require('./config/keys');
-
+debugger 
 require('./models/User');
 require('./models/Tracks');
 require('./config/passport');
@@ -23,7 +23,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(passport.initialize());
-
+debugger 
 // Security Middleware
 if (!isProduction) {
     // Enable CORS only in development because React will be on the React
