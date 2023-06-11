@@ -4,7 +4,7 @@ import { Switch } from 'react-router-dom';
 import React from 'react';
 
 import { AuthRoute, ProtectedRoute } from './components/Routes/Routes'; 
-import NavBar from './components/NavBar/SidebarLinks';
+import SideBarLinks from './components/NavBar/SidebarLinks';
 
 import MainPage from './components/MainPage/MainPage'; 
 import LoginForm from './components/SessionForms/LoginForm'; 
@@ -20,16 +20,13 @@ function App() {
   const dispatch = useDispatch();
   
   useEffect(() => {
-    // debugger 
-    // dispatch(startSession())
-    // debugger 
     dispatch(getCurrentUser()).then(() => setLoaded(true));
     debugger
   }, [dispatch]);
 
   return loaded && (
     <>
-      <NavBar />
+      <SideBarLinks />
       <Switch>
         <AuthRoute exact path="/" component={MainPage} />
         <AuthRoute exact path="/login" component={LoginForm} />

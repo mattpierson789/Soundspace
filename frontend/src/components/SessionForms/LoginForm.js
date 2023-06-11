@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import React from 'react';
-// import './SessionForm.css';
+import { Redirect } from 'react-router-dom';
 
 import { login, clearSessionErrors } from '../../store/session';
 
-function LoginForm () {
+function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const errors = useSelector(state => state.errors.session);
+  const currentUser = useSelector(state => state.session.currentUser);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -17,16 +18,20 @@ function LoginForm () {
     };
   }, [dispatch]);
 
-  const update = (field) => {
+  const update = field => {
     const setState = field === 'email' ? setEmail : setPassword;
     return e => setState(e.currentTarget.value);
-  }
+  };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
-    dispatch(login({ email, password })); 
-  }
+    dispatch(login({ email, password }));
+  };
 
+  if (currentUser) {
+    return <Redirect to="/dashboard" />;
+  }
+  
   return (
     <form className="session-form" onSubmit={handleSubmit}>
       <h2>Log In Form</h2>
