@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearTrackErrors, fetchTracks } from '../../store/tracks';
 import TrackItem from './TrackItem';
+import React from 'react';
 
 function Tracks () {
   const dispatch = useDispatch();

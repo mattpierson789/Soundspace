@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchUserTracks clearTrackErrors } from '../../store/tracks';
+import { fetchUserTracks, clearTrackErrors } from '../../store/tracks';
 import TrackItem from '../Tracks/TrackItem';
+import React from 'react';
 
 function Profile () {
   const dispatch = useDispatch();

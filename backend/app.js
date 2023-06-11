@@ -8,6 +8,7 @@ const csurf = require('csurf');
 const { isProduction } = require('./config/keys');
 
 require('./models/User');
+require('./models/Tracks');
 require('./config/passport');
 
 const passport = require('passport');
