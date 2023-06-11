@@ -5,8 +5,17 @@ import App from './App';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import configureStore from './store/store';
+import * as sessionActions from './store/session';
+import * as tracksActions from './store/tracks';
+
 
 let store = configureStore({});
+
+if (process.env.NODE_ENV !== "production") {
+  window.store = store
+  window.sessionActions = sessionActions;
+  window.listingActions = tracksActions;
+}
 
 function Root() {
   return (
