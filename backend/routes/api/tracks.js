@@ -1,7 +1,8 @@
 
 const express = require('express');
 const router = express.Router();
-const Track = require('../models/Tracks'); 
+const mongoose = require('mongoose');
+const Track = mongoose.model('Tracks');
 
 
 router.get('/', function(req, res, next) {
