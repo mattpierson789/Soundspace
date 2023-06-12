@@ -1,7 +1,12 @@
 .sidebarLinks {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     list-style: none;
-    padding: 0;
+    padding-top: 50px;
     margin: 0;
+    height: 100%;
   }
   
   .sidebarLinks li {
@@ -10,9 +15,9 @@
   
   .sidebarLinks li a {
     display: block;
-    color: #333;
+    color: #ff0000;
     text-decoration: none;
-    font-size: 16px;
+    font-size: 30px;
     font-weight: bold;
     transition: color 0.3s ease;
   }

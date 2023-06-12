@@ -18,9 +18,6 @@ const SidebarLinks = ({ isLoggedIn }) => {
 
   return (
     <ul className="sidebarLinks">
-      {/* <li>
-        <Link to="/trending">Trending</Link>
-      </li> */}
       <li>
         {loggedIn ? (
           <Link to="/tracks">Tracks</Link>
