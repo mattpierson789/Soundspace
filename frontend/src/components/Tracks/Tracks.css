@@ -1,0 +1,9 @@
+
+#tracks {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-size: 1.5em; /* optional: increases the size of the text */
+  }
+  
