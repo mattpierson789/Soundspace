@@ -26,6 +26,10 @@ router.get('/', async function(req, res, next) {
   }
 });
 
+// another query within this 
+
+// Find the user by username and then make a anothe rquery in order to get the trackdata which then gets served to the frontend
+
 // Track by Id
 router.get('/:id', async function(req, res, next) {
 

@@ -1,9 +1,14 @@
+
+
+
 const mongoose = require("mongoose");
 const { mongoURI: db } = require('../config/keys.js');
 const User = require('../models/User');
 const Track = require('../models/Track');
 const bcrypt = require('bcryptjs');
-const { faker } = require('@faker-js/faker');
+const faker = require('faker');
+require('dotenv').config();
+
 
 const NUM_SEED_USERS = 10;
 const NUM_SEED_TRACKS = 10;
@@ -33,8 +38,8 @@ for (let i = 1; i < NUM_SEED_USERS; i++) {
 
 const tracks = [];
 
-for (let i = 0; i < NUM_SEED_TRACKS; i++) {
-  const artist = faker.name.findName();
+
+  const artist = "Paul Mccartney"
   const song = faker.lorem.words(3);
   const genre = faker.music.genre();
   const track = new Track({
@@ -43,7 +48,6 @@ for (let i = 0; i < NUM_SEED_TRACKS; i++) {
     genre,
   });
   tracks.push(track);
-}
 
 
 mongoose
