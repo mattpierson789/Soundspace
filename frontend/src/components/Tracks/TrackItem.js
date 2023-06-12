@@ -1,10 +1,30 @@
-// import "./TrackItem.css"
-import React from 'react';
+import { useState } from 'react';
 
-function TrackItem ({ track: { song, artist, genre, plays, likes, reshares }}) {
+function TrackItem ({ track: { song, artist, genre, plays, likes, reshares, mp3Url }}) {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audio = new Audio(mp3Url);
+
+  const handlePlayPause = () => {
+    if (isPlaying) {
+      audio.pause();
+    } else {
+      audio.play();
+    }
+    setIsPlaying(!isPlaying);
+  }
+
   return (
-    // Placeholder for track item
-    <div></div>
+    <div className="track-item">
+      <h2>{song}</h2>
+      <p>Artist: {artist}</p>
+      <p>Genre: {genre}</p>
+      <p>Plays: {plays}</p>
+      <p>Likes: {likes}</p>
+      <p>Reshares: {reshares}</p>
+      <button onClick={handlePlayPause}>
+        {isPlaying ? "Pause" : "Play"}
+      </button>
+    </div>
   );
 }
 

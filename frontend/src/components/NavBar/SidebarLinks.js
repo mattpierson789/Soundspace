@@ -8,6 +8,7 @@ import UserInfo from '../UserInfo/UserInfo';
 const SidebarLinks = ({ isLoggedIn }) => {
   
   const loggedIn = useSelector(state => !!state.session.currentUser);
+ 
   const dispatch = useDispatch();
 
   const logoutUser = e => {
@@ -26,6 +27,7 @@ const SidebarLinks = ({ isLoggedIn }) => {
               <UserInfo />
               <Link to="/tracks">Trending</Link>
               <Link to="/tracks">Feed</Link>
+   
               <li>
           {loggedIn && (
             <button onClick={logoutUser}>Logout</button>

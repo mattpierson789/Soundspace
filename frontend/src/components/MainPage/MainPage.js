@@ -1,6 +1,6 @@
 
 import React from 'react';
-debugger 
+
 function MainPage() {
     return (
       <>

@@ -1,34 +1,39 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import { fetchUserTracks, clearTrackErrors } from '../../store/tracks';
 import TrackItem from '../Tracks/TrackItem';
 import './Profile.css';
-import React from 'react';
 
 function Profile () {
   const dispatch = useDispatch();
-  const currentUser = useSelector(state => state.session.currentUser);
-  const userTracks = useSelector(state => Object.values(state.tracks.currentUser))
-  const { username, profileImageUrl } = currentUser;
+  const { username } = useParams();  // Get the username from the URL
   
+  // Find the user whose username matches the username in the URL
+  const currentUser = useSelector(state => 
+    state.session.users ? Object.values(state.session.users).find(user => user.username === username) : null
+  );
+
+  const userTracks = useSelector(state => 
+    currentUser && state.tracks.byUserId && state.tracks.byUserId[currentUser._id] ? 
+    Object.values(state.tracks.byUserId[currentUser._id]) : []
+  );
+
   useEffect(() => {
-    dispatch(fetchUserTracks(currentUser._id));
+    if (currentUser) {
+      dispatch(fetchUserTracks(currentUser._id));
+    }
     return () => dispatch(clearTrackErrors());
   }, [currentUser, dispatch]);
 
-  if (userTracks.length === 0) {
-    return <div>{currentUser.username} has no Tracks</div>;
+  if (!currentUser) {
+    return <div>Loading...</div>;
+  } else if (userTracks.length === 0) {
+    return <div>{username} has no Tracks</div>;
   } else {
     return (
       <>
-      <h3>
-      {profileImageUrl ?
-          <img className="profile-image" src={profileImageUrl} alt="profile"/> :
-          undefined
-        }
-        {username}
-      </h3>
-        <h2>All of {currentUser.username}'s Tracks</h2>
+        <h2>All of {username}'s Tracks</h2>
         {userTracks.map(track => (
           <TrackItem
             key={track._id}

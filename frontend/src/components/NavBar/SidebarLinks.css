@@ -12,7 +12,7 @@
   #links-container {
     background-color: rgb(232, 242, 168);
     width: 15%;
-    height: 70vh;
+    height: 100vh;
     position: fixed;
     overflow: auto;
     display: flex;
