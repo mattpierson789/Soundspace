@@ -1,7 +1,12 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+
 const tracksSchema = new Schema({
+    trackImageUrls: {
+    type: [String],
+    required: false
+  },
   artist: {
     type: String,
     required: true,
@@ -22,6 +27,11 @@ const tracksSchema = new Schema({
     required: true,
     default: 0
   },
+  location: {
+    type: String,
+    required: true,
+    enum: ['NYC', 'LA', 'Miami']
+  },
   plays: {
     type: Number,
     required: true,
@@ -32,6 +42,12 @@ const tracksSchema = new Schema({
     required: true,
     index: true  
   },
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+    // User references the users collection aka a foreign k
+  }
 }, {
   timestamps: true
 });
