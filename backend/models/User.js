@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
   const userSchema = new Schema({
+    name: {
+      type: String,
+      required: true
+    },
     profileImageUrl: {
       type: String,
       required: true
@@ -29,7 +33,7 @@ const Schema = mongoose.Schema;
     },
     trackIds: [{
       type: Schema.Types.ObjectId,
-      ref: 'Tracks'
+      ref: 'Track'
     }]
   }, {
     timestamps: true

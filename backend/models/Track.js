@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const tracksSchema = new Schema({
-    trackImageUrls: {
+  trackImageUrls: {
     type: [String],
     required: false
   },
@@ -41,14 +41,12 @@ const tracksSchema = new Schema({
     required: true,
     index: true  
   },
-  owner: {
+  owner: [{
     type: Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
-    // User references the users collection aka a foreign k
-  }
+    ref: 'User'
+  }]
 }, {
   timestamps: true
 });
 
-module.exports = mongoose.model('Tracks', tracksSchema);
+module.exports = mongoose.model('Track', tracksSchema);
