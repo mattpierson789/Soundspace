@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 .sidebarLinks {
     display: flex;
     flex-direction: column;
@@ -10,14 +9,9 @@
     height: 100%;
   }
 
-  #links-container {
-    background-color: rgb(232, 242, 168);
-    width: 15%;
-=======
 #links-container {
     background-color: rgb(88, 101, 210);
     width: 10%;
->>>>>>> 693ef6b (change navbar css)
     height: 100vh;
     position: fixed;
     overflow: auto;
@@ -28,13 +22,7 @@
     top: 0; 
     left: 0; 
   }
-  
-  .sidebarLinks {
-    list-style: none;
-    padding: 0; 
-    margin: 0; 
-  }
-  
+
   .sidebarLinks li {
     margin-bottom: 10px;
   }
