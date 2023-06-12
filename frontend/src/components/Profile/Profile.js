@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { fetchUserTracks, clearTrackErrors } from '../../store/tracks';
 import TrackItem from '../Tracks/TrackItem';
 import './Profile.css';
+import React from 'react'
 
 function Profile () {
   const dispatch = useDispatch();
