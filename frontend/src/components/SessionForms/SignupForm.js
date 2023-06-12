@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-// import './SessionForm.css';
 import { signup, clearSessionErrors } from '../../store/session';
 import React from 'react';
 
 function SignupForm () {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
+  const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
   const [location, setLocation] = useState('');
@@ -30,6 +30,9 @@ function SignupForm () {
       case 'username':
         setState = setUsername;
         break;
+      case 'name':
+        setState = setName;
+        break;
       case 'location':
         setState = setLocation;
         break;
@@ -52,7 +55,8 @@ function SignupForm () {
       email,
       username,
       image,
-      password
+      password,
+      name
     };
 
     dispatch(signup(user)); 
@@ -70,6 +74,15 @@ function SignupForm () {
           value={email}
           onChange={update('email')}
           placeholder="Email"
+        />
+      </label>
+      <div className="errors">{errors?.name}</div>
+      <label>
+        <span>Name</span>
+        <input type="text"
+          value={name}
+          onChange={update('name')}
+          placeholder="Name"
         />
       </label>
       <div className="errors">{errors?.username}</div>
