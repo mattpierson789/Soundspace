@@ -38,6 +38,7 @@ exports.loginUser = async function (user) {
     );
     return {
         user: userInfo,
+        
         token
     };
 };
