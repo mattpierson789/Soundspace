@@ -3,6 +3,9 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const Track = mongoose.model('Tracks');
+// const AWS = require('aws-sdk');
+// const multer = require('multer');
+// const upload = multer({ dest: 'uploads/' });
 
 
 router.get('/', function(req, res, next) {
