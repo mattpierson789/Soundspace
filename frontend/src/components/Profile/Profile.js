@@ -21,13 +21,7 @@ function Profile () {
   } else {
     return (
       <>
-      <h3>
-      {profileImageUrl ?
-          <img className="profile-image" src={profileImageUrl} alt="profile"/> :
-          undefined
-        }
-        {username}
-      </h3>
+    
         <h2>All of {currentUser.username}'s Tracks</h2>
         {userTracks.map(track => (
           <TrackItem

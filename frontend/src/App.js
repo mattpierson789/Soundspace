@@ -22,7 +22,7 @@ function App() {
   
   useEffect(() => {
     dispatch(getCurrentUser()).then(() => setLoaded(true));
-    debugger
+  
   }, [dispatch]);
 
   return loaded && (
