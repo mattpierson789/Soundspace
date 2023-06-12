@@ -37,7 +37,7 @@ function LoginForm() {
     <div className="session-form-container">
     <form className="session-form" onSubmit={handleSubmit}>
       <h2>Log In Form</h2>
-      <div className="errors">{errors?.email}</div>
+      <div className="errors">{errors ? errors.email : null }</div>
       <label>
         <span>Email</span>
         <input type="text"
@@ -46,7 +46,7 @@ function LoginForm() {
           placeholder="Email"
         />
       </label>
-      <div className="errors">{errors?.password}</div>
+      <div className="errors">{errors ? errors.password: null }</div>
       <label>
         <span>Password</span>
         <input type="password"

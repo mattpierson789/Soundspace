@@ -64,7 +64,7 @@ function TrackUpload () {
           onChange={updateTrackFile}
           required
         />
-        <div className="errors">{errors?.text}</div>
+        <div className="errors">{errors ? errors.text: null }</div>
         <input type="submit" value="Upload" />
       </form>
       <div className="track-preview">

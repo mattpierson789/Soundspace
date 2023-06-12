@@ -67,7 +67,7 @@ function SignupForm () {
   return (
     <form className="session-form" onSubmit={handleSubmit}>
       <h2>Sign Up Form</h2>
-      <div className="errors">{errors?.email}</div>
+      <div className="errors">{errors ? errors.email: null}</div>
       <label>
         <span>Email</span>
         <input type="text"
@@ -76,7 +76,7 @@ function SignupForm () {
           placeholder="Email"
         />
       </label>
-      <div className="errors">{errors?.name}</div>
+      <div className="errors">{errors ? errors.name: null }</div>
       <label>
         <span>Name</span>
         <input type="text"
@@ -85,7 +85,7 @@ function SignupForm () {
           placeholder="Name"
         />
       </label>
-      <div className="errors">{errors?.username}</div>
+      <div className="errors">{errors ? errors.username : null }</div>
       <label>
         <span>Username</span>
         <input type="text"
@@ -94,7 +94,7 @@ function SignupForm () {
           placeholder="Username"
         />
       </label>
-      <div className="errors">{errors?.profileImageUrl}</div>
+      <div className="errors">{errors ? errors.profileImageUrl: null}</div>
       <label>
         Profile Image
         <input 
@@ -111,7 +111,7 @@ function SignupForm () {
           placeholder="Location"
         />
       </label>
-      <div className="errors">{errors?.password}</div>
+      <div className="errors">{errors ? errors.password: null }</div>
       <label>
         <span>Password</span>
         <input type="password"
