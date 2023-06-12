@@ -34,7 +34,7 @@ function App() {
         <AuthRoute exact path="/signup" component={SignupForm} />
 
         <ProtectedRoute exact path="/tracks" component={Tracks} />
-        <ProtectedRoute exact path="/profile" component={Profile} />
+        <ProtectedRoute exact path="/profile/:username" component={Profile} />
         <ProtectedRoute exact path="/tracks/new" component={TrackUpload} />
       </Switch>
     </>

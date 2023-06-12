@@ -1,7 +1,7 @@
-import React from 'react';
-// import './UserInfo.css'; 
+import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
+// ...
 
 const UserInfo = () => {
 
@@ -10,18 +10,16 @@ const UserInfo = () => {
   return (
     <div className="userInfo">
       <div className="userInfo__headerPhoto">
-        {/* User Image */}
       </div>
-      <div>
+      <div id= 'user-profile-info'>
       {currentUser.profileImageUrl ?
           <img className="profile-image" src={currentUser.profileImageUrl} alt="profile"/> :
           undefined
         }
-        {currentUser.username}
+       <Link to={`/profile/${currentUser.username}`} className="username-link">{currentUser.username}</Link>
       </div>
     </div>
   );
 }
 
 export default UserInfo;
-
