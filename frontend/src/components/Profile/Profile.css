@@ -1,5 +1,55 @@
-.profile-image {
-    height: 18px;
+.profile-image-userInfo {
+    height: 100px;
+    width: 100px; 
     margin-right: 5px;
-    margin-left: 2px;
+    margin-left: 2px; 
+    border-radius: 30px;
+    margin-bottom: 100px;
+    margin-left: 5px;
   }
+
+/* why is this affecting the userInfo profile-image?? but when i do css there, it doesn't work.. :( */
+
+.profile-container {
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.profile-header {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+} 
+
+.profile-track-list {
+  margin-top: 20px;
+}
+
+.profile-track-list-item {
+  margin-bottom: 10px;
+}
+
+.profile-track-list-item:hover {
+  cursor: pointer;
+}
+
+.loading-message {
+  font-style: italic;
+}
+
+.no-tracks-message {
+  font-style: italic;
+  color: #000000;
+}
+
+.username-tracks {
+  margin: 20px auto;
+  padding: 20px;
+  font-weight: bold;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 30px;
+}
+

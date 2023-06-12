@@ -10,9 +10,8 @@ function Profile () {
   const { username } = useParams();  // Get the username from the URL
   
   // Find the user whose username matches the username in the URL
-  const currentUser = useSelector(state => 
-    state.session.users ? Object.values(state.session.users).find(user => user.username === username) : null
-  );
+  const currentUser = useSelector(state => state.session.currentUser);
+    // state.session.users ? Object.values(state.session.users).find(user => user.username === username) : null
 
   const userTracks = useSelector(state => 
     currentUser && state.tracks.byUserId && state.tracks.byUserId[currentUser._id] ? 
@@ -29,7 +28,7 @@ function Profile () {
   if (!currentUser) {
     return <div>Loading...</div>;
   } else if (userTracks.length === 0) {
-    return <div>{username} has no Tracks</div>;
+    return <div className="username-tracks">{username} has no Tracks</div>;
   } else {
     return (
       <>

@@ -16,15 +16,17 @@ function Tracks() {
   return (
     <div className="tracks-container">
       <h2 className="trending-title">Trending</h2>
-      <div className="main-content">
-        <h2>This is the Track Index</h2>
-        {tracks.length === 0 ? (
-          <div id="tracks">There are no Tracks</div>
-        ) : (
-          tracks.map(track => (
-            <TrackItem key={track._id} track={track} />
-          ))
-        )}
+      <div className="main-content-tracks-container">
+        <div className="main-content-tracks">
+          <h2>This is the Track Index</h2>
+          {tracks.length === 0 ? (
+            <div className="tracks">There are no Tracks</div>
+          ) : (
+            tracks.map(track => (
+              <TrackItem key={track._id} track={track} />
+            ))
+          )}
+        </div>
       </div>
     </div>
   );

@@ -1,54 +1,34 @@
+.tracks {
+  display: flex;
+  height: 100vh;
+  font-size: 1.5em; 
+}
 
-#tracks {
-    display: flex;
-    height: 100vh;
-    font-size: 1.5em; 
-  }
+.tracks-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 
-  .tracks-container {
-    display: flex;
-    align-items: flex-start; 
-    
-  }
-  
-  .trending-title {
-    margin-top: 0;
-    margin-left: 500px;
-  }
-  
-  .main-content {
-    padding: 20px;
-  }
+.trending-title {
+  margin-top: 0;
+  padding: 0px;
+  color: rgb(0, 76, 255);
+  display: sticky;
+  text-align: center; /* Center the text */
+}
 
-  .tracks-container {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh; 
-  }
-  
-  .trending-title {
-    margin-top: 0;
-    padding: 0px;
-    margin-right: 1300px; 
-    color: purple;
-    display: sticky
-  }
-  
-  
-  .tracks-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding-top: 200px;
-    height: 50vh; 
-  }
-  
-  .main-content {
-    background-color: #f2f2f2; 
-    padding: 20px;
-    width: 80%;
-  }
-  
-  
+.main-content-tracks {
+  /* background-color: #f2f2f2;  */
+  padding: 20px;
+  width: 100%;
+}
+
+.main-content-tracks-container {
+  justify-content: center;
+  margin-left: 10%;
+}
+
   

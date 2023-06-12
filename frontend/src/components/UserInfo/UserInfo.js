@@ -13,13 +13,20 @@ const UserInfo = () => {
       </div>
       <div id= 'user-profile-info'>
       {currentUser.profileImageUrl ?
-          <img className="profile-image" src={currentUser.profileImageUrl} alt="profile"/> :
-          undefined
+          <Link to={`/profile/${currentUser.username}`}>
+          <img
+            className="profile-image-userInfo"
+            src={currentUser.profileImageUrl}
+            alt="profile"
+          />
+        </Link> 
+        : undefined
         }
        <Link to={`/profile/${currentUser.username}`} className="username-link">{currentUser.username}</Link>
       </div>
     </div>
   );
 }
+
 
 export default UserInfo;

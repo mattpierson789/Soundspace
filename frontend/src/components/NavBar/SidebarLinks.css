@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .sidebarLinks {
     display: flex;
     flex-direction: column;
@@ -12,14 +13,27 @@
   #links-container {
     background-color: rgb(232, 242, 168);
     width: 15%;
+=======
+#links-container {
+    background-color: rgb(88, 101, 210);
+    width: 10%;
+>>>>>>> 693ef6b (change navbar css)
     height: 100vh;
     position: fixed;
     overflow: auto;
     display: flex;
     flex-direction: column;
-    padding: 10px; 
+    padding: 20px;
+    justify-content: space-evenly;
+    top: 0; 
+    left: 0; 
   }
-
+  
+  .sidebarLinks {
+    list-style: none;
+    padding: 0; 
+    margin: 0; 
+  }
   
   .sidebarLinks li {
     margin-bottom: 10px;
@@ -27,9 +41,9 @@
   
   .sidebarLinks li a {
     display: block;
-    color: #ff0000;
+    color: #ffffff;
     text-decoration: none;
-    font-size: 30px;
+    font-size: 20px;
     font-weight: bold;
     transition: color 0.3s ease;
   }
@@ -43,7 +57,7 @@
     border: none;
     color: #000000;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: bold;
     transition: color 0.3s ease;
   }
@@ -52,45 +66,4 @@
     color: #d503ff;
   }
 
-  h2 {
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    list-style: none;
-    padding-top: 100px;
-    padding-bottom: 100px;
-    height: 100%;
-
-  }
-
-  #splash-image {
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    list-style: none;
-    padding-top: 50px;
-    height: 80%;
-  }
-
- 
-  
-  .header {
-    margin-top: 50px;
-  }
-  
-  .center {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  button {
-    position: relative;
-    z-index: 1;
-  }
-  
   
