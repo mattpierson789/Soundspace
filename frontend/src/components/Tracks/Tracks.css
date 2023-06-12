@@ -1,9 +1,54 @@
 
 #tracks {
     display: flex;
+    height: 100vh;
+    font-size: 1.5em; 
+  }
+
+  .tracks-container {
+    display: flex;
+    align-items: flex-start; 
+    
+  }
+  
+  .trending-title {
+    margin-top: 0;
+    margin-left: 500px;
+  }
+  
+  .main-content {
+    padding: 20px;
+  }
+
+  .tracks-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; 
+  }
+  
+  .trending-title {
+    margin-top: 0;
+    padding: 0px;
+    margin-right: 1300px; 
+    color: purple;
+    display: sticky
+  }
+  
+  
+  .tracks-container {
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    font-size: 1.5em; /* optional: increases the size of the text */
+    padding-top: 200px;
+    height: 50vh; 
   }
+  
+  .main-content {
+    background-color: #f2f2f2; 
+    padding: 20px;
+    width: 80%;
+  }
+  
+  
   
