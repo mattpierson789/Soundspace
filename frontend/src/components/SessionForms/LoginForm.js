@@ -29,7 +29,7 @@ function LoginForm() {
   };
 
   if (currentUser) {
-    return <Redirect to="/dashboard" />;
+    return <Redirect to="/tracks" />;
   }
   
   return (

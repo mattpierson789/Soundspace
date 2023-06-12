@@ -12,7 +12,7 @@ function TrackUpload () {
   const [trackFile, setTrackFile] = useState(null);
 
   const dispatch = useDispatch();
-  const author = useSelector(state => state.session.user);
+  const author = useSelector(state => state.session.currentUser);
   const newTrack = useSelector(state => state.tracks.new);
   const errors = useSelector(state => state.errors.tracks);
 

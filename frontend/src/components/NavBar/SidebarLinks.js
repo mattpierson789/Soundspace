@@ -6,7 +6,7 @@ import { logout } from '../../store/session';
 
 const SidebarLinks = ({ isLoggedIn }) => {
   
-  const loggedIn = useSelector(state => !!state.session.user);
+  const loggedIn = useSelector(state => !!state.session.currentUser);
   const dispatch = useDispatch();
 
   debugger 
@@ -18,18 +18,18 @@ const SidebarLinks = ({ isLoggedIn }) => {
 
   return (
     <ul className="sidebarLinks">
-      <li>
+      {/* <li>
         <Link to="/trending">Trending</Link>
-      </li>
+      </li> */}
       <li>
-        {isLoggedIn ? (
-          <Link to="/your-feed">Your Feed</Link>
+        {loggedIn ? (
+          <Link to="/tracks">Tracks</Link>
         ) : (
-          <Link to="/login">Login to view Your Feed</Link>
+          <Link to="/login">Login 2 View</Link>
         )}
       </li>
       <li>
-        {isLoggedIn && (
+        {loggedIn && (
           <button onClick={logoutUser}>Logout</button>
         )}
       </li>

@@ -6,8 +6,8 @@ import React from 'react';
 
 function Profile () {
   const dispatch = useDispatch();
-  const currentUser = useSelector(state => state.session.user);
-  const userTracks = useSelector(state => Object.values(state.tracks.user))
+  const currentUser = useSelector(state => state.session.currentUser);
+  const userTracks = useSelector(state => Object.values(state.tracks.currentUser))
   
   useEffect(() => {
     dispatch(fetchUserTracks(currentUser._id));
