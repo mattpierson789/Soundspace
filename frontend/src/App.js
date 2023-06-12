@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Switch } from 'react-router-dom';
 import React from 'react';
+import 'normalize.css';
 
 import { AuthRoute, ProtectedRoute } from './components/Routes/Routes'; 
 import SideBarLinks from './components/NavBar/SidebarLinks';

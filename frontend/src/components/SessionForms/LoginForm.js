@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import React from 'react';
 import { Redirect } from 'react-router-dom';
+import './LoginForm.css';
 
 import { login, clearSessionErrors } from '../../store/session';
 
@@ -33,6 +34,7 @@ function LoginForm() {
   }
   
   return (
+    <div className="session-form-container">
     <form className="session-form" onSubmit={handleSubmit}>
       <h2>Log In Form</h2>
       <div className="errors">{errors?.email}</div>
@@ -59,6 +61,7 @@ function LoginForm() {
         disabled={!email || !password}
       />
     </form>
+    </div>
   );
 }
 
