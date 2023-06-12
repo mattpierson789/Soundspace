@@ -111,8 +111,11 @@ router.post('/:id/owners/:userId', requireUser, async (req, res, next) => {
     track.owner.push(user);
     await track.save();
 
+    user.trackIds.push(track);
+    await user.save();
+
     // Populate the owner field with the updated owner information
-    const populatedTrack = await track.populate('owner', '_id username').execPopulate();
+    const populatedTrack = await track.populate('owner', '_id username')
 
     return res.json(populatedTrack);
   } catch (err) {
