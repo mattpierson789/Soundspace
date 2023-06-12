@@ -7,8 +7,11 @@ import { BrowserRouter } from 'react-router-dom';
 import configureStore from './store/store';
 import 'normalize.css';
 import './reset.css';
+import uploadTrack from './store/tracks'
 
 let store = configureStore({});
+window.store = store;
+window.uploadTrack = uploadTrack;
 
 function Root() {
   return (
