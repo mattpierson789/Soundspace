@@ -77,7 +77,7 @@ router.get('./location/:location', async function(req, res, next) {
 router.post('/', requireUser, validateTrackInput, async (req, res, next) => {
   try {
     const { artist, song, location, genre, user} = req.body;
-
+    debugger
     const newTrack = new Track({
       artist,
       song,
@@ -89,7 +89,7 @@ router.post('/', requireUser, validateTrackInput, async (req, res, next) => {
     });
 
     let track = await newTrack.save();
-    track = await track.populate('owner', '_id username').execPopulate();
+    track = await track.populate('owner', '_id username')
     return res.json(track);
   } catch (err) {
     next(err);

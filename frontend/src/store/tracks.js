@@ -59,14 +59,18 @@ export const fetchUserTracks = id => async dispatch => {
 };
 
 export const uploadTrack = data => async dispatch => {
+    debugger
     try {
         const res = await jwtFetch('/api/tracks/', {
             method: 'POST',
             body: JSON.stringify(data)
         });
+        debugger
         const track = await res.json();
+        debugger
         dispatch(receiveNewTrack(track));
     } catch (err) {
+        debugger
         const resBody = await err.json();
         if (resBody.statusCode === 400) {
             return dispatch(receiveErrors(resBody.errors));
@@ -93,6 +97,7 @@ export const trackErrorsReducer = (state = nullErrors, action) => {
 
 
 const tracksReducer = (state = { all: {}, user: {}, new: undefined }, action) => {
+    console.log("action:", state)
     switch(action.type) {
       case RECEIVE_TRACKS:
         return { ...state, all: action.tracks, new: undefined};
