@@ -8,6 +8,9 @@ const { loginUser, restoreUser } = require('../../config/passport');
 const { isProduction } = require('../../config/keys');
 const validateRegisterInput = require('../../validations/register');
 const validateLoginInput = require('../../validations/login');
+const { singleFileUpload, singleMulterUpload } = require("../../awsS3");
+
+const DEFAULT_PROFILE_IMAGE_URL = 'https://soundspace-seeds.s3.amazonaws.com/public/blank-profile-picture-g84ce38eb1_1280.png';
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -17,7 +20,7 @@ router.get('/', function(req, res, next) {
 });
 
 // POST /api/users/register
-router.post('/register', validateRegisterInput, async (req, res, next) => {
+router.post('/register', singleMulterUpload("image"), validateRegisterInput, async (req, res, next) => {
   // Check to make sure no one has already registered with the proposed email or
   // username.
   const user = await User.findOne({
@@ -40,8 +43,12 @@ router.post('/register', validateRegisterInput, async (req, res, next) => {
   }
 
   // Otherwise create a new user
+  const profileImageUrl = req.file ? 
+    await singleFileUpload({ file: req.file, public: true}) :
+    DEFAULT_PROFILE_IMAGE_URL;
   const newUser = new User({
     username: req.body.username,
+    profileImageUrl,
     email: req.body.email
   });
 
@@ -62,7 +69,7 @@ router.post('/register', validateRegisterInput, async (req, res, next) => {
 });
 
 // POST /api/users/login
-router.post('/login', validateLoginInput, async (req, res, next) => {
+router.post('/login', singleMulterUpload(""), validateLoginInput, async (req, res, next) => {
   passport.authenticate('local', async function(err, user) {
     if (err) return next(err);
     if (!user) {
@@ -90,6 +97,7 @@ router.get('/current', restoreUser, (req, res) => {
   res.json({
     _id: req.user._id,
     username: req.user.username,
+    profileImageUrl: req.user.profileImageUrl, // <- ADD THIS LINE
     email: req.user.email
   });
 });

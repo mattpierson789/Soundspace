@@ -20,7 +20,7 @@ const Schema = mongoose.Schema;
     },
     location: {
       type: String,
-      required: true,
+      required: false,
       enum: ['NYC', 'LA', 'Miami']
     },
     profilePicture: {

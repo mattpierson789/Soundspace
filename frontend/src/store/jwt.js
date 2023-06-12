@@ -12,12 +12,17 @@ async function jwtFetch(url, options = {}) {
     debugger 
     // If the options.method is not 'GET', then set the "Content-Type" header to
     // "application/json".
-    if (options.method.toUpperCase() !== "GET") {
-        options.headers["Content-Type"] = options.headers["Content-Type"] || "application/json";
-        debugger 
-        options.headers["CSRF-Token"] = getCookie("CSRF-TOKEN");
-        debugger 
-      }
+
+    // TAKE A LOOK PLS , FIGURE OUT CSRF TOKEN, AFTER AWS CHANGES
+    if (!options.headers["Content-Type"] && !(options.body instanceof FormData)) {
+      options.headers["Content-Type"] = "application/json";
+    }
+
+    options.headers["CSRF-Token"] = getCookie("CSRF-TOKEN");
+
+    // this should not be so public, should be restricted to certain requests
+    // options.headers["CSRF-Token"] = getCookie("CSRF-TOKEN");
+
   
     // Call fetch with the url and the updated options hash.
 debugger 
