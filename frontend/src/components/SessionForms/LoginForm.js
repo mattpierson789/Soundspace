@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import './LoginForm.css';
 
 import { login, clearSessionErrors } from '../../store/session';
@@ -60,6 +60,10 @@ function LoginForm() {
         value="Log In"
         disabled={!email || !password}
       />
+      <label>
+      Not a user? Sign Up Here!{' '}
+      <Link to="/signup">Sign Up</Link>
+     </label>
     </form>
    
     </div>

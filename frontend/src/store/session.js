@@ -31,17 +31,21 @@ export const signup = user => startSession(user, 'api/users/register');
 export const login = user => startSession(user, 'api/users/login');
 
 const startSession = (userInfo, route) => async dispatch => {
-    debugger 
+    const { image, username, password, email } = userInfo;
+    const formData = new FormData();
+    formData.append("username", username);
+    formData.append("password", password);
+    formData.append("email", email);
+
+  if (image) formData.append("image", image);
     try {
         const res = await jwtFetch(route, {
             method: "POST",
-            body: JSON.stringify(userInfo)
+            // body: JSON.stringify(userInfo)
+            body: formData
         });
-        debugger 
         const { user, token } = await res.json();
-        debugger 
         localStorage.setItem('jwtToken', token);
-        debugger 
         return dispatch(receiveCurrentUser(user));
     } catch (err) {
         const res = await err.json();
@@ -53,10 +57,7 @@ const startSession = (userInfo, route) => async dispatch => {
 
 export const getCurrentUser = () => async dispatch => {
     const res = await jwtFetch('/api/users/current');
-    console.log(res)
-    debugger
     const user = await res.json();
-    debugger 
     return dispatch(receiveCurrentUser(user));
   };
 

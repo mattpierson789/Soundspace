@@ -9,7 +9,9 @@ function SignupForm () {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
+  const [location, setLocation] = useState('');
   const errors = useSelector(state => state.errors.session);
+  const [image, setImage] = useState(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -27,6 +29,9 @@ function SignupForm () {
         break;
       case 'username':
         setState = setUsername;
+        break;
+      case 'location':
+        setState = setLocation;
         break;
       case 'password':
         setState = setPassword;
@@ -46,11 +51,14 @@ function SignupForm () {
     const user = {
       email,
       username,
+      image,
       password
     };
 
     dispatch(signup(user)); 
   }
+
+  const updateFile = e => setImage(e.target.files[0]);
 
   return (
     <form className="session-form" onSubmit={handleSubmit}>
@@ -71,6 +79,23 @@ function SignupForm () {
           value={username}
           onChange={update('username')}
           placeholder="Username"
+        />
+      </label>
+      <div className="errors">{errors?.profileImageUrl}</div>
+      <label>
+        Profile Image
+        <input 
+        type="file" 
+        accept=".jpg, .jpeg, .png" 
+        onChange={updateFile}
+        />
+      </label>
+      <label>
+        <span>Location</span>
+        <input type="text"
+          value={location}
+          onChange={update('location')}
+          placeholder="Location"
         />
       </label>
       <div className="errors">{errors?.password}</div>
@@ -96,7 +121,7 @@ function SignupForm () {
       <input
         type="submit"
         value="Sign Up"
-        disabled={!email || !username || !password || password !== password2}
+        disabled={!email || !username || !password || password !== password2 || !location}
       />
     </form>
   );
