@@ -15,6 +15,7 @@ import Profile from './components/Profile/Profile';
 import { getCurrentUser } from './store/session';
 import TrackUpload from './components/Tracks/TrackUpload';
 import startSession from './store/session';
+import MusicUploadForm from './components/MusicFileUpload/MusicFileUpload';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -36,6 +37,7 @@ function App() {
         <ProtectedRoute exact path="/tracks" component={Tracks} />
         <ProtectedRoute exact path="/profile/:username" component={Profile} />
         <ProtectedRoute exact path="/tracks/new" component={TrackUpload} />
+        {/* <ProtectedRoute exact path="/upload-track" component={MusicUploadForm} /> */}
       </Switch>
     </>
   );
