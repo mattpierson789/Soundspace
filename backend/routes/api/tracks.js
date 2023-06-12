@@ -2,7 +2,13 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-const Track = mongoose.model('Tracks');
+const Track = mongoose.model('Track');
+const { requireUser } = require('../../config/passport');
+const validateTrackInput = require('../../validations/tracks');
+const User = mongoose.model('User');
+
+// const currentUser = req.user;
+
 // const AWS = require('aws-sdk');
 // const multer = require('multer');
 // const upload = multer({ dest: 'uploads/' });
@@ -11,7 +17,7 @@ const Track = mongoose.model('Tracks');
 router.get('/', async function(req, res, next) {
   try {
     const tracks = await Track.find()
-      .populate("owner", "_id username trackImageUrls artists song reshares likes location plays genre")
+      .populate("owner", "_id username")
       .sort({ createdAt: -1 });
 
     return res.json(tracks);
@@ -21,13 +27,11 @@ router.get('/', async function(req, res, next) {
 });
 
 // Track by Id
-// router.get('/:trackId', async (req, res, next) {
-
 router.get('/:id', async function(req, res, next) {
 
   try { 
     const track = await Track.findById(req.params.id)
-    .populate("owner", "_id username trackImageUrls artists song reshares likes location plays genre")
+    .populate("owner", "_id username")
     return res.json(track);
   }
   catch (err) {
@@ -64,6 +68,58 @@ router.get('./location/:location', async function(req, res, next) {
     }
   });
 })
+
+// Create a track
+router.post('/', requireUser, validateTrackInput, async (req, res, next) => {
+  try {
+    const { artist, song, location, genre, user} = req.body;
+
+    const newTrack = new Track({
+      artist,
+      song,
+      location,
+      genre,
+      // owner: req.user._id
+      // owner: currentUser._id
+      owner: [user]
+    });
+
+    let track = await newTrack.save();
+    track = await track.populate('owner', '_id username').execPopulate();
+    return res.json(track);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// Add an owner to a track
+router.post('/:id/owners/:userId', requireUser, async (req, res, next) => {
+  try {
+    const trackId = req.params.id;
+    const userId = req.params.userId;
+
+    const track = await Track.findById(trackId);
+    if (!track) {
+      return res.status(404).json({ error: 'Track not found' });
+    }
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    track.owner.push(user);
+    await track.save();
+
+    // Populate the owner field with the updated owner information
+    const populatedTrack = await track.populate('owner', '_id username').execPopulate();
+
+    return res.json(populatedTrack);
+  } catch (err) {
+    next(err);
+  }
+});
+
 
 
 module.exports = router;
