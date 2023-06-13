@@ -3,8 +3,12 @@ const Schema = mongoose.Schema;
 
 const tracksSchema = new Schema({
   trackImageUrls: {
-    type: [String],
+    type: String,
     required: false
+  },
+  trackUrl: {
+    type: String, 
+    required: false, 
   },
   artist: {
     type: String,
