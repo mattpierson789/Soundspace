@@ -4,20 +4,20 @@ import { useParams } from 'react-router-dom';
 import { fetchUserTracks, clearTrackErrors } from '../../store/tracks';
 import TrackItem from '../Tracks/TrackItem';
 import './Profile.css';
-import React from 'react'
+import React from 'react';  
 
 function Profile () {
   const dispatch = useDispatch();
-  const { username } = useParams();  // Get the username from the URL
-  
-  // Find the user whose username matches the username in the URL
-  const currentUser = useSelector(state => state.session.currentUser);
-    // state.session.users ? Object.values(state.session.users).find(user => user.username === username) : null
+  const { username } = useParams();
 
-  const userTracks = useSelector(state => 
-    currentUser && state.tracks.byUserId && state.tracks.byUserId[currentUser._id] ? 
-    Object.values(state.tracks.byUserId[currentUser._id]) : []
-  );
+  const currentUser = useSelector(state => state.session.currentUser);
+
+  const tracksState = useSelector(state => state.tracks);
+  debugger
+
+  const userTracks = Object.values(tracksState.all)
+  .filter(track => track.owner.some(owner => owner.username === username));
+
 
   useEffect(() => {
     if (currentUser) {
