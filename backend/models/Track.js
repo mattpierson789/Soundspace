@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const tracksSchema = new Schema({
-  trackImageUrls: {
+  trackImageUrl: {
     type: String,
     required: false
   },
@@ -43,7 +43,7 @@ const tracksSchema = new Schema({
   genre: {
     type: String,
     required: false,
-    index: true  
+    index: true
   },
   owner: [{
     type: Schema.Types.ObjectId,

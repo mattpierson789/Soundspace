@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './TrackItem.css';
 
-function TrackItem({ track: { song, artist, genre, plays, likes, reshares, trackUrl } }) {
+function TrackItem({ track: { song, artist, genre, plays, likes, reshares, trackUrl, trackImageUrl } }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const audio = new Audio(trackUrl);
 
@@ -29,6 +29,7 @@ function TrackItem({ track: { song, artist, genre, plays, likes, reshares, track
   return (
     <div className="track-item">
       <h2>{song}</h2>
+      <img src={trackImageUrl} alt="Track-Image" />
       <p>Artist: {artist}</p>
       <p>Genre: {genre}</p>
       <p>Plays: {plays}</p>
