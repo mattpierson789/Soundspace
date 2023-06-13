@@ -7,6 +7,7 @@ async function jwtFetch(url, options = {}) {
     // Set the "Authorization" header to the value of "jwtToken" in localStorage.
     // Remember to add 'Bearer ' to the front of the token.
     const jwtToken = localStorage.getItem("jwtToken");
+    debugger
     console.log(jwtToken);
     if (jwtToken) options.headers["Authorization"] = 'Bearer ' + jwtToken;
     
@@ -15,8 +16,10 @@ async function jwtFetch(url, options = {}) {
 
     // TAKE A LOOK PLS , FIGURE OUT CSRF TOKEN, AFTER AWS CHANGES
     if (options.method.toUpperCase() !== "GET") {
+      debugger
       if (!options.headers["Content-Type"] && !(options.body instanceof FormData)) {
         options.headers["Content-Type"] = "application/json";
+        debugger
       }
       options.headers["CSRF-Token"] = getCookie("CSRF-TOKEN");
   }
@@ -29,7 +32,6 @@ async function jwtFetch(url, options = {}) {
 
   
     // Call fetch with the url and the updated options hash.
-
     const res = await fetch(url, options);
 
     // If the response status code is 400 oder above, then throw an error with the
@@ -42,7 +44,7 @@ async function jwtFetch(url, options = {}) {
   }
 
 
-  function getCookie(cookieName) {
+  export function getCookie(cookieName) {
     const cookies = document.cookie.split(';');
     for (let cookie of cookies) {
         const [name, value] = cookie.split('=');

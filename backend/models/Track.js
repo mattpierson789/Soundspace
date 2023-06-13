@@ -8,37 +8,37 @@ const tracksSchema = new Schema({
   },
   artist: {
     type: String,
-    required: true,
+    required: false,
     index: true  
   },
   song: {
     type: String,
-    required: true,
+    required: false,
     index: true  
   },
   reshares: {
     type: Number,
-    required: true,
+    required: false,
     default: 0
   },
   likes: {
     type: Number,
-    required: true,
+    required: false,
     default: 0
   },
   location: {
     type: String,
-    required: true,
+    required: false,
     enum: ['NYC', 'LA', 'Miami']
   },
   plays: {
     type: Number,
-    required: true,
+    required: false,
     default: 0
   },
   genre: {
     type: String,
-    required: true,
+    required: false,
     index: true  
   },
   owner: [{

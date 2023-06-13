@@ -34,7 +34,7 @@ const singleFileUpload = async ({ file, public = false }) => {
     let fileUrl;
     if (key) {
       fileUrl = s3.getSignedUrl("getObject", {
-        Bucket: NAME_OF_BUCKET,
+        Bucket: soundspace-seeds,
         Key: key
       });
     }
