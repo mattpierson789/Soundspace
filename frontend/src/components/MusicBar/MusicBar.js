@@ -5,34 +5,33 @@ import 'react-h5-audio-player/lib/styles.css';
 import './MusicBar.css';
 
 function MusicBar() {
-  const currentTrack = useSelector(state => state.audio.currentTrack);
+  const currentTrack = useSelector((state) => state.audio.currentTrack);
 
   if (!currentTrack) {
     return null;
   }
 
-  const { song, artist, trackUrl, trackImageUrl } = currentTrack;
+  const { title, artist, trackUrl, trackImageUrl } = currentTrack;
 
   return (
-    <div className="footer-container">
+    <div className='footer-container'>
       <div className="play-bar-track-info">
         <div className="now-playing-section">
           <div className="now-playing-artist-info">
-            <p className="now-playing-song-image">{trackImageUrl}</p>
-            <p className="now-playing-artist-info-name">{artist}</p>
-            <p className="now-playing-song-name">{song}</p>
+            <p className="now-playing-artist-info-name">{title}</p>
+            <p className="now-playing-artist-info-artist">{artist}</p>
           </div>
         </div>
       </div>
       <div className="play-bar-control-container">
-        <AudioPlayer
-          src={trackUrl}
+        <AudioPlayer 
+          src={trackUrl} 
           layout="stacked-reverse"
-          autoPlay
-          showFilledVolume
+          autoPlay={true}
+          showFilledVolume={true}
           style={{
             width: '100%',
-            height: '100%',
+            height: '100%'
           }}
           customControlsSection={[RHAP_UI.MAIN_CONTROLS]}
           customProgressBarSection={[

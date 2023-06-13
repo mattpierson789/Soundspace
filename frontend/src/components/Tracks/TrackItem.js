@@ -6,23 +6,10 @@ import { repostTrack } from '../../store/tracks';
 
 
 function TrackItem({ track: {_id, song, artist, genre, plays, likes, reshares, trackUrl, trackImageUrl } }) {
-  const [isPlaying, setIsPlaying] = useState(false);
   const [isReshared, setIsReshared] = useState(false);
   const user = useSelector((state) => state.session.currentUser);
-  const audio = new Audio(trackUrl);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    audio.addEventListener('ended', () => {
-      setIsPlaying(false);
-    });
-
-    return () => {
-      audio.removeEventListener('ended', () => {
-        setIsPlaying(false);
-      });
-    };
-  }, []);
 
   const handleReshare = () => {
     if (!isReshared) {
@@ -31,16 +18,6 @@ function TrackItem({ track: {_id, song, artist, genre, plays, likes, reshares, t
       dispatch(repostTrack(_id, user._id))
     }
   }
-
-  const handlePlayPause = () => {
-    if (isPlaying) {
-      audio.pause();
-    } else {
-      dispatch(setCurrentTrack({ song, artist, trackUrl, trackImageUrl }));
-      audio.play();
-    }
-    setIsPlaying(!isPlaying);
-  };
 
   return (
     <div className="track-item">
@@ -53,9 +30,6 @@ function TrackItem({ track: {_id, song, artist, genre, plays, likes, reshares, t
       <p>Reshares: {reshares}</p>
       <button onClick={handleReshare}>
         {isReshared ? 'Reshared' : 'Reshare!'}  {/* open to change */}
-      </button>
-      <button onClick={handlePlayPause}>
-        {isPlaying ? 'Pause' : 'Play'}
       </button>
     </div>
   );
