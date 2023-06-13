@@ -52,11 +52,9 @@ export const fetchTracks = () => async dispatch => {
 };
 
 export const fetchUserTracks = (username) => async dispatch => {
-  console.log(username);
     try {
         const res = await jwtFetch(`/api/tracks/user/${username}`);
         const tracks = await res.json();
-        console.log("tracks:", tracks);
         dispatch(receiveUserTracks(tracks));
     } catch (err) {
         const resBody = await err.json();
@@ -112,12 +110,11 @@ export const trackErrorsReducer = (state = nullErrors, action) => {
 
 
 const tracksReducer = (state = { all: {}, user: {}, new: undefined }, action) => {
-    console.log("action:", state)
     switch(action.type) {
       case RECEIVE_TRACKS:
         return { ...state, all: action.tracks, new: undefined};
       case RECEIVE_USER_TRACKS:
-        return { ...state, user: action.tracks, new: undefined};
+        return { ...state, all: action.tracks, new: undefined};
       case RECEIVE_NEW_TRACK:
         return { ...state, new: action.track};
       case RECEIVE_USER_LOGOUT:
