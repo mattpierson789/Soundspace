@@ -35,17 +35,19 @@ function Profile () {
     return <div className="username-tracks">{username} has no Tracks</div>;
   } else {
     return (
-      <div className="profile-grid">
-        <ProfileHeader/>
-        <h2>All of {username}'s Tracks</h2>
-        {userTracks.map(track => (
-          <TrackItem
-            key={track._id}
-            track={track}
-          />
-        ))}
+      <div className="profile-wrapper">
+        <div className="profile-grid">
+          <ProfileHeader />
+          <h2>All of {username}'s Tracks</h2>
+          {userTracks.map(track => (
+            <div className="profile-track-item">
+              <TrackItem key={track._id} track={track} />
+            </div>
+          ))}
+        </div>
       </div>
     );
+    
   }
 }
 

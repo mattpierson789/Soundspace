@@ -6,7 +6,7 @@ const ProfileHeader = ({ bannerUrl, profilePicUrl, followers, following }) => {
     <div className="profile-header">
       <img className="banner" src={bannerUrl} alt="User banner"/>
       <div className="profile-info">
-        <img className="profile-pic" src={profilePicUrl} alt="User profile"/>
+        <img className="profile-pic" src={profilePicUrl} alt="User profile photo"/>
         <div className="follower-info">
           <div>{followers} Followers</div>
           <div>{following} Following</div>
