@@ -1,5 +1,11 @@
 import jwtFetch from './jwt';
 import { RECEIVE_USER_LOGOUT } from './session';
+// const {
+//     singleFileUpload,
+//     multipleFilesUpload,
+//     retrievePrivateFile,
+//     singleMulterUpload,
+//   } = require("../../backend/awsS3.js");
 
 const RECEIVE_TRACKS = "tracks/RECEIVE_TRACKS";
 const RECEIVE_USER_TRACKS = "tracks/RECEIVE_USER_TRACKS";
@@ -58,19 +64,26 @@ export const fetchUserTracks = id => async dispatch => {
     }
 };
 
-export const uploadTrack = data => async dispatch => {
-    debugger
+export const uploadTrack = formData => async dispatch => {
     try {
-        const res = await jwtFetch('/api/tracks/', {
-            method: 'POST',
-            body: JSON.stringify(data)
+        debugger
+        const res = await jwtFetch('/api/users/upload-music', {
+          method: 'POST',
+          body: formData
+        //   headers: {
+        //     'CSRF-Token': csrfToken,
+        //   },
         });
-        debugger
+        console.log(res)
+    // try {
+    //     const res = await jwtFetch('/api/tracks/', {
+    //         method: 'POST',
+    //         body: JSON.stringify(data)
+    //     });
         const track = await res.json();
-        debugger
+        console.log(track)
         dispatch(receiveNewTrack(track));
     } catch (err) {
-        debugger
         const resBody = await err.json();
         if (resBody.statusCode === 400) {
             return dispatch(receiveErrors(resBody.errors));

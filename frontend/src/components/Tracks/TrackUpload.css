@@ -1,0 +1,60 @@
+/* TrackUpload.css */
+.upload-track {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  
+  .upload-track input[type="text"],
+  .upload-track input[type="file"],
+  .upload-track input[type="submit"] {
+    margin-bottom: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid gray;
+  }
+  
+  .errors {
+    color: red;
+    margin-bottom: 10px;
+  }
+  
+  .track-preview, .previous-track {
+    margin-bottom: 20px;
+  }
+  
+  .track-preview h3, .previous-track h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  /* Additional styles for TrackItem component */
+  .track-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .track-item img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .track-item .track-info {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .track-item .track-info .track-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .track-item .track-info .track-artist {
+    font-size: 14px;
+    color: gray;
+  }
+  

@@ -1,41 +1,44 @@
 .track-item {
-    border: 1px solid #1da1f2;
-    border-radius: 10px;
-    background-color: white;
-    padding: 10px;
-    margin: 10px; 
-    margin-right: 100px;
-    width: 100%;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    justify-content: center;
-    z-index: 1
-  }
-  
-  .track-item h2 {
-    margin: 0;
-    font-size: 18px;
-    color: #1DB954;
-  }
-  
-  .track-item p {
-    margin: 5px 0;
-    color: #444;
-  }
-  
-  .play-button {
-    margin-top: 20px;
-    color: #fff;
-    background-color: #1DB954;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .play-button:hover {
-    background-color: #1ED760;
-  }
+  border: 1px solid #1da1f2;
+  border-radius: 10px;
+  background-color: white;
+  padding: 10px;
+  margin: 10px;
+  margin-right: 100px;
+  width: 100%;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  justify-content: center;
+  z-index: 1;
+  display: inline-block;
+  max-width: 300px;
+}
+
+.track-item h2 {
+  margin: 0;
+  font-size: 18px;
+  color: #1DB954;
+}
+
+.track-item p {
+  margin: 5px 0;
+  color: #444;
+}
+
+.play-button {
+  margin-top: 20px;
+  color: #fff;
+  background-color: #1DB954;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.play-button:hover {
+  background-color: #1ED760;
+}
+
 
   
   
