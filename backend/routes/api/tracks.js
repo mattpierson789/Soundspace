@@ -27,7 +27,6 @@ router.get('/', async function(req, res, next) {
 });
 
 // Get all tracks from specific user
-// router.get('/user/:userId', async (req, res, next) => {
 router.get('/user/:username', async (req, res, next) => {
   let user;
   try {
@@ -43,6 +42,7 @@ router.get('/user/:username', async (req, res, next) => {
       const tracks = await Track.find({ owner: user._id })
           .sort({ createdAt: -1 })
           .populate("owner", "_id username");
+          debugger
       return res.json(tracks);
   }
   catch (err) {
@@ -119,22 +119,27 @@ router.post('/', requireUser, validateTrackInput, async (req, res, next) => {
 });
 
 // Add an owner to a track
-router.post('/:id/owners/:userId', requireUser, async (req, res, next) => {
+router.post('/:id/owner/:userId', requireUser, async (req, res, next) => {
+  debugger
+  console.log("track not tyvan found")
   try {
     const trackId = req.params.id;
     const userId = req.params.userId;
 
     const track = await Track.findById(trackId);
     if (!track) {
+      console.log("track not tyvan found")
       return res.status(404).json({ error: 'Track not found' });
     }
 
     const user = await User.findById(userId);
     if (!user) {
+      console.log("user not tyvan found")
       return res.status(404).json({ error: 'User not found' });
     }
 
     track.owner.push(user);
+    track.reshares+=1;
     await track.save();
 
     user.trackIds.push(track);

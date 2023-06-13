@@ -1,34 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import './TrackItem.css';
 import { setCurrentTrack } from '../../store/audio';
+import { repostTrack } from '../../store/tracks';
 
-function TrackItem({ track: { song, artist, genre, plays, likes, reshares, trackUrl, trackImageUrl } }) {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const audio = new Audio(trackUrl);
+
+function TrackItem({ track: {_id, song, artist, genre, plays, likes, reshares, trackUrl, trackImageUrl } }) {
+  const [isReshared, setIsReshared] = useState(false);
+  const user = useSelector((state) => state.session.currentUser);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    audio.addEventListener('ended', () => {
-      setIsPlaying(false);
-    });
 
-    return () => {
-      audio.removeEventListener('ended', () => {
-        setIsPlaying(false);
-      });
-    };
-  }, []);
-
-  const handlePlayPause = () => {
-    if (isPlaying) {
-      audio.pause();
-    } else {
-      dispatch(setCurrentTrack({ song, artist, trackUrl, trackImageUrl }));
-      audio.play();
+  const handleReshare = () => {
+    if (!isReshared) {
+      debugger
+      setIsReshared(true)
+      dispatch(repostTrack(_id, user._id))
     }
-    setIsPlaying(!isPlaying);
-  };
+  }
 
   return (
     <div className="track-item">
@@ -39,8 +28,8 @@ function TrackItem({ track: { song, artist, genre, plays, likes, reshares, track
       <p>Plays: {plays}</p>
       <p>Likes: {likes}</p>
       <p>Reshares: {reshares}</p>
-      <button onClick={handlePlayPause}>
-        {isPlaying ? 'Pause' : 'Play'}
+      <button onClick={handleReshare}>
+        {isReshared ? 'Reshared' : 'Reshare!'}  {/* open to change */}
       </button>
     </div>
   );

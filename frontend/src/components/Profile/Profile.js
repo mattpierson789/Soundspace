@@ -16,10 +16,13 @@ function Profile () {
   const tracksState = useSelector(state => state.tracks);
   debugger;
 
-  const userTracks = useSelector(state => 
-    state.tracks.all ? 
-    Object.values(state.tracks.all).filter(track => track.owner.some(owner => owner.username === username)) : []
+  const userTracks = useSelector(state =>
+    state.tracks.all
+      ? Object.values(state.tracks.all)
+          .filter(track => track.owner && track.owner.some(owner => owner.username === username))
+      : []
   );
+  
   
 
   useEffect(() => {
