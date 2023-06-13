@@ -14,81 +14,98 @@ const RECEIVE_TRACK_ERRORS = "tracks/RECEIVE_TRACK_ERRORS";
 const CLEAR_TRACK_ERRORS = "tracks/CLEAR_TRACK_ERRORS";
 
 const receiveTracks = tracks => ({
-    type: RECEIVE_TRACKS,
-    tracks
+  type: RECEIVE_TRACKS,
+  tracks
 });
 
 const receiveUserTracks = tracks => ({
-    type: RECEIVE_USER_TRACKS,
-    tracks
+  type: RECEIVE_USER_TRACKS,
+  tracks
 });
 
 const receiveNewTrack = track => ({
-    type: RECEIVE_NEW_TRACK,
-    track
+  type: RECEIVE_NEW_TRACK,
+  track
 });
 
 const receiveErrors = errors => ({
-    type: RECEIVE_TRACK_ERRORS,
-    errors
+  type: RECEIVE_TRACK_ERRORS,
+  errors
 });
 
 export const clearTrackErrors = errors => ({
-    type: CLEAR_TRACK_ERRORS,
-    errors
+  type: CLEAR_TRACK_ERRORS,
+  errors
 });
 
 export const fetchTracks = () => async dispatch => {
-    try {
-        const res = await jwtFetch('/api/tracks');
-        const tracks = await res.json();
-        dispatch(receiveTracks(tracks));
-    } catch (err) {
-        const resBody = await err.json();
-        if (resBody.statusCode === 400) {
-            dispatch(receiveErrors(resBody.errors));
-        }
+  try {
+    const res = await jwtFetch('/api/tracks');
+    const tracks = await res.json();
+    dispatch(receiveTracks(tracks));
+  } catch (err) {
+    const resBody = await err.json();
+    if (resBody.statusCode === 400) {
+      dispatch(receiveErrors(resBody.errors));
     }
+  }
 };
 
-export const fetchUserTracks = id => async dispatch => {
-    try {
-        const res = await jwtFetch(`/api/tracks/user/${id}`);
-        const tracks = await res.json();
-        dispatch(receiveUserTracks(tracks));
-    } catch (err) {
-        const resBody = await err.json();
-        if (resBody.statusCode === 400) {
-            return dispatch(receiveErrors(resBody.errors));
-        }
+export const fetchUserTracks = (username) => async dispatch => {
+  try {
+    const res = await jwtFetch(`/api/tracks/user/${username}`);
+    const tracks = await res.json();
+    dispatch(receiveUserTracks(tracks));
+  } catch (err) {
+    const resBody = await err.json();
+    if (resBody.statusCode === 400) {
+      return dispatch(receiveErrors(resBody.errors));
     }
+  }
 };
+
+export const repostTrack = (id, userId) => async dispatch => {
+  console.log(id, userId)
+  try {
+    const res = await jwtFetch(`/api/tracks/${id}/owner/${userId}`, {
+      method: 'POST'
+    });
+    const tracks = await res.json();
+    console.log("tracks:", tracks);
+    dispatch(receiveUserTracks(tracks));
+  } catch (err) {
+    const resBody = await err.json();
+    if (resBody.statusCode === 400) {
+      return dispatch(receiveErrors(resBody.errors));
+    }
+  }
+}
 
 export const uploadTrack = formData => async dispatch => {
-    try {
-        debugger
-        const res = await jwtFetch('/api/users/upload-music', {
-          method: 'POST',
-          body: formData
-        //   headers: {
-        //     'CSRF-Token': csrfToken,
-        //   },
-        });
-        console.log(res)
+  try {
+    debugger
+    const res = await jwtFetch('/api/users/upload-music', {
+      method: 'POST',
+      body: formData
+      //   headers: {
+      //     'CSRF-Token': csrfToken,
+      //   },
+    });
+    console.log(res)
     // try {
     //     const res = await jwtFetch('/api/tracks/', {
     //         method: 'POST',
     //         body: JSON.stringify(data)
     //     });
-        const track = await res.json();
-        console.log(track)
-        dispatch(receiveNewTrack(track));
-    } catch (err) {
-        const resBody = await err.json();
-        if (resBody.statusCode === 400) {
-            return dispatch(receiveErrors(resBody.errors));
-        }
+    const track = await res.json();
+    console.log(track)
+    dispatch(receiveNewTrack(track));
+  } catch (err) {
+    const resBody = await err.json();
+    if (resBody.statusCode === 400) {
+      return dispatch(receiveErrors(resBody.errors));
     }
+  }
 };
 
 
@@ -96,7 +113,7 @@ export const uploadTrack = formData => async dispatch => {
 const nullErrors = null;
 
 export const trackErrorsReducer = (state = nullErrors, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case RECEIVE_TRACK_ERRORS:
       return action.errors;
     case RECEIVE_NEW_TRACK:
@@ -110,19 +127,18 @@ export const trackErrorsReducer = (state = nullErrors, action) => {
 
 
 const tracksReducer = (state = { all: {}, user: {}, new: undefined }, action) => {
-    console.log("action:", state)
-    switch(action.type) {
-      case RECEIVE_TRACKS:
-        return { ...state, all: action.tracks, new: undefined};
-      case RECEIVE_USER_TRACKS:
-        return { ...state, user: action.tracks, new: undefined};
-      case RECEIVE_NEW_TRACK:
-        return { ...state, new: action.track};
-      case RECEIVE_USER_LOGOUT:
-        return { ...state, user: {}, new: undefined }
-      default:
-        return state;
-    }
-  };
-  
-  export default tracksReducer;
+  switch (action.type) {
+    case RECEIVE_TRACKS:
+      return { ...state, all: action.tracks, new: undefined };
+    case RECEIVE_USER_TRACKS:
+      return { ...state, all: action.tracks, new: undefined };
+    case RECEIVE_NEW_TRACK:
+      return { ...state, new: action.track };
+    case RECEIVE_USER_LOGOUT:
+      return { ...state, user: {}, new: undefined }
+    default:
+      return state;
+  }
+};
+
+export default tracksReducer;

@@ -130,9 +130,9 @@ router.get('/current', restoreUser, (req, res) => {
 //     track = await track.populate('owner', '_id username')
   
 router.post('/upload-music', singleMulterUpload('audiofile'), async (req, res, next) => {
-  const { userId, artist, song, location, genre } = req.body;
+  const { userId, artist, title, location, genre } = req.body;
   const trackFile = req.file;
-  const trackImageUrl = req.body.trackImageUrl; // Assuming you're passing the track image URL in the request body
+  const trackImageUrl = req.body.trackImageUrl;
 
   try {
     const uploadedUrl = await singleFileUpload({ file: trackFile, public: true });
@@ -143,7 +143,7 @@ router.post('/upload-music', singleMulterUpload('audiofile'), async (req, res, n
     }
 
     const newTrack = new Track({
-      title: song,
+      title: title,
       artist: artist,
       location: location,
       genre: genre,
@@ -154,11 +154,9 @@ router.post('/upload-music', singleMulterUpload('audiofile'), async (req, res, n
 
     let track = await newTrack.save();
 
-    if (!Array.isArray(user.tracks)) {
-      user.tracks = [];
-    }
-    user.tracks.push(track);
+    Array.isArray(user.trackIds) ?  user.trackIds.push(track) : user.trackIds = [track];
     await user.save();
+ // Initialize user.tracks as an empty array if it's not already defined
 
     res.status(200).json({ message: 'Music file uploaded successfully!' });
   } catch (error) {
@@ -166,7 +164,6 @@ router.post('/upload-music', singleMulterUpload('audiofile'), async (req, res, n
     next(error);
   }
 });
-
 
 
 module.exports = router;

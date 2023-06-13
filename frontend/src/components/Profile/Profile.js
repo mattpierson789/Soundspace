@@ -16,18 +16,23 @@ function Profile () {
   const tracksState = useSelector(state => state.tracks);
   debugger;
 
-  const userTracks = useSelector(state => 
-    state.tracks.all ? 
-    Object.values(state.tracks.all).filter(track => track.owner.some(owner => owner.username === username)) : []
+  const userTracks = useSelector(state =>
+    state.tracks.all
+      ? Object.values(state.tracks.all)
+          .filter(track => track.owner && track.owner.some(owner => owner.username === username))
+      : []
   );
+  
   
 
   useEffect(() => {
-    if (currentUser) {
-      dispatch(fetchUserTracks(currentUser._id));
-    }
+    // if (currentUser) {
+  
+      dispatch(fetchUserTracks(username));
+    // }
     return () => dispatch(clearTrackErrors());
-  }, [currentUser, dispatch]);
+  // }, [currentUser, dispatch]);
+  }, []);
 
   if (!currentUser) {
     return <div>Loading...</div>;
