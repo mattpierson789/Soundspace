@@ -26,7 +26,29 @@ router.get('/', async function(req, res, next) {
   }
 });
 
-// another query within this 
+// Get all tracks from specific user
+// router.get('/user/:userId', async (req, res, next) => {
+router.get('/user/:username', async (req, res, next) => {
+  let user;
+  try {
+      // user = await User.findById(req.params.userId);
+      user = await User.find({ username: req.params.userId });
+  } catch (err) {
+      const error = new Error('User not found');
+      error.statusCode = 404;
+      error.errors = { message: "No user found with that id" };
+      return next(error);
+  }
+  try {
+      const tracks = await Track.find({ owner: user._id })
+          .sort({ createdAt: -1 })
+          .populate("owner", "_id username");
+      return res.json(tracks);
+  }
+  catch (err) {
+      return res.json([]);
+  }
+})
 
 // Find the user by username and then make a anothe rquery in order to get the trackdata which then gets served to the frontend
 

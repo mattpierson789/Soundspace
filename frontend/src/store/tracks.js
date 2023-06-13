@@ -51,10 +51,12 @@ export const fetchTracks = () => async dispatch => {
     }
 };
 
-export const fetchUserTracks = id => async dispatch => {
+export const fetchUserTracks = (username) => async dispatch => {
+  console.log(username);
     try {
-        const res = await jwtFetch(`/api/tracks/user/${id}`);
+        const res = await jwtFetch(`/api/tracks/user/${username}`);
         const tracks = await res.json();
+        console.log("tracks:", tracks);
         dispatch(receiveUserTracks(tracks));
     } catch (err) {
         const resBody = await err.json();
