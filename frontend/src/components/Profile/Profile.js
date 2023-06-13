@@ -24,7 +24,7 @@ function Profile () {
 
   useEffect(() => {
     if (currentUser) {
-      dispatch(fetchUserTracks(currentUser._id));
+      dispatch(fetchUserTracks(username._id));
     }
     return () => dispatch(clearTrackErrors());
   }, [currentUser, dispatch]);

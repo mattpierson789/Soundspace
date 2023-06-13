@@ -127,6 +127,23 @@ router.post('/:id/owners/:userId', requireUser, async (req, res, next) => {
   }
 });
 
+router.get('/user/:username/tracks', (req, res) => {
+  const username = req.params.username;
+
+  User.findOne({ username: username })
+    .populate('trackIds')
+    .then(user => {
+      if (!user) {
+        return res.status(404).json({ message: 'No user found with that username' });
+      } else {
+        return res.json(user.trackIds);
+      }
+    })
+    .catch(err => {
+      return res.status(500).json({ error: err.message });
+    });
+});
+
 
 
 module.exports = router;
