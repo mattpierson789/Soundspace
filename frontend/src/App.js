@@ -18,6 +18,7 @@ import TrackUpload from './components/Tracks/TrackUpload';
 import startSession from './store/session';
 // import MusicUploadForm from './components/MusicFileUpload/MusicFileUpload';
 import MainFeed from './components/MainFeed/MainFeed';
+import MusicBar from './components/MusicBar/MusicBar.js';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -31,6 +32,7 @@ function App() {
   return loaded && (
     <>
       <SideBarLinks />
+      <MusicBar/>
       <Switch>
         <AuthRoute exact path="/" component={MainPage} />
         <AuthRoute exact path="/login" component={LoginForm} />

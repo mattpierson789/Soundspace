@@ -154,14 +154,12 @@ router.post('/upload-music', singleMulterUpload('audiofile'), async (req, res, n
 
     let track = await newTrack.save();
 
-<<<<<<< HEAD
-    if (!Array.isArray(user.tracks)) {
-      user.tracks = [];
-    }
+    // if (!Array.isArray(user.tracks)) {
+    //   user.tracks = [];
+    // }
+
     user.tracks.push(track);
-=======
     Array.isArray(user.trackIds) ?  user.trackIds.push(track) : user.trackIds = [track];
->>>>>>> test-main
     await user.save();
  // Initialize user.tracks as an empty array if it's not already defined
 
