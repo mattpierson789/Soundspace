@@ -23,11 +23,13 @@ function Profile () {
   
 
   useEffect(() => {
-    if (currentUser) {
+    // if (currentUser) {
+  
       dispatch(fetchUserTracks(username));
-    }
+    // }
     return () => dispatch(clearTrackErrors());
-  }, [currentUser, dispatch]);
+  // }, [currentUser, dispatch]);
+  }, []);
 
   if (!currentUser) {
     return <div>Loading...</div>;

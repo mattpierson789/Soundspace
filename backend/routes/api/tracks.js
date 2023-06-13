@@ -32,8 +32,8 @@ router.get('/user/:username', async (req, res, next) => {
   let user;
   try {
       // user = await User.findById(req.params.userId);
-      user = await User.find({ username: req.params.userId });
-  } catch (err) {
+      user = await User.findOne({ username: req.params.username });
+      } catch (err) {
       const error = new Error('User not found');
       error.statusCode = 404;
       error.errors = { message: "No user found with that id" };
