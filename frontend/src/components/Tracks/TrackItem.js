@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import React from 'react'
+import './TrackItem.css';
+
 
 function TrackItem ({ track: { song, artist, genre, plays, likes, reshares, mp3Url }}) {
   const [isPlaying, setIsPlaying] = useState(false);
