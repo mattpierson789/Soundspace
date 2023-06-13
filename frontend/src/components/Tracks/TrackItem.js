@@ -3,6 +3,7 @@ import React from 'react'
 import './TrackItem.css';
 
 
+
 function TrackItem ({ track: { song, artist, genre, plays, likes, reshares, mp3Url }}) {
   const [isPlaying, setIsPlaying] = useState(false);
   const audio = new Audio(mp3Url);
@@ -17,18 +18,21 @@ function TrackItem ({ track: { song, artist, genre, plays, likes, reshares, mp3U
   }
 
   return (
-    <div className="track-item">
-      <h2>{song}</h2>
-      <p>Artist: {artist}</p>
-      <p>Genre: {genre}</p>
-      <p>Plays: {plays}</p>
-      <p>Likes: {likes}</p>
-      <p>Reshares: {reshares}</p>
-      <button onClick={handlePlayPause}>
-        {isPlaying ? "Pause" : "Play"}
-      </button>
+    <div className="parent-container">
+      <div className="track-item">
+        <h2>{song}</h2>
+        <p>Artist: {artist}</p>
+        <p>Genre: {genre}</p>
+        <p>Plays: {plays}</p>
+        <p>Likes: {likes}</p>
+        <p>Reshares: {reshares}</p>
+        <button onClick={handlePlayPause}>
+          {isPlaying ? "Pause" : "Play"}
+        </button>
+      </div>
     </div>
   );
+  
 }
 
 export default TrackItem;
