@@ -165,5 +165,27 @@ router.post('/upload-music', singleMulterUpload('audiofile'), async (req, res, n
   }
 });
 
+// One user follows another user
+
+router.post('/:userId/follow/:id', async (req, res, next) => {
+  try {
+    const { userId, id } = req.params;
+    const currentUser = req.user;
+    const userToFollow = await User.findById(id);
+    if (!userToFollow) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    currentUser.followingIds.push(userToFollow._id);
+    await currentUser.save();
+    userToFollow.followerIds.push(currentUser._id);
+    await userToFollow.save();
+    await User.populate(currentUser, { path: 'followingIds', select: '_id username' });
+    await User.populate(userToFollow, { path: 'followerIds', select: '_id username' });
+    return res.json({ following: currentUser.followingIds, followers: userToFollow.followerIds });
+  } catch (err) {
+    next(err);
+  }
+});
+
 
 module.exports = router;

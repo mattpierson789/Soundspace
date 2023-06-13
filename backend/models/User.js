@@ -34,7 +34,16 @@ const Schema = mongoose.Schema;
     trackIds: [{
       type: Schema.Types.ObjectId,
       ref: 'Track'
-    }]
+    }], 
+    followingIds: [{
+      type: Schema.Types.ObjectId, 
+      ref: 'User'
+    }],
+    followerIds: [{ 
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+
+    },]
   }, {
     timestamps: true
   });
