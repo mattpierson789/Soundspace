@@ -64,34 +64,23 @@ export const fetchUserTracks = (username) => async dispatch => {
     }
 };
 
-export const uploadTrack = formData => async dispatch => {
+export const uploadTrack = (formData) => async (dispatch) => {
     try {
-        debugger
-        const res = await jwtFetch('/api/users/upload-music', {
-          method: 'POST',
-          body: formData
-        //   headers: {
-        //     'CSRF-Token': csrfToken,
-        //   },
-        });
-        console.log(res)
-    // try {
-    //     const res = await jwtFetch('/api/tracks/', {
-    //         method: 'POST',
-    //         body: JSON.stringify(data)
-    //     });
-        const track = await res.json();
-        console.log(track)
-        dispatch(receiveNewTrack(track));
+      const res = await jwtFetch('/api/users/upload-music', {
+        method: 'POST',
+        body: formData,
+      });
+  
+      const track = await res.json();
+      dispatch(receiveNewTrack(track));
     } catch (err) {
-        const resBody = await err.json();
-        if (resBody.statusCode === 400) {
-            return dispatch(receiveErrors(resBody.errors));
-        }
+      const resBody = await err.json();
+      if (resBody.statusCode === 400) {
+        return dispatch(receiveErrors(resBody.errors));
+      }
     }
-};
-
-
+  };
+  
 
 const nullErrors = null;
 

@@ -54,6 +54,7 @@ const singleFileUpload = async ({ file, public = false }) => {
     multer({ storage: storage }).single(nameOfKey);
   const multipleMulterUpload = (nameOfKey) =>
     multer({ storage: storage }).array(nameOfKey);
+
   
 
 module.exports = {
@@ -64,4 +65,3 @@ module.exports = {
   singleMulterUpload,
   multipleMulterUpload
 };
-
