@@ -8,7 +8,7 @@ const { loginUser, restoreUser, requireUser } = require('../../config/passport')
 const { isProduction } = require('../../config/keys');
 const validateRegisterInput = require('../../validations/register');
 const validateLoginInput = require('../../validations/login');
-const { singleFileUpload, singleMulterUpload } = require("../../awsS3");
+const { singleFileUpload, singleMulterUpload, multipleMulterUpload, multipleFilesUpload} = require("../../awsS3");
 const { ResourceExplorer2 } = require('aws-sdk');
 // import { useSelector } from 'react-redux'
 
@@ -128,14 +128,55 @@ router.get('/current', restoreUser, (req, res) => {
 
 //     let track = await newTrack.save();
 //     track = await track.populate('owner', '_id username')
+
+// router.post('/upload-music', multipleMulterUpload(['audiofile', 'imagefile']), async (req, res, next) => {
+//   // const { title, genre } = req.body;
+//   const { userId } = req.body;
+
+//   // const { userId } = req.session; 
+//   const trackFile = req.files;
+//   const trackImageFile = req.files;
   
-router.post('/upload-music', singleMulterUpload('audiofile'), async (req, res, next) => {
-  const { userId, artist, title, location, genre } = req.body;
-  const trackFile = req.file;
-  const trackImageUrl = req.body.trackImageUrl;
+//   try {
+//     const uploadedTrackUrl = await singleFileUpload({ file: trackFile, public: true });
+//     const uploadedImageUrl = await singleFileUpload({ file: trackImageFile, public: true });
+
+//     const user = await User.findOne({ _id: userId });
+//     if (!user) {
+//       return res.status(404).json({ message: 'User not found' });
+//     }
+
+//     const newTrack = new Track({
+//       trackUrl: uploadedTrackUrl,
+//       trackImageUrl: uploadedImageUrl,
+//       owner: [user],
+//     });
+
+//     const track = await newTrack.save();
+
+//     if (Array.isArray(user.trackIds)) {
+//       user.trackIds.push(track);
+//     } else {
+//       user.trackIds = [track];
+//     }
+
+//     await user.save();
+
+//     res.status(200).json({ message: 'Music file uploaded successfully!' });
+//   } catch (error) {
+//     console.error('An error occurred while uploading the music file', error);
+//     next(error);
+//   }
+// });
+
+
+router.post('/upload-music', multipleMulterUpload('files'), async (req, res, next) => {
+  const { userId } = req.body;
+  const { files } = req;
 
   try {
-    const uploadedUrl = await singleFileUpload({ file: trackFile, public: true });
+    const uploadedTrackUrl = await singleFileUpload({ file: files[0], public: true });
+    const uploadedImageUrl = await singleFileUpload({ file: files[1], public: true });
 
     const user = await User.findOne({ _id: userId });
     if (!user) {
@@ -143,20 +184,20 @@ router.post('/upload-music', singleMulterUpload('audiofile'), async (req, res, n
     }
 
     const newTrack = new Track({
-      title: title,
-      artist: artist,
-      location: location,
-      genre: genre,
-      trackUrl: uploadedUrl,
-      trackImageUrl: trackImageUrl, // Add the track image URL to the new track
+      trackUrl: uploadedTrackUrl,
+      trackImageUrl: uploadedImageUrl,
       owner: [user],
     });
 
-    let track = await newTrack.save();
+    const track = await newTrack.save();
 
-    Array.isArray(user.trackIds) ?  user.trackIds.push(track) : user.trackIds = [track];
+    if (Array.isArray(user.trackIds)) {
+      user.trackIds.push(track);
+    } else {
+      user.trackIds = [track];
+    }
+
     await user.save();
- // Initialize user.tracks as an empty array if it's not already defined
 
     res.status(200).json({ message: 'Music file uploaded successfully!' });
   } catch (error) {
@@ -164,6 +205,7 @@ router.post('/upload-music', singleMulterUpload('audiofile'), async (req, res, n
     next(error);
   }
 });
+
 
 
 module.exports = router;

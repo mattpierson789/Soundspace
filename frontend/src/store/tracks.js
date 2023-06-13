@@ -64,6 +64,7 @@ export const fetchUserTracks = (username) => async dispatch => {
   }
 };
 
+<<<<<<< HEAD
 export const repostTrack = (id, userId) => async dispatch => {
   console.log(id, userId)
   try {
@@ -109,6 +110,25 @@ export const uploadTrack = formData => async dispatch => {
 };
 
 
+=======
+export const uploadTrack = (formData) => async (dispatch) => {
+    try {
+      const res = await jwtFetch('/api/users/upload-music', {
+        method: 'POST',
+        body: formData,
+      });
+  
+      const track = await res.json();
+      dispatch(receiveNewTrack(track));
+    } catch (err) {
+      const resBody = await err.json();
+      if (resBody.statusCode === 400) {
+        return dispatch(receiveErrors(resBody.errors));
+      }
+    }
+  };
+  
+>>>>>>> vince-tues-2
 
 const nullErrors = null;
 
