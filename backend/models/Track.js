@@ -15,7 +15,7 @@ const tracksSchema = new Schema({
     required: false,
     index: true  
   },
-  song: {
+  title: {
     type: String,
     required: false,
     index: true  

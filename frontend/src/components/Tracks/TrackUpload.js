@@ -7,7 +7,7 @@ import './TrackUpload.css';
 
 function TrackUpload () {
   const [artist, setArtist] = useState('');
-  const [song, setSong] = useState('');
+  const [title, setTitle] = useState('');
   const [genre, setGenre] = useState('');
   const [trackFile, setTrackFile] = useState(null);
   const [trackImageUrl, setTrackImageUrl] = useState('');
@@ -23,17 +23,17 @@ function TrackUpload () {
 
   const handleSubmit = e => {
     e.preventDefault();
-    const trackData = { artist, song, genre, trackFile, trackImageUrl };
+    const trackData = { artist, title, genre, trackFile, trackImageUrl };
     dispatch(uploadTrack(trackData));
     setArtist('');
-    setSong('');
+    setTitle('');
     setGenre('');
     setTrackFile(null);
     setTrackImageUrl('');
   };
 
   const updateArtist = e => setArtist(e.currentTarget.value);
-  const updateSong = e => setSong(e.currentTarget.value);
+  const updateTitle = e => setTitle(e.currentTarget.value);
   const updateGenre = e => setGenre(e.currentTarget.value);
   const updateTrackFile = e => setTrackFile(e.currentTarget.files[0]);
 
@@ -49,8 +49,8 @@ function TrackUpload () {
         />
         <input 
           type="text"
-          value={song}
-          onChange={updateSong}
+          value={title}
+          onChange={updateTitle}
           placeholder="Song Name"
           required
         />
@@ -78,7 +78,7 @@ function TrackUpload () {
       </form>
       <div className="track-preview">
         <h3>Track Preview</h3>
-        {trackFile ? <TrackItem track={{ artist, song, genre, author, trackImageUrl }} /> : undefined}
+        {trackFile ? <TrackItem track={{ artist, title, genre, author, trackImageUrl }} /> : undefined}
       </div>
       <div className="previous-track">
         <h3>Previous Track</h3>
