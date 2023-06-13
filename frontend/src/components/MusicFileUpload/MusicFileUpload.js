@@ -1,29 +1,44 @@
 import React, { useEffect, useState } from 'react';
 import './MusicFileUpload';
-import { useSelector } from 'react-redux';
-import { getCookie } from '../../store/jwt.js';
+import { useSelector, useDispatch } from 'react-redux';
+import { clearTrackErrors, uploadTrack } from '../../store/tracks';
+import TrackItem from '../Tracks/TrackItem';
 
 function MusicUploadForm() {
   const [selectedFile, setSelectedFile] = useState(null);
-  const [csrfToken, setCsrfToken] = useState(null);
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.session.currentUser);
+  debugger
+  const newTrack = useSelector(state => state.tracks.new);
+  const errors = useSelector(state => state.errors.tracks);
 
-  const user = useSelector((state) => state.session.currentUser);
+  const [artist, setArtist] = useState('');
+  const [song, setSong] = useState('');
+  const [genre, setGenre] = useState('');
+  const [trackFile, setTrackFile] = useState(null);
 
-  useEffect(() => {
-    const cookieHeader = document.cookie; // Get the cookie header from the document
-    const token = getCsrfToken(cookieHeader);
-    setCsrfToken(token);
-  }, []);
+  // useEffect(() => {
+  //   return () => dispatch(clearTrackErrors());
+  // }, [dispatch]);
 
-  const getCsrfToken = (cookieHeader) => {
-    const cookies = cookieHeader.split('; ');
-    for (let i = 0; i < cookies.length; i++) {
-      const cookie = cookies[i].split('=');
-      if (cookie[0] === 'CSRF-TOKEN') {
-        return cookie[1];
-      }
-    }
-    return null; // CSRF token not found
+  const handleSubmit = e => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('audiofile', selectedFile);
+    formData.append('artist', artist);
+    formData.append('song', song);
+    formData.append('genre', genre);
+    // formData.append('user', user.name);
+    formData.append('userId', user._id);
+    debugger
+    dispatch(uploadTrack(formData));
+    debugger
+    setArtist('');
+    setSong('');
+    setGenre('');
+    setTrackFile(null);
+    debugger
+    console.log("submitted")
   };
 
   const handleFileChange = (event) => {
@@ -31,42 +46,54 @@ function MusicUploadForm() {
     setSelectedFile(file);
   };
 
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
-
-    if (!selectedFile) {
-      console.log('No file selected');
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append('audiofile', selectedFile);
-    formData.append('userId', user._id);
-
-    try {
-      const response = await fetch('/api/users/upload-music', {
-        method: 'POST',
-        body: formData,
-        headers: {
-          'CSRF-Token': csrfToken,
-        },
-      });
-
-      if (response.ok) {
-        console.log('Music file uploaded successfully');
-      } else {
-        console.error('Failed to upload music file');
-      }
-    } catch (error) {
-      console.error('An error occurred while uploading the music file', error);
-    }
-  };
-
   return (
+<<<<<<< HEAD
     <form onSubmit={handleFormSubmit}>
        <button type="submit">Upload Tracks</button>
       <input type="file" onChange={handleFileChange} />
     </form>
+=======
+    <>
+      <form className="upload-track" onSubmit={handleSubmit}>
+        <input 
+          type="text"
+          value={artist}
+          onChange={e => setArtist(e.target.value)}
+          placeholder="Artist Name"
+          required
+        />
+        <input 
+          type="text"
+          value={song}
+          onChange={e => setSong(e.target.value)}
+          placeholder="Song Name"
+          required
+        />
+        <input 
+          type="text"
+          value={genre}
+          onChange={e => setGenre(e.target.value)}
+          placeholder="Genre"
+          required
+        />
+        <input 
+          type="file"
+          onChange={handleFileChange}
+          required
+        />
+        <div className="errors">{errors ? errors.text : null}</div>
+        <input type="submit" value="Upload" />
+      </form>
+      <div className="track-preview">
+        <h3>Track Preview</h3>
+        {trackFile ? <TrackItem track={{ artist, song, genre, user: user.name }} /> : null}
+      </div>
+      <div className="previous-track">
+        <h3>Previous Track</h3>
+        {newTrack ? <TrackItem track={newTrack} /> : null}
+      </div>
+    </>
+>>>>>>> f1953af (upload song)
   );
 }
 

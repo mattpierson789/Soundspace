@@ -110,42 +110,62 @@ router.get('/current', restoreUser, (req, res) => {
 });
 
 // needs authentication to post
+// validate track input 
+// require User? or Jwt iN ACTION REDUCER SUFFICIENT?
 
+
+// const { artist, song, location, genre, user} = req.body;
+//     debugger
+//     const newTrack = new Track({
+//       artist,
+//       song,
+//       location,
+//       genre,
+//       // owner: req.user._id
+//       // owner: currentUser._id
+//       owner: [user]
+//     });
+
+//     let track = await newTrack.save();
+//     track = await track.populate('owner', '_id username')
+  
 router.post('/upload-music', singleMulterUpload('audiofile'), async (req, res, next) => {
-  const { userId } = req.body; // Retrieve the user's ID from the request body
-
-  // Access the uploaded file using req.file
+  const { userId, artist, song, location, genre } = req.body;
   const trackFile = req.file;
-
-  // Perform any necessary validation or processing with the file
-
   try {
     // Use the singleFileUpload function to upload the file to AWS S3
     const uploadedUrl = await singleFileUpload({ file: trackFile, public: true });
-
-    // Associate the song with the user
+    debugger 
     const user = await User.findOne({ _id: userId });
+    console.log(user);
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
-
-    // Create a new track and save it to the database
-    const track = new Track({
-      title: req.body.title,
-      artist: req.body.artist,
-      fileUrl: uploadedUrl,
-      owner: user._id,
+    debugger 
+    const newTrack = new Track({
+      title: song,
+      artist: artist,
+      location: location,
+      genre: genre, 
+      trackUrl: uploadedUrl,
+      owner: [user],
     });
-    await track.save();
+    debugger 
+
+
+    // track.owner.push(user);
+    // await track.save();
+    // user.trackIds.push(track);
+    // await user.save();
+    let track = await newTrack.save();
 
     if (!Array.isArray(user.tracks)) {
       user.tracks = []; // Initialize user.tracks as an empty array if it's not already defined
     }
-    // Update the user's profile with the newly uploaded track
-    user.tracks.push(track._id);
+    user.tracks.push(track);
     await user.save();
 
-    res.status(200).json({ message: 'Music file uploaded successfully' });
+    res.status(200).json({ message: 'Music file uploaded successfully! route' });
   } catch (error) {
     console.error('An error occurred while uploading the music file', error);
     next(error);
