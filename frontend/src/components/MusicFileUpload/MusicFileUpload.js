@@ -1,25 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import './MusicFileUpload';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { clearTrackErrors, uploadTrack } from '../../store/tracks';
-import TrackItem from '../Tracks/TrackItem';
+import { uploadTrack } from '../../store/tracks';
 
 function MusicUploadForm() {
   const [selectedFile, setSelectedFile] = useState(null);
   const dispatch = useDispatch();
   const user = useSelector(state => state.session.currentUser);
-  debugger
-  const newTrack = useSelector(state => state.tracks.new);
   const errors = useSelector(state => state.errors.tracks);
 
   const [artist, setArtist] = useState('');
   const [song, setSong] = useState('');
   const [genre, setGenre] = useState('');
-  const [trackFile, setTrackFile] = useState(null);
-
-  // useEffect(() => {
-  //   return () => dispatch(clearTrackErrors());
-  // }, [dispatch]);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -28,31 +19,22 @@ function MusicUploadForm() {
     formData.append('artist', artist);
     formData.append('song', song);
     formData.append('genre', genre);
-    // formData.append('user', user.name);
-    formData.append('userId', user._id);
-    debugger
+    formData.append('userId', user._id); 
+
     dispatch(uploadTrack(formData));
-    debugger
+
     setArtist('');
     setSong('');
     setGenre('');
-    setTrackFile(null);
-    debugger
-    console.log("submitted")
+    setSelectedFile(null);
   };
 
-  const handleFileChange = (event) => {
+  const handleFileChange = event => {
     const file = event.target.files[0];
     setSelectedFile(file);
   };
 
   return (
-<<<<<<< HEAD
-    <form onSubmit={handleFormSubmit}>
-       <button type="submit">Upload Tracks</button>
-      <input type="file" onChange={handleFileChange} />
-    </form>
-=======
     <>
       <form className="upload-track" onSubmit={handleSubmit}>
         <input 
@@ -84,16 +66,7 @@ function MusicUploadForm() {
         <div className="errors">{errors ? errors.text : null}</div>
         <input type="submit" value="Upload" />
       </form>
-      <div className="track-preview">
-        <h3>Track Preview</h3>
-        {trackFile ? <TrackItem track={{ artist, song, genre, user: user.name }} /> : null}
-      </div>
-      <div className="previous-track">
-        <h3>Previous Track</h3>
-        {newTrack ? <TrackItem track={newTrack} /> : null}
-      </div>
     </>
->>>>>>> f1953af (upload song)
   );
 }
 
