@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { clearTrackErrors, fetchTracks } from '../../store/tracks';
 import TrackItem from './TrackItem';
 import './Tracks.css';
+import MusicUploadForm from '../MusicFileUpload/MusicFileUpload';
 
-function Tracks() {
+function Tracks({}) {
   const dispatch = useDispatch();
   const tracks = useSelector(state => Object.values(state.tracks.all));
 
@@ -28,6 +29,7 @@ function Tracks() {
           )}
         </div>
       </div>
+      <MusicUploadForm />
     </div>
   );
 }
