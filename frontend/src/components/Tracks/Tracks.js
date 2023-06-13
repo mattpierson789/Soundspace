@@ -5,7 +5,7 @@ import TrackItem from './TrackItem';
 import './Tracks.css';
 import MusicUploadForm from '../MusicFileUpload/MusicFileUpload';
 
-function Tracks({}) {
+function Tracks() {
   const dispatch = useDispatch();
   const tracks = useSelector(state => Object.values(state.tracks.all));
 

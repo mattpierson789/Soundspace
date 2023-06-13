@@ -6,7 +6,7 @@ function MainPage() {
       <>
         <div className="splash-container">
         <img id='splash-image' className="center" src='https://soundspace-seeds.s3.amazonaws.com/public/Soundspace-Splash-Image' />
-        <footer>
+        <footer className="splash-footer">
           Copyright &copy;  Soundspace 2023
         </footer>
         </div>

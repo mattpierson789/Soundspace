@@ -10,6 +10,7 @@ function TrackUpload () {
   const [song, setSong] = useState('');
   const [genre, setGenre] = useState('');
   const [trackFile, setTrackFile] = useState(null);
+  const [trackImageUrl, setTrackImageUrl] = useState('');
 
   const dispatch = useDispatch();
   const author = useSelector(state => state.session.currentUser);
@@ -22,12 +23,13 @@ function TrackUpload () {
 
   const handleSubmit = e => {
     e.preventDefault();
-    const trackData = { artist, song, genre, trackFile }; 
+    const trackData = { artist, song, genre, trackFile, trackImageUrl };
     dispatch(uploadTrack(trackData));
     setArtist('');
     setSong('');
     setGenre('');
     setTrackFile(null);
+    setTrackImageUrl('');
   };
 
   const updateArtist = e => setArtist(e.currentTarget.value);
@@ -60,16 +62,23 @@ function TrackUpload () {
           required
         />
         <input 
+          type="text"
+          value={trackImageUrl}
+          onChange={e => setTrackImageUrl(e.target.value)}
+          placeholder="Track Image URL"
+          required
+        />
+        <input 
           type="file"
           onChange={updateTrackFile}
           required
         />
-        <div className="errors">{errors ? errors.text: null }</div>
+        <div className="errors">{errors ? errors.text : null }</div>
         <input type="submit" value="Upload" />
       </form>
       <div className="track-preview">
         <h3>Track Preview</h3>
-        {trackFile ? <TrackItem track={{artist, song, genre, author}} /> : undefined}
+        {trackFile ? <TrackItem track={{ artist, song, genre, author, trackImageUrl }} /> : undefined}
       </div>
       <div className="previous-track">
         <h3>Previous Track</h3>

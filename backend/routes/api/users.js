@@ -132,43 +132,39 @@ router.get('/current', restoreUser, (req, res) => {
 router.post('/upload-music', singleMulterUpload('audiofile'), async (req, res, next) => {
   const { userId, artist, song, location, genre } = req.body;
   const trackFile = req.file;
+  const trackImageUrl = req.body.trackImageUrl; // Assuming you're passing the track image URL in the request body
+
   try {
-    // Use the singleFileUpload function to upload the file to AWS S3
     const uploadedUrl = await singleFileUpload({ file: trackFile, public: true });
-    debugger 
+
     const user = await User.findOne({ _id: userId });
-    console.log(user);
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
-    debugger 
+
     const newTrack = new Track({
       title: song,
       artist: artist,
       location: location,
-      genre: genre, 
+      genre: genre,
       trackUrl: uploadedUrl,
+      trackImageUrl: trackImageUrl, // Add the track image URL to the new track
       owner: [user],
     });
-    debugger 
 
-
-    // track.owner.push(user);
-    // await track.save();
-    // user.trackIds.push(track);
-    // await user.save();
     let track = await newTrack.save();
 
     Array.isArray(user.trackIds) ?  user.trackIds.push(track) : user.trackIds = [track];
     await user.save();
  // Initialize user.tracks as an empty array if it's not already defined
 
-    res.status(200).json({ message: 'Music file uploaded successfully! route' });
+    res.status(200).json({ message: 'Music file uploaded successfully!' });
   } catch (error) {
     console.error('An error occurred while uploading the music file', error);
     next(error);
   }
 });
+
 
 
 module.exports = router;
