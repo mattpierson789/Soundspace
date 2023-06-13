@@ -159,11 +159,9 @@ router.post('/upload-music', singleMulterUpload('audiofile'), async (req, res, n
     // await user.save();
     let track = await newTrack.save();
 
-    if (!Array.isArray(user.tracks)) {
-      user.tracks = []; // Initialize user.tracks as an empty array if it's not already defined
-    }
-    user.tracks.push(track);
+    Array.isArray(user.trackIds) ?  user.trackIds.push(track) : user.trackIds = [track];
     await user.save();
+ // Initialize user.tracks as an empty array if it's not already defined
 
     res.status(200).json({ message: 'Music file uploaded successfully! route' });
   } catch (error) {
