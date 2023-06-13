@@ -2,6 +2,9 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.350.0",
     "aws-sdk": "^2.1395.0",
-    "multer": "^1.4.5-lts.1"
+    "bootstrap": "^5.3.0",
+    "multer": "^1.4.5-lts.1",
+    "react-bootstrap": "^2.7.4",
+    "react-h5-audio-player": "^3.8.6"
   }
 }

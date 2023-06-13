@@ -7,9 +7,10 @@ import './TrackUpload.css';
 
 function TrackUpload () {
   const [artist, setArtist] = useState('');
-  const [song, setSong] = useState('');
+  const [title, setTitle] = useState('');
   const [genre, setGenre] = useState('');
   const [trackFile, setTrackFile] = useState(null);
+  const [trackImageUrl, setTrackImageUrl] = useState('');
 
   const dispatch = useDispatch();
   const author = useSelector(state => state.session.currentUser);
@@ -22,16 +23,17 @@ function TrackUpload () {
 
   const handleSubmit = e => {
     e.preventDefault();
-    const trackData = { artist, song, genre, trackFile }; 
+    const trackData = { artist, title, genre, trackFile, trackImageUrl };
     dispatch(uploadTrack(trackData));
     setArtist('');
-    setSong('');
+    setTitle('');
     setGenre('');
     setTrackFile(null);
+    setTrackImageUrl('');
   };
 
   const updateArtist = e => setArtist(e.currentTarget.value);
-  const updateSong = e => setSong(e.currentTarget.value);
+  const updateTitle = e => setTitle(e.currentTarget.value);
   const updateGenre = e => setGenre(e.currentTarget.value);
   const updateTrackFile = e => setTrackFile(e.currentTarget.files[0]);
 
@@ -47,8 +49,8 @@ function TrackUpload () {
         />
         <input 
           type="text"
-          value={song}
-          onChange={updateSong}
+          value={title}
+          onChange={updateTitle}
           placeholder="Song Name"
           required
         />
@@ -60,16 +62,23 @@ function TrackUpload () {
           required
         />
         <input 
+          type="text"
+          value={trackImageUrl}
+          onChange={e => setTrackImageUrl(e.target.value)}
+          placeholder="Track Image URL"
+          required
+        />
+        <input 
           type="file"
           onChange={updateTrackFile}
           required
         />
-        <div className="errors">{errors ? errors.text: null }</div>
+        <div className="errors">{errors ? errors.text : null }</div>
         <input type="submit" value="Upload" />
       </form>
       <div className="track-preview">
         <h3>Track Preview</h3>
-        {trackFile ? <TrackItem track={{artist, song, genre, author}} /> : undefined}
+        {trackFile ? <TrackItem track={{ artist, title, genre, author, trackImageUrl }} /> : undefined}
       </div>
       <div className="previous-track">
         <h3>Previous Track</h3>
