@@ -1,10 +1,10 @@
 // Action Types
 const SET_CURRENT_TRACK = 'SET_CURRENT_TRACK';
 
-// Action Creators
+// Action Creator
 export const setCurrentTrack = (track) => ({
   type: SET_CURRENT_TRACK,
-  track
+  payload: track
 });
 
 // Reducer
@@ -17,7 +17,7 @@ const audioReducer = (state = initialState, action) => {
     case SET_CURRENT_TRACK:
       return {
         ...state,
-        currentTrack: action.track
+        currentTrack: action.payload
       };
     default:
       return state;
@@ -25,3 +25,4 @@ const audioReducer = (state = initialState, action) => {
 };
 
 export default audioReducer;
+
