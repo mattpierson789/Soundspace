@@ -64,8 +64,8 @@ function MusicUploadForm() {
 
   return (
     <form onSubmit={handleFormSubmit}>
+       <button type="submit">Upload Tracks</button>
       <input type="file" onChange={handleFileChange} />
-      <button type="submit">Upload</button>
     </form>
   );
 }

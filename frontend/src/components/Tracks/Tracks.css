@@ -4,31 +4,24 @@
   font-size: 1.5em; 
 }
 
-.tracks-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
 
 .trending-title {
   margin-top: 0;
-  padding: 0px;
+  padding-left: 200px;
   color: rgb(0, 76, 255);
   display: sticky;
-  text-align: center; /* Center the text */
+  text-align: left; 
 }
 
 .main-content-tracks {
-  /* background-color: #f2f2f2;  */
-  padding: 20px;
-  width: 100%;
+  background-color: #eed9ee; 
+  width: 80%;
+  padding-left: 250px;
 }
 
 .main-content-tracks-container {
   justify-content: center;
-  margin-left: 10%;
+ 
 }
 
   

@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import './SidebarLinks.css'; 
 import { logout } from '../../store/session';
 import UserInfo from '../UserInfo/UserInfo'; 
+import MusicUploadForm from '../MusicFileUpload/MusicFileUpload'
 
 const SidebarLinks = ({ isLoggedIn }) => {
   
@@ -27,6 +28,7 @@ const SidebarLinks = ({ isLoggedIn }) => {
               <UserInfo />
               <Link to="/tracks">Trending</Link>
               <Link to="/tracks">Feed</Link>
+              <MusicUploadForm />
    
               <li>
           {loggedIn && (

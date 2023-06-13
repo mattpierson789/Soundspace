@@ -18,7 +18,7 @@ function TrackItem ({ track: { song, artist, genre, plays, likes, reshares, mp3U
   }
 
   return (
-    <div className="parent-container">
+   
       <div className="track-item">
         <h2>{song}</h2>
         <p>Artist: {artist}</p>
@@ -30,7 +30,7 @@ function TrackItem ({ track: { song, artist, genre, plays, likes, reshares, mp3U
           {isPlaying ? "Pause" : "Play"}
         </button>
       </div>
-    </div>
+   
   );
   
 }
