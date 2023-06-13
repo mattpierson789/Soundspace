@@ -36,4 +36,11 @@
   .play-button:hover {
     background-color: #1ED760;
   }
+
+  .parent-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
   
