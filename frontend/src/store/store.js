@@ -3,9 +3,10 @@ import thunk from 'redux-thunk';
 import session from './session';
 import errors from './errors';
 import tracks, { trackErrorsReducer } from './tracks';
+import audioReducer from './audio';
 
 const rootReducer = combineReducers({
-  session, errors, tracks, trackErrors: trackErrorsReducer
+  session, errors, tracks, trackErrors: trackErrorsReducer, audio: audioReducer
 });
 
 let enhancer;
