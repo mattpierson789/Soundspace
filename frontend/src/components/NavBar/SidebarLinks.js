@@ -28,6 +28,7 @@ const SidebarLinks = ({ isLoggedIn }) => {
               <UserInfo />
               <Link to="/tracks">Trending</Link>
               <Link to="/tracks">Feed</Link>
+              <Link to="/tracks">Following</Link>
               <MusicUploadForm />
    
               <li>
@@ -47,6 +48,7 @@ const SidebarLinks = ({ isLoggedIn }) => {
                 <Link to="/signup">Signup</Link>
                 <Link to="/tracks">Trending</Link>
                 <Link to="/tracks">Feed</Link>
+                <Link to="/tracks">Following</Link>
               </div>
               </div>
             </>
