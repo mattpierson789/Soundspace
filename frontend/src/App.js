@@ -18,6 +18,7 @@ import startSession from './store/session';
 import MainFeed from './components/MainFeed/MainFeed';
 import MusicBar from './components/MusicBar/MusicBar';
 import MusicUploadForm from './components/MusicFileUpload/MusicFileUpload';
+import ProfilePage from './components/ProfilePage/ProfilePage';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -38,7 +39,7 @@ function App() {
         <AuthRoute exact path="/signup" component={SignupForm} />
 
         <ProtectedRoute exact path="/tracks" component={MainFeed} />
-        <ProtectedRoute exact path="/profile/:username" component={Profile} />
+        <ProtectedRoute exact path="/profile/:username" component={ProfilePage} />
         <ProtectedRoute exact path="/tracks/new" component={MusicUploadForm} />
       </Switch>
     </>

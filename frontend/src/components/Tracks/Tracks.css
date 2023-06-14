@@ -17,7 +17,7 @@
   margin-left: 15%;
   margin-right: 0;
   margin-top: 20px;
-  height: calc(110vh - 300px); /* Adjust the height as needed */
+  height: calc(110vh - 350px);
   overflow-y: auto;
   margin-bottom: 20px; /* Add margin at the bottom */
   padding-bottom: 20px; /* Add padding at the bottom */

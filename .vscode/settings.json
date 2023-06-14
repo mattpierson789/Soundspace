@@ -4,6 +4,7 @@
         "bucketname",
         "fieldname",
         "imagefile",
+        "mainfeed",
         "Middlewares",
         "Reposts",
         "reshares",

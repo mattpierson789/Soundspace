@@ -57,7 +57,7 @@ function TrackItem({ track: {_id, title, location, artist, genre, plays, likes, 
               <button onClick={handleReshare}>{isReshared ? 'Reshared' : 'Repost'}</button>
               {/* <button>Save</button> */}
               <button onClick={handleDelete}>Delete Track</button>
-              {/* <button onClick={handlePlay}>Play</button> */}
+              <button onClick={handlePlay}>Play</button>
 
             </div>
           </div>
