@@ -10,7 +10,6 @@ export const setCurrentTrack = (track) => ({
   payload: track
 });
 
-<<<<<<< HEAD
 export const setPastTrack = (prevTrack) => ({
   type: SET_PAST_TRACK,
   payload: prevTrack
@@ -21,7 +20,6 @@ export const setNextTrack = (nextTrack) => ({
   payload: nextTrack
 })
 
-=======
 // Thunk action creator
 export const increasePlayCount = (trackId) => async dispatch => {
   console.log("trackId:", trackId);
@@ -44,7 +42,6 @@ export const increasePlayCount = (trackId) => async dispatch => {
     // Handle the error as needed
   }
 }
->>>>>>> tyvanwed2
 // Reducer
 const initialState = {
   currentTrack: null,

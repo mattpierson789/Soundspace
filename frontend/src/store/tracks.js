@@ -194,7 +194,6 @@ const tracksReducer = (state = initialState, action) => {
       const updatedUserTracks = { ...state.usersTracks };
       delete updatedUserTracks[action.trackId];
       return { ...state, allTracks: updatedAllTracks, usersTracks: updatedUserTracks };
-<<<<<<< HEAD
       case RECEIVE_USER_TRACKS:
         const { username, tracks } = action;
         const filteredTracks = tracks.filter(track => track.artist === username || tracks.filter(track => track.owner === username ));
@@ -206,19 +205,6 @@ const tracksReducer = (state = initialState, action) => {
             [username]: filteredTracks
           }
         };
-=======
-    case RECEIVE_USER_TRACKS:
-      const { username, tracks } = action;
-      const filteredTracks = tracks.filter(track => track.artist === username);
-      return {
-        ...state,
-        allTracks: action.tracks,
-        usersTracks: {
-          ...state.usersTracks,
-          [username]: filteredTracks
-        }
-      };
->>>>>>> tyvanwed2
     case RECEIVE_NEW_TRACK:
       return {
         ...state,
