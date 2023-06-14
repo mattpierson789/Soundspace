@@ -1,3 +1,4 @@
+import jwtFetch from './jwt';
 // Action Types
 const SET_CURRENT_TRACK = 'SET_CURRENT_TRACK';
 const SET_PAST_TRACK = 'SET_PAST_TRACK';
@@ -9,6 +10,7 @@ export const setCurrentTrack = (track) => ({
   payload: track
 });
 
+<<<<<<< HEAD
 export const setPastTrack = (prevTrack) => ({
   type: SET_PAST_TRACK,
   payload: prevTrack
@@ -19,6 +21,30 @@ export const setNextTrack = (nextTrack) => ({
   payload: nextTrack
 })
 
+=======
+// Thunk action creator
+export const increasePlayCount = (trackId) => async dispatch => {
+  console.log("trackId:", trackId);
+  try {
+    const res = await jwtFetch(`/api/tracks/${trackId}/plays`, {
+      method: 'POST'
+    });
+
+    if (res.ok) {
+      const responseData = await res.json();
+      console.log(responseData);
+      debugger
+      // dispatch(receiveNewTrack(responseData)); // Dispatch the received track data
+    } else {
+      console.log('Upload failed');
+    }
+  } catch (err) {
+    console.error('An error occurred while uploading the track', err);
+    console.log('Upload failed');
+    // Handle the error as needed
+  }
+}
+>>>>>>> tyvanwed2
 // Reducer
 const initialState = {
   currentTrack: null,

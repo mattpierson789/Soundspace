@@ -27,8 +27,8 @@ const removeTrack = (trackId) => ({
 
 const receiveUserTracks = (tracks, username) => ({
   type: RECEIVE_USER_TRACKS,
-  tracks, 
-  username 
+  tracks,
+  username
 });
 
 const receiveNewTrack = track => ({
@@ -89,7 +89,7 @@ export const repostTrack = (id, userId) => async dispatch => {
   }
 }
 
-export const addCommentToTrack = (trackId, content) =>  async dispatch => {
+export const addCommentToTrack = (trackId, content) => async dispatch => {
   console.log(trackId, content);
   debugger
   try {
@@ -100,8 +100,6 @@ export const addCommentToTrack = (trackId, content) =>  async dispatch => {
 
     if (res.ok) {
       const responseData = await res.json();
-      // Process the responseData as needed
-      console.log("responseData:", responseData);
       dispatch(receiveNewTrack(responseData)); // Dispatch the received track data
     } else {
       console.log('Upload failed');
@@ -114,44 +112,44 @@ export const addCommentToTrack = (trackId, content) =>  async dispatch => {
 }
 
 export const uploadTrack = formData => async dispatch => {
-    try {
-      const res = await jwtFetch('/api/users/upload-music', {
-        method: 'POST',
-        body: formData
-      });
-  
-      if (res.ok) {
-        const responseData = await res.json();
-        // Process the responseData as needed
-        console.log(responseData);
-        dispatch(receiveNewTrack(responseData)); // Dispatch the received track data
-      } else {
-        console.log('Upload failed');
-      }
-    } catch (err) {
-      console.error('An error occurred while uploading the track', err);
-      console.log('Upload failed');
-      // Handle the error as needed
-    }
-  };
+  try {
+    const res = await jwtFetch('/api/users/upload-music', {
+      method: 'POST',
+      body: formData
+    });
 
-  export const deleteTrack = trackId => async dispatch => {
-    try {
-      await jwtFetch(`/api/tracks/${trackId}`, {
-        method: 'DELETE'
-      });
-      dispatch(removeTrack(trackId));
-    } catch (err) {
-      // Handle error if needed
+    if (res.ok) {
+      const responseData = await res.json();
+      // Process the responseData as needed
+      console.log(responseData);
+      dispatch(receiveNewTrack(responseData)); // Dispatch the received track data
+    } else {
+      console.log('Upload failed');
     }
-  };
+  } catch (err) {
+    console.error('An error occurred while uploading the track', err);
+    console.log('Upload failed');
+    // Handle the error as needed
+  }
+};
+
+export const deleteTrack = trackId => async dispatch => {
+  try {
+    await jwtFetch(`/api/tracks/${trackId}`, {
+      method: 'DELETE'
+    });
+    dispatch(removeTrack(trackId));
+  } catch (err) {
+    // Handle error if needed
+  }
+};
 // export const uploadTrack = (formData) => async (dispatch) => {
 //     try {
 //       const res = await jwtFetch('/api/users/upload-music', {
 //         method: 'POST',
 //         body: formData,
 //       });
-  
+
 //       const track = await res.json();
 //       dispatch(receiveNewTrack(track));
 //     } catch (err) {
@@ -161,7 +159,7 @@ export const uploadTrack = formData => async dispatch => {
 //       }
 //     }
 //   };
-  
+
 
 const nullErrors = null;
 
@@ -187,15 +185,16 @@ const initialState = {
 const tracksReducer = (state = initialState, action) => {
   switch (action.type) {
     case RECEIVE_TRACKS:
-  return {
-    ...state,
-    allTracks: action.tracks
-  };
+      return {
+        ...state,
+        allTracks: action.tracks
+      };
     case REMOVE_TRACK:
       const { [action.trackId]: removedTrack, ...updatedAllTracks } = state.allTracks;
       const updatedUserTracks = { ...state.usersTracks };
       delete updatedUserTracks[action.trackId];
       return { ...state, allTracks: updatedAllTracks, usersTracks: updatedUserTracks };
+<<<<<<< HEAD
       case RECEIVE_USER_TRACKS:
         const { username, tracks } = action;
         const filteredTracks = tracks.filter(track => track.artist === username || tracks.filter(track => track.owner === username ));
@@ -207,6 +206,19 @@ const tracksReducer = (state = initialState, action) => {
             [username]: filteredTracks
           }
         };
+=======
+    case RECEIVE_USER_TRACKS:
+      const { username, tracks } = action;
+      const filteredTracks = tracks.filter(track => track.artist === username);
+      return {
+        ...state,
+        allTracks: action.tracks,
+        usersTracks: {
+          ...state.usersTracks,
+          [username]: filteredTracks
+        }
+      };
+>>>>>>> tyvanwed2
     case RECEIVE_NEW_TRACK:
       return {
         ...state,
