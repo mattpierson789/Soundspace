@@ -29,6 +29,7 @@ function MusicUploadForm() {
 
     setTitle('');
     setGenre('');
+    
     setSelectedAudioFile(null);
     setSelectedImageFile(null);
   };
