@@ -23,7 +23,6 @@ function Tracks( {location}=null ) {
       <h2 className="trending-title">{`Trending ${location !== 'Global' ? `in ${location}` : 'around the World'}`}</h2>
       <div className="main-content-tracks-container">
         <div className="main-content-tracks">
-          <h2>This is the Track Index</h2>
           {tracks.length === 0 ? (
             <div className="tracks">There are no Tracks at this location &#128577; </div>
           ) : (

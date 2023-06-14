@@ -61,8 +61,10 @@ function TrackItem({ track: {_id, title, location, artist, genre, plays, likes, 
 
             </div>
           </div>
+          <div className="comment-bar">
           <input placeholder='Comment' value={commentValue} onChange={handleCommentChange}></input>
-          <button onClick={(e) => handleCommentSubmit(e)}>add comment</button>
+          <button onClick={(e) => handleCommentSubmit(e)}>Add A Comment..</button>
+          </div>
         </div>
         {/* <div className="waveform">
           {/* Render the waveform or music bar here */}
