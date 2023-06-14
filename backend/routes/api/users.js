@@ -8,7 +8,7 @@ const { loginUser, restoreUser, requireUser } = require('../../config/passport')
 const { isProduction } = require('../../config/keys');
 const validateRegisterInput = require('../../validations/register');
 const validateLoginInput = require('../../validations/login');
-const { singleFileUpload, singleMulterUpload } = require("../../awsS3");
+const { singleFileUpload, singleMulterUpload, multipleMulterUpload, multipleFilesUpload} = require("../../awsS3");
 const { ResourceExplorer2 } = require('aws-sdk');
 // import { useSelector } from 'react-redux'
 
@@ -55,7 +55,10 @@ router.post('/register', singleMulterUpload("image"), validateRegisterInput, asy
   const newUser = new User({
     username: req.body.username,
     profileImageUrl,
-    email: req.body.email
+    email: req.body.email,
+    location: 'NYC',
+    name: 'kyle'
+    // adjust to be dynamic later
   });
 
   bcrypt.genSalt(10, (err, salt) => {
@@ -65,7 +68,7 @@ router.post('/register', singleMulterUpload("image"), validateRegisterInput, asy
       try {
         newUser.hashedPassword = hashedPassword;
         const user = await newUser.save();
-        return res.json(await loginUser(user)); // <-- THIS IS THE CHANGED LINE
+        return res.json(await loginUser(user)); 
       }
       catch(err) {
         next(err);
@@ -103,7 +106,9 @@ router.get('/current', restoreUser, (req, res) => {
     _id: req.user._id,
     username: req.user.username,
     profileImageUrl: req.user.profileImageUrl,
-    email: req.user.email
+    email: req.user.email,
+    location: req.user.location,
+    name: req.user.name
   });
   console.log(req.user._id);
   // console.log(req.user);
@@ -128,14 +133,55 @@ router.get('/current', restoreUser, (req, res) => {
 
 //     let track = await newTrack.save();
 //     track = await track.populate('owner', '_id username')
+
+// router.post('/upload-music', multipleMulterUpload(['audiofile', 'imagefile']), async (req, res, next) => {
+//   // const { title, genre } = req.body;
+//   const { userId } = req.body;
+
+//   // const { userId } = req.session; 
+//   const trackFile = req.files;
+//   const trackImageFile = req.files;
   
-router.post('/upload-music', singleMulterUpload('audiofile'), async (req, res, next) => {
-  const { userId, artist, title, location, genre } = req.body;
-  const trackFile = req.file;
-  const trackImageUrl = req.body.trackImageUrl;
+//   try {
+//     const uploadedTrackUrl = await singleFileUpload({ file: trackFile, public: true });
+//     const uploadedImageUrl = await singleFileUpload({ file: trackImageFile, public: true });
+
+//     const user = await User.findOne({ _id: userId });
+//     if (!user) {
+//       return res.status(404).json({ message: 'User not found' });
+//     }
+
+//     const newTrack = new Track({
+//       trackUrl: uploadedTrackUrl,
+//       trackImageUrl: uploadedImageUrl,
+//       owner: [user],
+//     });
+
+//     const track = await newTrack.save();
+
+//     if (Array.isArray(user.trackIds)) {
+//       user.trackIds.push(track);
+//     } else {
+//       user.trackIds = [track];
+//     }
+
+//     await user.save();
+
+//     res.status(200).json({ message: 'Music file uploaded successfully!' });
+//   } catch (error) {
+//     console.error('An error occurred while uploading the music file', error);
+//     next(error);
+//   }
+// });
+
+
+router.post('/upload-music', multipleMulterUpload('files'), async (req, res, next) => {
+  const { userId, title, genre } = req.body;
+  const { files } = req;
 
   try {
-    const uploadedUrl = await singleFileUpload({ file: trackFile, public: true });
+    const uploadedTrackUrl = await singleFileUpload({ file: files[0], public: true });
+    const uploadedImageUrl = await singleFileUpload({ file: files[1], public: true });
 
     const user = await User.findOne({ _id: userId });
     if (!user) {
@@ -143,20 +189,24 @@ router.post('/upload-music', singleMulterUpload('audiofile'), async (req, res, n
     }
 
     const newTrack = new Track({
+      artist: user.username, 
       title: title,
-      artist: artist,
-      location: location,
       genre: genre,
-      trackUrl: uploadedUrl,
-      trackImageUrl: trackImageUrl, // Add the track image URL to the new track
+      location: user.location,
+      trackUrl: uploadedTrackUrl,
+      trackImageUrl: uploadedImageUrl,
       owner: [user],
     });
 
-    let track = await newTrack.save();
+    const track = await newTrack.save();
 
-    Array.isArray(user.trackIds) ?  user.trackIds.push(track) : user.trackIds = [track];
+    if (Array.isArray(user.trackIds)) {
+      user.trackIds.push(track);
+    } else {
+      user.trackIds = [track];
+    }
+
     await user.save();
- // Initialize user.tracks as an empty array if it's not already defined
 
     res.status(200).json({ message: 'Music file uploaded successfully!' });
   } catch (error) {
@@ -165,5 +215,81 @@ router.post('/upload-music', singleMulterUpload('audiofile'), async (req, res, n
   }
 });
 
+// One user follows another user
 
-module.exports = router;
+router.post('/:_id/follow/:username', async (req, res, next) => {
+  
+  try {
+    const { _id, username } = req.params;
+    const currentUser = await User.findById(_id);
+    const userToFollow = await User.findOne({username: username});
+
+    if (!userToFollow) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    currentUser.followingIds.push(userToFollow._id);
+    await currentUser.save();
+
+    userToFollow.followerIds.push(currentUser._id);
+    await userToFollow.save();
+
+    await User.populate(currentUser, { path: 'followingIds', select: '_id username' });
+    await User.populate(userToFollow, { path: 'followerIds', select: '_id username' });
+
+    return res.json({ following: currentUser.followingIds, followers: userToFollow.followerIds });
+  } catch (err) {
+    next(err);
+  }
+});
+
+
+
+// One user unfollows another user
+router.delete('/:_id/unfollow/:username', async (req, res, next) => {
+  try {
+    const { _id, username } = req.params;
+    const currentUser = await User.findById(_id);
+    const userToUnfollow = await User.findOne({username: username});
+    if (!userToUnfollow) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    currentUser.followingIds = currentUser.followingIds.filter(id => !id.equals(userToUnfollow._id));
+    await currentUser.save();
+    userToUnfollow.followerIds = userToUnfollow.followerIds.filter(id => !id.equals(currentUser._id));
+    await userToUnfollow.save();
+    await User.populate(currentUser, { path: 'followingIds', select: '_id username' });
+    await User.populate(userToUnfollow, { path: 'followerIds', select: '_id username' });
+    return res.json({ following: currentUser.followingIds, followers: userToUnfollow.followerIds });
+  } catch (err) {
+    next(err);
+  }
+});
+
+// Get the users that the given user is following
+router.get('/api/users/:username/following', async (req, res) => {
+  debugger
+  try {
+      const user = await User.findOne({ username: req.params.username });
+      const following = await User.find({ _id: { $in: user.following } });
+      res.json(following);
+  } catch (err) {
+      res.status(500).json({ error: err.message });
+  }
+});
+
+// Get the users that follow the given user
+router.get('/api/users/:username/follows', async (req, res) => {
+  debugger
+  try {
+      const user = await User.findOne({ username: req.params.username });
+      const follows = await User.find({ _id: { $in: user.follows } });
+      res.json(follows);
+  } catch (err) {
+      res.status(500).json({ error: err.message });
+  }
+});
+
+
+
+module.exports = router; 

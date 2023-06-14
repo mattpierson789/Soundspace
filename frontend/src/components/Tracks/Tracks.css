@@ -1,7 +1,7 @@
 .tracks-container {
   /* background-color: #0d1117; */
   color: #ffffff;
-  padding: 20px;
+  /* padding: 20px; */
 }
 
 .trending-title {
@@ -13,11 +13,16 @@
 }
 
 .main-content-tracks {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(750px, 1fr));
+  /* display: grid; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end; 
+  align-items: flex-end; 
+  margin: 0 100px;
+  /* grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); */
   justify-items: center;
   gap: 20px;
-  width: 80%;
+  width: 50%;
 }
 
 .main-content-tracks h2 {
@@ -27,7 +32,7 @@
 
 .tracks {
   text-align: center;
-  padding: 20px;
+  /* padding: 20px; */
   border-radius: 8px;
 }
 .main-content-tracks-container{

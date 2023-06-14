@@ -12,10 +12,17 @@ const RECEIVE_USER_TRACKS = "tracks/RECEIVE_USER_TRACKS";
 const RECEIVE_NEW_TRACK = "tracks/RECEIVE_NEW_TRACK";
 const RECEIVE_TRACK_ERRORS = "tracks/RECEIVE_TRACK_ERRORS";
 const CLEAR_TRACK_ERRORS = "tracks/CLEAR_TRACK_ERRORS";
+const REMOVE_TRACK = 'tracks/REMOVE_TRACK';
+
 
 const receiveTracks = tracks => ({
   type: RECEIVE_TRACKS,
   tracks
+});
+
+const removeTrack = (trackId) => ({
+  type: REMOVE_TRACK,
+  trackId
 });
 
 const receiveUserTracks = tracks => ({
@@ -82,33 +89,55 @@ export const repostTrack = (id, userId) => async dispatch => {
 }
 
 export const uploadTrack = formData => async dispatch => {
-  try {
-    debugger
-    const res = await jwtFetch('/api/users/upload-music', {
-      method: 'POST',
-      body: formData
-      //   headers: {
-      //     'CSRF-Token': csrfToken,
-      //   },
-    });
-    console.log(res)
-    // try {
-    //     const res = await jwtFetch('/api/tracks/', {
-    //         method: 'POST',
-    //         body: JSON.stringify(data)
-    //     });
-    const track = await res.json();
-    console.log(track)
-    dispatch(receiveNewTrack(track));
-  } catch (err) {
-    const resBody = await err.json();
-    if (resBody.statusCode === 400) {
-      return dispatch(receiveErrors(resBody.errors));
+    try {
+      const res = await jwtFetch('/api/users/upload-music', {
+        method: 'POST',
+        body: formData
+      });
+  
+      if (res.ok) {
+        const responseData = await res.json();
+        // Process the responseData as needed
+        console.log(responseData);
+        dispatch(receiveNewTrack(responseData)); // Dispatch the received track data
+      } else {
+        console.log('Upload failed');
+      }
+    } catch (err) {
+      console.error('An error occurred while uploading the track', err);
+      console.log('Upload failed');
+      // Handle the error as needed
     }
-  }
-};
+  };
 
-
+  export const deleteTrack = trackId => async dispatch => {
+    try {
+      await jwtFetch(`/api/tracks/${trackId}`, {
+        method: 'DELETE'
+      });
+      dispatch(removeTrack(trackId));
+    } catch (err) {
+      // Handle error if needed
+    }
+  };
+  
+// export const uploadTrack = (formData) => async (dispatch) => {
+//     try {
+//       const res = await jwtFetch('/api/users/upload-music', {
+//         method: 'POST',
+//         body: formData,
+//       });
+  
+//       const track = await res.json();
+//       dispatch(receiveNewTrack(track));
+//     } catch (err) {
+//       const resBody = await err.json();
+//       if (resBody.statusCode === 400) {
+//         return dispatch(receiveErrors(resBody.errors));
+//       }
+//     }
+//   };
+  
 
 const nullErrors = null;
 
@@ -130,12 +159,17 @@ const tracksReducer = (state = { all: {}, user: {}, new: undefined }, action) =>
   switch (action.type) {
     case RECEIVE_TRACKS:
       return { ...state, all: action.tracks, new: undefined };
+    case REMOVE_TRACK:
+      const { [action.trackId]: removedTrack, ...updatedAllTracks } = state.all;
+      const updatedUserTracks = { ...state.user };
+      delete updatedUserTracks[action.trackId];
+      return { ...state, all: updatedAllTracks, user: updatedUserTracks };
     case RECEIVE_USER_TRACKS:
       return { ...state, all: action.tracks, new: undefined };
     case RECEIVE_NEW_TRACK:
       return { ...state, new: action.track };
     case RECEIVE_USER_LOGOUT:
-      return { ...state, user: {}, new: undefined }
+      return { ...state, user: {}, new: undefined };
     default:
       return state;
   }

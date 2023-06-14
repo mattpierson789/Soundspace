@@ -1,17 +1,16 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { signup, clearSessionErrors } from '../../store/session';
-import React from 'react';
 
-function SignupForm () {
+function SignupForm() {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
   const [location, setLocation] = useState('');
-  const errors = useSelector(state => state.errors.session);
   const [image, setImage] = useState(null);
+  const errors = useSelector(state => state.errors.session);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -20,35 +19,6 @@ function SignupForm () {
     };
   }, [dispatch]);
 
-  const update = field => {
-    let setState;
-
-    switch (field) {
-      case 'email':
-        setState = setEmail;
-        break;
-      case 'username':
-        setState = setUsername;
-        break;
-      case 'name':
-        setState = setName;
-        break;
-      case 'location':
-        setState = setLocation;
-        break;
-      case 'password':
-        setState = setPassword;
-        break;
-      case 'password2':
-        setState = setPassword2;
-        break;
-      default:
-        throw Error('Unknown field in Signup Form');
-    }
-
-    return e => setState(e.currentTarget.value);
-  }
-
   const handleSubmit = e => {
     e.preventDefault();
     const user = {
@@ -56,67 +26,69 @@ function SignupForm () {
       username,
       image,
       password,
-      name
+      name,
+      location
     };
 
-    dispatch(signup(user)); 
-  }
+    dispatch(signup(user));
+  };
 
   const updateFile = e => setImage(e.target.files[0]);
 
   return (
     <form className="session-form" onSubmit={handleSubmit}>
       <h2>Sign Up Form</h2>
-      <div className="errors">{errors ? errors.email: null}</div>
+      <div className="errors">{errors ? errors.email : null}</div>
       <label>
         <span>Email</span>
-        <input type="text"
+        <input
+          type="text"
           value={email}
-          onChange={update('email')}
+          onChange={e => setEmail(e.target.value)}
           placeholder="Email"
         />
       </label>
-      <div className="errors">{errors ? errors.name: null }</div>
+      <div className="errors">{errors ? errors.name : null}</div>
       <label>
         <span>Name</span>
-        <input type="text"
+        <input
+          type="text"
           value={name}
-          onChange={update('name')}
+          onChange={e => setName(e.target.value)}
           placeholder="Name"
         />
       </label>
-      <div className="errors">{errors ? errors.username : null }</div>
+      <div className="errors">{errors ? errors.username : null}</div>
       <label>
         <span>Username</span>
-        <input type="text"
+        <input
+          type="text"
           value={username}
-          onChange={update('username')}
+          onChange={e => setUsername(e.target.value)}
           placeholder="Username"
         />
       </label>
-      <div className="errors">{errors ? errors.profileImageUrl: null}</div>
+      <div className="errors">{errors ? errors.profileImageUrl : null}</div>
       <label>
         Profile Image
-        <input 
-        type="file" 
-        accept=".jpg, .jpeg, .png" 
-        onChange={updateFile}
-        />
+        <input type="file" accept=".jpg, .jpeg, .png" onChange={updateFile} />
       </label>
       <label>
-        <span>Location</span>
-        <input type="text"
-          value={location}
-          onChange={update('location')}
-          placeholder="Location"
-        />
+        <span>Location:</span>
+        <select value={location} onChange={e => setLocation(e.target.value)}>
+          <option value="">Select Location</option>
+          <option value="NYC">NYC</option>
+          <option value="LA">LA</option>
+          <option value="ATL">ATL</option>
+        </select>
       </label>
-      <div className="errors">{errors ? errors.password: null }</div>
+      <div className="errors">{errors ? errors.password : null}</div>
       <label>
         <span>Password</span>
-        <input type="password"
+        <input
+          type="password"
           value={password}
-          onChange={update('password')}
+          onChange={e => setPassword(e.target.value)}
           placeholder="Password"
         />
       </label>
@@ -125,9 +97,10 @@ function SignupForm () {
       </div>
       <label>
         <span>Confirm Password</span>
-        <input type="password"
+        <input
+          type="password"
           value={password2}
-          onChange={update('password2')}
+          onChange={e => setPassword2(e.target.value)}
           placeholder="Confirm Password"
         />
       </label>

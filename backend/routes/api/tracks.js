@@ -154,6 +154,23 @@ router.post('/:id/owner/:userId', requireUser, async (req, res, next) => {
   }
 });
 
+router.delete('/:id', requireUser, async (req, res, next) => {
+  try {
+    const trackId = req.params.id;
+    const track = await Track.findById(trackId);
+
+    if (!track) {
+      return res.status(404).json({ error: 'Track not found' });
+    }
+
+    await Track.deleteOne({ _id: trackId });
+
+    return res.status(200).json({ message: 'Track deleted successfully' });
+  } catch (err) {
+    next(err);
+  }
+});
+
 
 
 module.exports = router;
