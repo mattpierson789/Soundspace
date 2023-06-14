@@ -31,17 +31,6 @@ debugger
             <div className="mainfeed-header">
                 <Header />
             </div>
-            <button></button>
-            <button></button>
-            <button></button>
-            <button></button>
-            <button></button>
-            <button></button>
-            <button></button>
-            <button></button>
-            <button></button>
-            <button></button>
-            <button></button>
             <button value={"NYC"} onClick={(e) => handleClick(e.target.value)}>NYC</button>
             <button value={"LA"} onClick={(e) => handleClick(e.target.value)}>LA</button>
             <button value={"ATL"} onClick={(e) => handleClick(e.target.value)}>ATL</button>
