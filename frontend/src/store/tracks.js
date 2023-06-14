@@ -89,6 +89,30 @@ export const repostTrack = (id, userId) => async dispatch => {
   }
 }
 
+export const addCommentToTrack = (trackId, content) =>  async dispatch => {
+  console.log(trackId, content);
+  debugger
+  try {
+    const res = await jwtFetch(`/api/tracks/${trackId}/comments`, {
+      method: 'POST',
+      body: JSON.stringify(content)
+    });
+
+    if (res.ok) {
+      const responseData = await res.json();
+      // Process the responseData as needed
+      console.log("responseData:", responseData);
+      dispatch(receiveNewTrack(responseData)); // Dispatch the received track data
+    } else {
+      console.log('Upload failed');
+    }
+  } catch (err) {
+    console.error('An error occurred while uploading the track', err);
+    console.log('Upload failed');
+    // Handle the error as needed
+  }
+}
+
 export const uploadTrack = formData => async dispatch => {
     try {
       const res = await jwtFetch('/api/users/upload-music', {
