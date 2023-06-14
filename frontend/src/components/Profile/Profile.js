@@ -54,7 +54,7 @@ function Profile() {
     return (
       <div className="profile-grid">
         <ProfileHeader />
-        <h2>All of {username}'s Tracks</h2>
+        <h2 className="username-tracks-title">All of {username}'s Tracks</h2>
         <button onClick={handleFollow}>
           {isFollowing ? 'Unfollow' : 'Follow'}
         </button>
