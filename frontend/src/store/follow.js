@@ -1,6 +1,5 @@
 import jwtFetch from "./jwt"
 
-
 const RECEIVE_FOLLOWS = "users/RECEIVE_FOLLOWS"
 const RECEIVE_FOLLOWING = "users/RECEIVE_FOLLOWING"
 const RECEIVE_NEW_FOLLOW = "users/RECEIVE_NEW_FOLLOW"
@@ -8,7 +7,6 @@ const USER_FOLLOWS = "users/USER_FOLLOWS"
 const USER_FOLLOWING = "users/USER_FOLLOWING"
 const RECEIVE_FOLLOWER_ERRORS = "users/RECEIVE_FOLLOWER_ERRORS"
 const CLEAR_FOLLOWER_ERRORS = "users/CLEAR_FOLLOWER_ERRORS"
-
 
 const receiveFollows = follows => ({
     type: RECEIVE_FOLLOWS,
@@ -44,7 +42,6 @@ const clearFollowerErrors = () => ({
     type: CLEAR_FOLLOWER_ERRORS,
 });
 
-
 const fetchFollowers = () => async dispatch => {
     try {
         const res = await jwtFetch('/api/follow/followers')
@@ -66,6 +63,7 @@ const fetchFollowing = () => async dispatch => {
 }
 
 const fetchUserFollows = username => async dispatch => {
+  debugger
     try {
         const res = await jwtFetch(`/api/users/${username}/follows`);
         const follows = await res.json();
@@ -76,6 +74,7 @@ const fetchUserFollows = username => async dispatch => {
 }
 
 const fetchUserFollowing = username => async dispatch => {
+  debugger
     try {
         const res = await jwtFetch(`/api/users/${username}/following`);
         const following = await res.json();
@@ -85,12 +84,40 @@ const fetchUserFollowing = username => async dispatch => {
     }
 }
 
+const followUser = (currentUserId, username) => async dispatch => {
+  console.log('Dispatching followUser with', currentUserId, username);
+  debugger
+  try {
+      const res = await jwtFetch(`/api/users/${currentUserId}/follow/${username}`, { method: 'POST' });
+      const data = await res.json();
+      dispatch(receiveNewFollow(data));
+      // dispatch(fetchUserFollows(username));
+      // dispatch(fetchUserFollowing(username));
+  } catch (err) {
+      dispatch(receiveErrors(err));
+  }
+}
+
+
+
+const unfollowUser = (currentUserId, username) => async dispatch => {
+  try {
+      const res = await jwtFetch(`/api/users/${currentUserId}/unfollow/${username}`, { method: 'DELETE' });
+      const data = await res.json();
+      dispatch(receiveNewFollow(data));
+      dispatch(fetchUserFollows(username));
+      dispatch(fetchUserFollowing(username));
+  } catch (err) {
+      dispatch(receiveErrors(err));
+  }
+}
+
 
 const initialState = {
-    all: {}, 
-    user: {}, 
-    new: undefined, 
-    errors: null 
+    all: [],
+    user: {},
+    new: undefined,
+    errors: null
 };
 
 const followReducer = (state = initialState, action) => {
@@ -113,4 +140,4 @@ const followReducer = (state = initialState, action) => {
 };
 
 export default followReducer;
-export { fetchFollowers, fetchFollowing, fetchUserFollows, fetchUserFollowing, receiveNewFollow, clearFollowerErrors };
+export { fetchFollowers, fetchFollowing, fetchUserFollows, fetchUserFollowing, followUser, unfollowUser, receiveNewFollow, clearFollowerErrors };

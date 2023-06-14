@@ -1,12 +1,13 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import session from './session';
+import follow from './follow';
 import errors from './errors';
 import tracks, { trackErrorsReducer } from './tracks';
 import audioReducer from './audio';
 
 const rootReducer = combineReducers({
-  session, errors, tracks, trackErrors: trackErrorsReducer, audio: audioReducer
+  session, errors, tracks, trackErrors: trackErrorsReducer, audio: audioReducer, follow
 });
 
 let enhancer;

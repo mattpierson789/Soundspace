@@ -1,38 +1,52 @@
-import { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { fetchUserTracks, clearTrackErrors } from '../../store/tracks';
+import { followUser, unfollowUser, fetchUserFollows, fetchUserFollowing } from '../../store/follow';
 import TrackItem from '../Tracks/TrackItem';
 import './Profile.css';
-import React from 'react';  
 import ProfileHeader from './ProfileHeader';
 
-function Profile () {
+function Profile() {
   const dispatch = useDispatch();
   const { username } = useParams();
 
   const currentUser = useSelector(state => state.session.currentUser);
-
+  const currentUserId = currentUser._id;
   const tracksState = useSelector(state => state.tracks);
-  debugger;
+  const [isFollowing, setIsFollowing] = useState(false); // New state for isFollowing
 
   const userTracks = useSelector(state =>
     state.tracks.all
-      ? Object.values(state.tracks.all)
-          .filter(track => track.owner && track.owner.some(owner => owner.username === username))
+      ? Object.values(state.tracks.all).filter(track =>
+          track.owner.some(owner => owner.username === username)
+        )
       : []
   );
-  
-  
+
+  const userFollowers = useSelector(state => state.follow.user);
+  const userFollowing = useSelector(state => state.follow.all);
+
+  const handleFollow = () => {
+    if (isFollowing) {
+      dispatch(unfollowUser(currentUserId, username));
+      setIsFollowing(false); // Update isFollowing state
+    } else {
+      dispatch(followUser(currentUserId, username));
+      setIsFollowing(true); // Update isFollowing state
+    }
+  };
 
   useEffect(() => {
-    // if (currentUser) {
-  
-      dispatch(fetchUserTracks(username));
-    // }
-    return () => dispatch(clearTrackErrors());
-  // }, [currentUser, dispatch]);
-  }, []);
+    dispatch(fetchUserTracks(username));
+    dispatch(fetchUserFollows(username));
+    dispatch(fetchUserFollowing(username));
+  }, [dispatch, username]);
+
+  useEffect(() => {
+    const isFollowing = userFollowing.some(user => user.username === username);
+    setIsFollowing(isFollowing); // Set initial value for isFollowing
+  }, [userFollowing, username]);
 
   if (!currentUser) {
     return <div>Loading...</div>;
@@ -41,13 +55,13 @@ function Profile () {
   } else {
     return (
       <div className="profile-grid">
-        <ProfileHeader/>
+        <ProfileHeader />
         <h2>All of {username}'s Tracks</h2>
+        <button onClick={handleFollow}>
+          {isFollowing ? 'Unfollow' : 'Follow'}
+        </button>
         {userTracks.map(track => (
-          <TrackItem
-            key={track._id}
-            track={track}
-          />
+          <TrackItem key={track._id} track={track} />
         ))}
       </div>
     );

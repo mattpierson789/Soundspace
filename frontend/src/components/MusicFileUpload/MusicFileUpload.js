@@ -22,7 +22,7 @@ function MusicUploadForm() {
 
     dispatch(uploadTrack(formData));
 
-    // Clear the selected files
+    
     setSelectedAudioFile(null);
     setSelectedImageFile(null);
   };

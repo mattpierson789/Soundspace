@@ -22,7 +22,7 @@ function TrackItem({ track: {_id, song, artist, genre, plays, likes, reshares, t
   return (
     <div className="track-item">
       <h2>{song}</h2>
-      <img src={trackImageUrl} alt="Track-Image" />
+      {/* <img src={trackImageUrl} alt="Track-Image" /> */}
       <p>Artist: {artist}</p>
       <p>Genre: {genre}</p>
       <p>Plays: {plays}</p>
