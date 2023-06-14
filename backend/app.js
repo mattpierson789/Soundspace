@@ -57,6 +57,10 @@ app.use((req, res, next) => {
     next(err);
 });
 
+app.get('/', (req, res) => {
+    res.send('Hello, World!');
+  });
+
 const serverErrorLogger = debug('backend:error');
 
 // Express custom error handler that will be called whenever a route handler or
