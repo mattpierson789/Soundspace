@@ -86,7 +86,7 @@ const fetchUserFollowing = username => async dispatch => {
 
 const followUser = (currentUserId, username) => async dispatch => {
   console.log('Dispatching followUser with', currentUserId, username);
-  debugger
+ 
   try {
       const res = await jwtFetch(`/api/users/${currentUserId}/follow/${username}`, { method: 'POST' });
       const data = await res.json();

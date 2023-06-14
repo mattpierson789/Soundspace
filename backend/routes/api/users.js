@@ -209,7 +209,7 @@ router.post('/upload-music', multipleMulterUpload('files'), async (req, res, nex
 // One user follows another user
 
 router.post('/:_id/follow/:username', async (req, res, next) => {
-  debugger
+  
   try {
     const { _id, username } = req.params;
     const currentUser = await User.findById(_id);
