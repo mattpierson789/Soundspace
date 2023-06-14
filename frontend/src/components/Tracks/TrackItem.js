@@ -5,11 +5,7 @@ import { setCurrentTrack } from '../../store/audio';
 import { repostTrack, deleteTrack } from '../../store/tracks';
 
 
-<<<<<<< HEAD
 function TrackItem({ track: {_id, title, location, artist, genre, plays, likes, reshares, trackUrl, trackImageUrl } }) {
-=======
-function TrackItem({ track: {_id, title, artist, genre, plays, likes, reshares, trackUrl, trackImageUrl } }) {
->>>>>>> e77cc3e (Update musicbar)
   const [isReshared, setIsReshared] = useState(false);
   const user = useSelector((state) => state.session.currentUser);
   const dispatch = useDispatch();
@@ -23,11 +19,13 @@ function TrackItem({ track: {_id, title, artist, genre, plays, likes, reshares, 
     }
   }
 
-<<<<<<< HEAD
   const handleDelete = () => {
     dispatch(deleteTrack(_id));
   }
 
+  const handlePlay = () => {
+    dispatch(setCurrentTrack({ title, artist, trackUrl, trackImageUrl }));
+  };
 
   return (
       <div className="track-item">
@@ -47,6 +45,8 @@ function TrackItem({ track: {_id, title, artist, genre, plays, likes, reshares, 
             <button onClick={handleReshare}>{isReshared ? 'Reshared' : 'Repost'}</button>
             <button>Save</button>
             <button onClick={handleDelete}>Delete Track</button>
+            <button onClick={handlePlay}>Play</button>
+
           </div>
           </div>
         </div>
@@ -56,27 +56,7 @@ function TrackItem({ track: {_id, title, artist, genre, plays, likes, reshares, 
       </div>
     );
   };  
-=======
-const handlePlay = () => {
-    dispatch(setCurrentTrack({ title, artist, trackUrl, trackImageUrl }));
-  };
 
-  return (
-    <div className="track-item">
-      <h2>{title}</h2>
-      <img src={trackImageUrl} alt="Track-Image" />
-      <p>Artist: {artist}</p>
-      <p>Genre: {genre}</p>
-      <p>Plays: {plays}</p>
-      <p>Likes: {likes}</p>
-      <p>Reshares: {reshares}</p>
-      <button onClick={handleReshare}>
-        {isReshared ? 'Reshared' : 'Reshare!'}  
-      </button>
-      <button onClick={handlePlay}>Play</button>
-    </div>
-  );
-}
->>>>>>> e77cc3e (Update musicbar)
+
 
 export default TrackItem;

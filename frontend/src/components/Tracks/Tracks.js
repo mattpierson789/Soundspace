@@ -3,10 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { clearTrackErrors, fetchTracks } from '../../store/tracks';
 import TrackItem from './TrackItem';
 import './Tracks.css';
-<<<<<<< HEAD
-// import MusicUploadForm from '../MusicFileUpload/MusicFileUpload';
-=======
->>>>>>> e77cc3e (Update musicbar)
 
 function Tracks() {
   const dispatch = useDispatch();
