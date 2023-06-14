@@ -1,0 +1,30 @@
+.header-container {
+    position: sticky;
+    top: 0;
+    background-color: #f2f2f2;
+    padding: 50px;
+    z-index: 999;
+    margin-left: 10%;
+    display: flex;
+    margin-top: -20px;
+    /* justify-content: center; */
+  }
+  
+  .header-index-banner {
+    position: relative;
+    transform: translate(195%, 0%);
+    font-size: 30px;
+  }
+  
+  .search-bar {
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 5px;
+    width: 200px;
+    height: 25px;
+    transform: translate(10%, -20%);
+  }
+  
+  .search-bar p {
+    margin: 0;
+  }
