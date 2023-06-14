@@ -44,7 +44,7 @@ const tracksSchema = new Schema({
     type: String,
     required: false,
     index: true
-  },
+    },
   owner: [{
     type: Schema.Types.ObjectId,
     ref: 'User'

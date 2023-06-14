@@ -55,7 +55,10 @@ router.post('/register', singleMulterUpload("image"), validateRegisterInput, asy
   const newUser = new User({
     username: req.body.username,
     profileImageUrl,
-    email: req.body.email
+    email: req.body.email,
+    location: 'NYC',
+    name: 'kyle'
+    // adjust to be dynamic later
   });
 
   bcrypt.genSalt(10, (err, salt) => {
@@ -65,7 +68,7 @@ router.post('/register', singleMulterUpload("image"), validateRegisterInput, asy
       try {
         newUser.hashedPassword = hashedPassword;
         const user = await newUser.save();
-        return res.json(await loginUser(user)); // <-- THIS IS THE CHANGED LINE
+        return res.json(await loginUser(user)); 
       }
       catch(err) {
         next(err);
@@ -103,7 +106,9 @@ router.get('/current', restoreUser, (req, res) => {
     _id: req.user._id,
     username: req.user.username,
     profileImageUrl: req.user.profileImageUrl,
-    email: req.user.email
+    email: req.user.email,
+    location: req.user.location,
+    name: req.user.name
   });
   console.log(req.user._id);
   // console.log(req.user);
@@ -171,7 +176,7 @@ router.get('/current', restoreUser, (req, res) => {
 
 
 router.post('/upload-music', multipleMulterUpload('files'), async (req, res, next) => {
-  const { userId } = req.body;
+  const { userId, title, genre } = req.body;
   const { files } = req;
 
   try {
@@ -184,6 +189,10 @@ router.post('/upload-music', multipleMulterUpload('files'), async (req, res, nex
     }
 
     const newTrack = new Track({
+      artist: user.username, 
+      title: title,
+      genre: genre,
+      location: user.location,
       trackUrl: uploadedTrackUrl,
       trackImageUrl: uploadedImageUrl,
       owner: [user],

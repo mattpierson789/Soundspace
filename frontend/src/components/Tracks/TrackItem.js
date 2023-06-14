@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './TrackItem.css';
 import { setCurrentTrack } from '../../store/audio';
-import { repostTrack } from '../../store/tracks';
+import { repostTrack, deleteTrack } from '../../store/tracks';
 
 
-function TrackItem({ track: {_id, song, artist, genre, plays, likes, reshares, trackUrl, trackImageUrl } }) {
+function TrackItem({ track: {_id, title, location, artist, genre, plays, likes, reshares, trackUrl, trackImageUrl } }) {
   const [isReshared, setIsReshared] = useState(false);
   const user = useSelector((state) => state.session.currentUser);
   const dispatch = useDispatch();
@@ -19,20 +19,37 @@ function TrackItem({ track: {_id, song, artist, genre, plays, likes, reshares, t
     }
   }
 
+  const handleDelete = () => {
+    dispatch(deleteTrack(_id));
+  }
+
+
   return (
-    <div className="track-item">
-      <h2>{song}</h2>
-      <img src={trackImageUrl} alt="Track-Image" />
-      <p>Artist: {artist}</p>
-      <p>Genre: {genre}</p>
-      <p>Plays: {plays}</p>
-      <p>Likes: {likes}</p>
-      <p>Reshares: {reshares}</p>
-      <button onClick={handleReshare}>
-        {isReshared ? 'Reshared' : 'Reshare!'}  {/* open to change */}
-      </button>
-    </div>
-  );
-}
+      <div className="track-item">
+        <img className="track-image" src={trackImageUrl} alt="Track-Image" />
+        <div className="track-details">
+          <h2 className="title">{title}</h2>
+          <p className="artist">{artist}</p>
+          <p className="genre">{genre}</p>
+          <div className="track-stats">
+          <p className="plays">Plays: {plays}</p>
+          <p className="likes">Likes: {likes}</p>
+          <p className="reshares">Reshares: {reshares}</p>
+          </div>
+          <div className="track-buttons-container">
+          <div className="track-buttons">
+            <button>Like</button>
+            <button onClick={handleReshare}>{isReshared ? 'Reshared' : 'Repost'}</button>
+            <button>Save</button>
+            <button onClick={handleDelete}>Delete Track</button>
+          </div>
+          </div>
+        </div>
+        {/* <div className="waveform">
+          {/* Render the waveform or music bar here */}
+
+      </div>
+    );
+  };  
 
 export default TrackItem;

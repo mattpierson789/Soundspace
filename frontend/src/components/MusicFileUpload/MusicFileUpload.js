@@ -9,6 +9,9 @@ function MusicUploadForm() {
   const user = useSelector(state => state.session.currentUser);
   const errors = useSelector(state => state.errors.tracks);
 
+  const [title, setTitle] = useState('');
+  const [genre, setGenre] = useState('');
+
   const handleSubmit = e => {
     e.preventDefault();
     const formData = new FormData();
@@ -19,10 +22,13 @@ function MusicUploadForm() {
       formData.append('files', selectedImageFile);
     }
     formData.append('userId', user._id);
+    formData.append('title', title);
+    formData.append('genre', genre);
 
     dispatch(uploadTrack(formData));
 
-    // Clear the selected files
+    setTitle('');
+    setGenre('');
     setSelectedAudioFile(null);
     setSelectedImageFile(null);
   };
@@ -42,16 +48,35 @@ function MusicUploadForm() {
       <form className="upload-track" onSubmit={handleSubmit}>
         <input
           type="file"
-          onChange={handleAudioFileChange}
-          name="audioFile"
-          accept="audio/mpeg"
-          required
-        />
-        <input
-          type="file"
           onChange={handleImageFileChange}
           name="imageFile"
           accept="image/jpeg, image/png"
+          required
+        />
+        <input
+          type="text"
+          value={title}
+          onChange={e => setTitle(e.target.value)}
+          placeholder="Song Name"
+          required
+        />
+        <select
+          value={genre}
+          onChange={e => setGenre(e.target.value)}
+          placeholder="Genre"
+          required
+        >
+          <option value="">Select Genre</option>
+          <option value="Pop">Pop</option>
+          <option value="Rock">Rock</option>
+          <option value="Hip Hop">Hip Hop</option>
+          <option value="Electronic">Electronic</option>
+        </select>
+        <input
+          type="file"
+          onChange={handleAudioFileChange}
+          name="audioFile"
+          accept="audio/mpeg"
           required
         />
         <div className="errors">{errors ? errors.text : null}</div>
