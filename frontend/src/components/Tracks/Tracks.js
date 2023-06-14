@@ -4,13 +4,13 @@ import { clearTrackErrors, fetchTracks } from '../../store/tracks';
 import TrackItem from './TrackItem';
 import './Tracks.css';
 
-function Tracks( {location}=null ) {
+function Tracks( {locationValue}=null ) {
   const dispatch = useDispatch();
   let tracks = useSelector(state => Object.values(state.tracks.allTracks));
   debugger
-  if (location && location !== "Global") {
+  if (locationValue && locationValue !== "Global") {
     debugger
-    tracks = tracks.filter((track) => track.location && (track.location === location));
+    tracks = tracks.filter((track) => track.location && (track.location === locationValue));
   }
 
   useEffect(() => {
@@ -20,7 +20,7 @@ function Tracks( {location}=null ) {
 
   return (
     <div className="tracks-container">
-      <h2 className="trending-title">{`Trending ${location !== 'Global' ? `in ${location}` : 'around the World'}`}</h2>
+      <h2 className="trending-title">{`Trending ${locationValue !== 'Global' ? `in ${locationValue}` : 'around the World'}`}</h2>
       <div className="main-content-tracks-container">
         <div className="main-content-tracks">
           {tracks.length === 0 ? (

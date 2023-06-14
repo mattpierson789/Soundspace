@@ -8,19 +8,22 @@ import { useParams } from 'react-router-dom';
 // import MusicBar from '../MusicBar/MusicBar.js';
 
 function MainFeed() {
-
-    const { location } = useParams;
-
+    const [locationValue, setLocationValue] = useState('');
+  
+    const handleLocationValue = (value) => {
+      setLocationValue(value);
+    };
+    debugger
     return (
         <div className="mainfeed-container">
             <div className="mainfeed-navbar">
                 <NavBar />
             </div>
             <div className="mainfeed-header">
-                <Header/>
+                <Header onLocationValue={handleLocationValue}/>
             </div>
             <div className="mainfeed-index">
-                <Tracks location={ location }/>
+                <Tracks locationValue={ locationValue }/>
             </div>
             {/* <div className="mainfeed-musicbar">
                 <MusicBar />

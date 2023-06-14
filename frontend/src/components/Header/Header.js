@@ -3,15 +3,18 @@ import { useSelector } from 'react-redux';
 // import MainFeed from '../MainFeed/MainFeed';
 import './Header.css';
 
-function Header() {
+function Header( {onLocationValue} ) {
 
     const currentLocation = useSelector((state) => state.session.currentUser.location)
     const [location, setLocation] = useState(currentLocation)
 
     const handleClick = (value) => {
-        if (location !== value) setLocation(value);
+        if (location !== value) {
+          setLocation(value);
+          onLocationValue(value);
+        } 
     }
-
+    debugger
   return (
     <div className="header-container">
       <div className="search-bar">
