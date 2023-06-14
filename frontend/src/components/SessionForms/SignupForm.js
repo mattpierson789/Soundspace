@@ -10,17 +10,28 @@ function SignupForm() {
   const [password2, setPassword2] = useState('');
   const [location, setLocation] = useState('');
   const [image, setImage] = useState(null);
-  const errors = useSelector(state => state.errors.session);
+  const errors = useSelector(state => state.errors.session) || {};
+  const [errorMessages, setErrorMessages] = useState([]);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    return () => {
-      dispatch(clearSessionErrors());
-    };
-  }, [dispatch]);
+  // useEffect(() => {
+  //   return () => {
+  //     dispatch(clearSessionErrors());
+  //   };
+  // }, [dispatch]);
 
-  const handleSubmit = e => {
+  debugger 
+
+  const handleSubmit = async e => {
     e.preventDefault();
+
+    debugger
+
+    if (!email || !username || !password || password !== password2 || !location) {
+      setErrorMessages(['Please fill in all fields']);
+      return;
+    }
+
     const user = {
       email,
       username,
@@ -30,7 +41,17 @@ function SignupForm() {
       location
     };
 
-    dispatch(signup(user));
+    try {
+      const response = await dispatch(signup(user));
+
+      if (!response.ok) {
+        const data = await response.json();
+        setErrorMessages(data.errors || ['Unexpected error. Please try again.']);
+      }
+    } catch (error) {
+      console.error(error);
+      setErrorMessages(['Invalid Credentials. Please try again.']);
+    }
   };
 
   const updateFile = e => setImage(e.target.files[0]);
@@ -38,17 +59,15 @@ function SignupForm() {
   return (
     <form className="session-form" onSubmit={handleSubmit}>
       <h2>Sign Up Form</h2>
-      <div className="errors">{errors ? errors.email : null}</div>
       <label>
         <span>Email</span>
         <input
-          type="text"
+          type="email"
           value={email}
           onChange={e => setEmail(e.target.value)}
           placeholder="Email"
         />
       </label>
-      <div className="errors">{errors ? errors.name : null}</div>
       <label>
         <span>Name</span>
         <input
@@ -58,7 +77,6 @@ function SignupForm() {
           placeholder="Name"
         />
       </label>
-      <div className="errors">{errors ? errors.username : null}</div>
       <label>
         <span>Username</span>
         <input
@@ -68,7 +86,6 @@ function SignupForm() {
           placeholder="Username"
         />
       </label>
-      <div className="errors">{errors ? errors.profileImageUrl : null}</div>
       <label>
         Profile Image
         <input type="file" accept=".jpg, .jpeg, .png" onChange={updateFile} />
@@ -82,7 +99,7 @@ function SignupForm() {
           <option value="ATL">ATL</option>
         </select>
       </label>
-      <div className="errors">{errors ? errors.password : null}</div>
+      <div className="errors">{errors && errors.password}</div>
       <label>
         <span>Password</span>
         <input
@@ -92,9 +109,7 @@ function SignupForm() {
           placeholder="Password"
         />
       </label>
-      <div className="errors">
-        {password !== password2 && 'Confirm Password field must match'}
-      </div>
+      <div className="errors">{password !== password2 && 'Confirm Password field must match'}</div>
       <label>
         <span>Confirm Password</span>
         <input
@@ -104,10 +119,17 @@ function SignupForm() {
           placeholder="Confirm Password"
         />
       </label>
+
+      {errorMessages.map((error, index) => (
+        <div key={index} className="errors">
+          {error}
+        </div>
+      ))}
+
       <input
         type="submit"
         value="Sign Up"
-        disabled={!email || !username || !password || password !== password2 || !location}
+        // disabled={!email || !username || !password || password !== password2 || !location}
       />
     </form>
   );
