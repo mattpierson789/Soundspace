@@ -82,8 +82,8 @@ export const repostTrack = (id, userId) => async dispatch => {
     console.log("tracks:", tracks);
     dispatch(receiveUserTracks(tracks));
   } catch (err) {
-    const resBody = await err.json();
-    if (resBody.statusCode === 400) {
+    if (err.statusCode === 400) {
+      const resBody = await err.json();
       return dispatch(receiveErrors(resBody.errors));
     }
   }
@@ -198,7 +198,7 @@ const tracksReducer = (state = initialState, action) => {
       return { ...state, allTracks: updatedAllTracks, usersTracks: updatedUserTracks };
       case RECEIVE_USER_TRACKS:
         const { username, tracks } = action;
-        const filteredTracks = tracks.filter(track => track.artist === username);
+        const filteredTracks = tracks.filter(track => track.artist === username || tracks.filter(track => track.owner === username ));
         return {
           ...state,
           allTracks: action.tracks,

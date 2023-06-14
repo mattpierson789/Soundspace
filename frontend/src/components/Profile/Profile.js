@@ -14,6 +14,7 @@ function Profile() {
   const currentUser = useSelector(state => state.session.currentUser);
   const currentUserId = currentUser._id;
   const userTracks = useSelector(state => state.tracks.usersTracks[username] || []);
+  const allTracks = useSelector(state => state.tracks.allTracks);
   const [isFollowing, setIsFollowing] = useState(false);
 
   const userFollowers = useSelector(state => state.follow.user);
@@ -45,6 +46,11 @@ function Profile() {
   } else if (userTracks.length === 0) {
     return <div className="username-tracks">{username} has no tracks</div>;
   } else {
+    // const userRepostedTracks = allTracks.filter(track =>
+    //   track.owner.some(owner => owner.username === username)
+    // );
+    const renderedTracks = [...userTracks];
+
     return (
       <div className="profile-grid">
         <ProfileHeader />
@@ -52,8 +58,8 @@ function Profile() {
         <button onClick={handleFollow}>
           {isFollowing ? 'Unfollow' : 'Follow'}
         </button>
-        {userTracks.map(track => (
-          <TrackItem key={track._id} track={track} />
+        {renderedTracks.map((track, index) => (
+          <TrackItem key={index} track={track} />
         ))}
       </div>
     );
