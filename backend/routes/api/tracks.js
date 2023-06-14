@@ -154,6 +154,43 @@ router.post('/:id/owner/:userId', requireUser, async (req, res, next) => {
   }
 });
 
+// Add comment to Track
+
+router.post('/:id/comments', async (req, res, next) => {
+  console.log("test hi");
+  try {
+    const trackId = req.params.id;
+    const commentValue = req.body.commentValue;
+    const userId = req.body.userId;
+  
+    const track = await Track.findById(trackId);
+    if (!track) {
+      return res.status(404).json({ error: 'Track not found' });
+    }
+
+    const user = await User.findById(userId);
+    if (!user) {
+      console.log("user not tyvan found")
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    track.comments.push({user: {_id: userId, username: user.username}, content: commentValue});
+    await track.save();
+
+    // Populate the owner field with the updated owner information
+    // const populatedTrack = await track.populate('owner', '_id username')
+    const populatedTrack = await track.populate({
+      path: 'comments.user',
+      select: '_id username',
+      model: 'User',
+    });
+
+    return res.json(populatedTrack);
+  } catch (err) {
+    next(err);
+  }
+})
+
 router.delete('/:id', requireUser, async (req, res, next) => {
   try {
     const trackId = req.params.id;

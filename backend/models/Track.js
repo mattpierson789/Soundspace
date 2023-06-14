@@ -48,6 +48,16 @@ const tracksSchema = new Schema({
   owner: [{
     type: Schema.Types.ObjectId,
     ref: 'User'
+  }],
+  comments: [{
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+    },
+    content: {
+      type: String,
+      required: true
+    }
   }]
 }, {
   timestamps: true
