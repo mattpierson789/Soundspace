@@ -16,6 +16,8 @@ import { getCurrentUser } from './store/session';
 import TrackUpload from './components/Tracks/TrackUpload';
 import startSession from './store/session';
 import MainFeed from './components/MainFeed/MainFeed';
+import MusicBar from './components/MusicBar/MusicBar';
+import MusicUploadForm from './components/MusicFileUpload/MusicFileUpload';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -29,6 +31,7 @@ function App() {
   return loaded && (
     <>
       <SideBarLinks />
+      <MusicBar />
       <Switch>
         <AuthRoute exact path="/" component={MainPage} />
         <AuthRoute exact path="/login" component={LoginForm} />
@@ -36,7 +39,7 @@ function App() {
 
         <ProtectedRoute exact path="/tracks" component={MainFeed} />
         <ProtectedRoute exact path="/profile/:username" component={Profile} />
-        <ProtectedRoute exact path="/tracks/new" component={TrackUpload} />
+        <ProtectedRoute exact path="/tracks/new" component={MusicUploadForm} />
       </Switch>
     </>
   );

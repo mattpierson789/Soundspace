@@ -13,16 +13,8 @@ function Profile() {
 
   const currentUser = useSelector(state => state.session.currentUser);
   const currentUserId = currentUser._id;
-  const tracksState = useSelector(state => state.tracks);
-  const [isFollowing, setIsFollowing] = useState(false); // New state for isFollowing
-
-  const userTracks = useSelector(state =>
-    state.tracks.all
-      ? Object.values(state.tracks.all).filter(track =>
-          track.owner.some(owner => owner.username === username)
-        )
-      : []
-  );
+  const userTracks = useSelector(state => state.tracks.usersTracks[username] || []);
+  const [isFollowing, setIsFollowing] = useState(false);
 
   const userFollowers = useSelector(state => state.follow.user);
   const userFollowing = useSelector(state => state.follow.all);
@@ -30,10 +22,10 @@ function Profile() {
   const handleFollow = () => {
     if (isFollowing) {
       dispatch(unfollowUser(currentUserId, username));
-      setIsFollowing(false); // Update isFollowing state
+      setIsFollowing(false);
     } else {
       dispatch(followUser(currentUserId, username));
-      setIsFollowing(true); // Update isFollowing state
+      setIsFollowing(true);
     }
   };
 
@@ -45,13 +37,13 @@ function Profile() {
 
   useEffect(() => {
     const isFollowing = userFollowing.some(user => user.username === username);
-    setIsFollowing(isFollowing); // Set initial value for isFollowing
+    setIsFollowing(isFollowing);
   }, [userFollowing, username]);
 
   if (!currentUser) {
     return <div>Loading...</div>;
   } else if (userTracks.length === 0) {
-    return <div className="username-tracks">{username} has no Tracks</div>;
+    return <div className="username-tracks">{username} has no tracks</div>;
   } else {
     return (
       <div className="profile-grid">

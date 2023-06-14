@@ -25,9 +25,10 @@ const removeTrack = (trackId) => ({
   trackId
 });
 
-const receiveUserTracks = tracks => ({
+const receiveUserTracks = (tracks, username) => ({
   type: RECEIVE_USER_TRACKS,
-  tracks
+  tracks, 
+  username 
 });
 
 const receiveNewTrack = track => ({
@@ -62,7 +63,7 @@ export const fetchUserTracks = (username) => async dispatch => {
   try {
     const res = await jwtFetch(`/api/tracks/user/${username}`);
     const tracks = await res.json();
-    dispatch(receiveUserTracks(tracks));
+    dispatch(receiveUserTracks(tracks, username));
   } catch (err) {
     const resBody = await err.json();
     if (resBody.statusCode === 400) {
@@ -120,7 +121,6 @@ export const uploadTrack = formData => async dispatch => {
       // Handle error if needed
     }
   };
-  
 // export const uploadTrack = (formData) => async (dispatch) => {
 //     try {
 //       const res = await jwtFetch('/api/users/upload-music', {
@@ -153,23 +153,45 @@ export const trackErrorsReducer = (state = nullErrors, action) => {
   }
 };
 
+const initialState = {
+  usersTracks: {},
+  indexTracks: {},
+  allTracks: [],
+  newTrack: undefined
+};
 
-
-const tracksReducer = (state = { all: {}, user: {}, new: undefined }, action) => {
+const tracksReducer = (state = initialState, action) => {
   switch (action.type) {
     case RECEIVE_TRACKS:
-      return { ...state, all: action.tracks, new: undefined };
+  return {
+    ...state,
+    allTracks: action.tracks
+  };
     case REMOVE_TRACK:
-      const { [action.trackId]: removedTrack, ...updatedAllTracks } = state.all;
-      const updatedUserTracks = { ...state.user };
+      const { [action.trackId]: removedTrack, ...updatedAllTracks } = state.allTracks;
+      const updatedUserTracks = { ...state.usersTracks };
       delete updatedUserTracks[action.trackId];
-      return { ...state, all: updatedAllTracks, user: updatedUserTracks };
-    case RECEIVE_USER_TRACKS:
-      return { ...state, all: action.tracks, new: undefined };
+      return { ...state, allTracks: updatedAllTracks, usersTracks: updatedUserTracks };
+      case RECEIVE_USER_TRACKS:
+        const { username, tracks } = action;
+        const filteredTracks = tracks.filter(track => track.artist === username);
+        return {
+          ...state,
+          allTracks: action.tracks,
+          usersTracks: {
+            ...state.usersTracks,
+            [username]: filteredTracks
+          }
+        };
     case RECEIVE_NEW_TRACK:
-      return { ...state, new: action.track };
+      return {
+        ...state,
+        usersTracks: { ...state.usersTracks, [action.track.id]: action.track },
+        allTracks: [...state.allTracks, action.track],
+        newTrack: action.track
+      };
     case RECEIVE_USER_LOGOUT:
-      return { ...state, user: {}, new: undefined };
+      return { ...state, usersTracks: {}, newTrack: undefined };
     default:
       return state;
   }

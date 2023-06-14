@@ -6,8 +6,9 @@ import './MusicBar.css';
 
 function MusicBar() {
   const currentTrack = useSelector((state) => state.audio.currentTrack);
+  const user = useSelector((state) => state.session.currentUser);
 
-  if (!currentTrack) {
+  if (!currentTrack || !user) {
     return null;
   }
 

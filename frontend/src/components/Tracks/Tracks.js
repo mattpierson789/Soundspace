@@ -6,7 +6,7 @@ import './Tracks.css';
 
 function Tracks() {
   const dispatch = useDispatch();
-  const tracks = useSelector(state => Object.values(state.tracks.all));
+  const tracks = useSelector(state => Object.values(state.tracks.allTracks));
 
   useEffect(() => {
     dispatch(fetchTracks());
