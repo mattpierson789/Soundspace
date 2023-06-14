@@ -1,7 +1,7 @@
 import React, { useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './TrackItem.css';
-import { setCurrentTrack } from '../../store/audio';
+import { setCurrentTrack, increasePlayCount } from '../../store/audio';
 import { repostTrack, deleteTrack, addCommentToTrack} from '../../store/tracks';
 
 
@@ -10,6 +10,7 @@ function TrackItem({ track: {_id, title, location, artist, genre, plays, likes, 
   const [commentValue, setCommentValue] = useState("");
   const user = useSelector((state) => state.session.currentUser);
   const userId = useSelector((state) => state.session.currentUser._id)
+  const currentTrack = useSelector((state) => state.audio.currentTrack);
   const dispatch = useDispatch();
 
   const handleCommentChange = (e) => { // Ensure comment is under 180 chars
@@ -33,9 +34,11 @@ function TrackItem({ track: {_id, title, location, artist, genre, plays, likes, 
   }
 
   const handlePlay = () => {
-    dispatch(setCurrentTrack({ title, artist, trackUrl, trackImageUrl }));
+    if ((currentTrack === null ) || (currentTrack.trackUrl != trackUrl)) dispatch(increasePlayCount(_id))
+    dispatch(setCurrentTrack({ title, artist, trackUrl, trackImageUrl }))
   };
 
+  
   return (
       <div className="track-item">
         <img className="track-image" src={trackImageUrl} alt="Track-Image" />

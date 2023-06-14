@@ -191,6 +191,30 @@ router.post('/:id/comments', async (req, res, next) => {
   }
 })
 
+// Increase play count to Track
+
+router.post('/:id/plays', async (req, res, next) => {
+  console.log("TEST COUNTER ADD")
+  try {
+    const trackId = req.params.id;
+  
+    const track = await Track.findById(trackId);
+    console.log(track.plays)
+    if (!track) {
+      return res.status(404).json({ error: 'Track not found' });
+    }
+
+    track.plays += 1;
+    console.log(track.plays)
+
+    await track.save();
+
+    return res.json(track);
+  } catch (err) {
+    next(err);
+  }
+})
+
 router.delete('/:id', requireUser, async (req, res, next) => {
   try {
     const trackId = req.params.id;
