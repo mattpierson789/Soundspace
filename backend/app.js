@@ -30,8 +30,7 @@ if (!isProduction) {
     // development server (http://localhost:3000). (In production, React files
     // will be served statically on the Express server.)
     app.use(cors(
-        origin: "http://localhost:3000", "https://soundspace.onrender.com"
-
+       
     ));
 }
 
@@ -57,6 +56,10 @@ app.use((req, res, next) => {
     err.statusCode = 404;
     next(err);
 });
+
+app.get('/', (req, res) => {
+    res.send('Hello, World!');
+  });
 
 const serverErrorLogger = debug('backend:error');
 
