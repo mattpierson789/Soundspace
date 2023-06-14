@@ -47,17 +47,18 @@ router.post('/register', singleMulterUpload("image"), validateRegisterInput, asy
     err.errors = errors;
     return next(err);
   }
-
+  console.log("req.body:", req.body)
   // Otherwise create a new user
   const profileImageUrl = req.file ? 
     await singleFileUpload({ file: req.file, public: true}) :
     DEFAULT_PROFILE_IMAGE_URL;
+    debugger
   const newUser = new User({
     username: req.body.username,
     profileImageUrl,
     email: req.body.email,
-    location: 'NYC',
-    name: 'kyle'
+    location: req.body.location,
+    name: req.body.name
     // adjust to be dynamic later
   });
 
@@ -68,6 +69,8 @@ router.post('/register', singleMulterUpload("image"), validateRegisterInput, asy
       try {
         newUser.hashedPassword = hashedPassword;
         const user = await newUser.save();
+        console.log(user)
+        debugger
         return res.json(await loginUser(user)); 
       }
       catch(err) {

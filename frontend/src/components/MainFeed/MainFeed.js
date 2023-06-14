@@ -9,7 +9,8 @@ import { fetchTracks } from '../../store/tracks.js';
 
 function MainFeed() {
 const dispatch = useDispatch();
-
+// const currentLocation = useSelector
+// const [location, setLocation] = useState()
     useEffect(() => {
         debugger
         dispatch(fetchTracks());
@@ -24,6 +25,10 @@ const dispatch = useDispatch();
             <div className="mainfeed-header">
                 <Header />
             </div>
+            <button>NYC</button>
+            <button>LA</button>
+            <button>ATL</button>
+            <button>Global</button>
             <div className="mainfeed-index">
                 <Tracks />
             </div>
