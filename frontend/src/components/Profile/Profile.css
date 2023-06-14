@@ -70,5 +70,6 @@
   gap: 20px;
   width: 80%;
   max-width: 1200px;
+  overflow-y: auto;
 }
 

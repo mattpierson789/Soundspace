@@ -28,3 +28,26 @@
   .search-bar p {
     margin: 0;
   }
+
+  .mainfeed-city-filters {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .mainfeed-city-filters button {
+    padding: 8px 12px;
+    font-size: 16px;
+    background-color: #fff;
+    border: 2px solid #e6e6e6;
+    border-radius: 30px;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .mainfeed-city-filters button:hover {
+    background-color: #e6e6e6;
+    color: #555;
+  }
+  
