@@ -34,7 +34,7 @@ function Header( {onLocationValue, locationValue} ) {
   <img className='logo' src='https://soundspace-seeds.s3.amazonaws.com/public/Theme+Images/Screen+Shot+2023-06-15+at+11.10-PhotoRoom.png' />
   <span>Soundspace</span>
   <div className='meet-team'>
-  <span>Team</span>
+  {/* <span>Team</span> */}
   </div>
 </div>
 
@@ -42,7 +42,7 @@ function Header( {onLocationValue, locationValue} ) {
     <div className="header-container">
    
       <div className="header-index-banner">
-      <h1>{`Trending ${locationValue !== 'Global' || locationValue === null ? `in ${locationValue}` : 'around the World'}`}</h1>
+      <h1>{`Trending ${locationValue !== 'Global' || location === null ? `in ${location}` : 'around the World'}`}</h1>
       </div>
       
       <div className="feed-type-buttons">
