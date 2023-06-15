@@ -13,9 +13,9 @@ const ProfileHeader = ({ onFilterValue, filterValue }) => {
   const currentUser = useSelector(state => state.session.currentUser);
   const followers = useSelector(state => state.follow.followers.length);
   const following = useSelector(state => state.follow.following.length);
-  const [isFollowing, setIsFollowing] = useState(isCurrentUserFollower);
   const userFollowers = useSelector(state => state.follow.followers);
   const isCurrentUserFollower = userFollowers.find(follower => follower._id === currentUser._id) !== undefined;
+  const [isFollowing, setIsFollowing] = useState(isCurrentUserFollower);
   const userTracks = useSelector(state => state.tracks.userTracks);
 
   // const originalTracks = userTracks.filter(track => track.artist === userId);
