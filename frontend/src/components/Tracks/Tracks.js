@@ -42,20 +42,9 @@ function Tracks({ trendingPage, locationValue = null }) {
     return () => dispatch(clearTrackErrors());
   }, [dispatch]);
 
-  let backgroundImage = '';
-
-  if (locationValue === 'LA') {
-    backgroundImage = 'https://soundspace-seeds.s3.amazonaws.com/public/Theme+Images/Screen+Shot+2023-06-15+at+1.29-PhotoRoom.png';
-  } else if (locationValue === 'NYC') {
-    backgroundImage = 'https://soundspace-seeds.s3.amazonaws.com/public/Theme+Images/NYC+MainPage+Background';
-  } else if (locationValue === 'ATL') {
-    backgroundImage = 'https://soundspace-seeds.s3.amazonaws.com/public/Theme+Images/ATL+MainPage+Background';
-  } else {
-    backgroundImage = 'https://soundspace-seeds.s3.amazonaws.com/public/Theme+Images/Screen+Shot+2023-06-15+at+1.20-PhotoRoom.png';
-  }
 
   return (
-    <div className="tracks-container" style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+    <div className="tracks-container" >
       <div className="main-content-tracks-container">
         <div className="main-content-tracks">
           {tracks.length === 0 ? (

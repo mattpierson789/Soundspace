@@ -60,7 +60,7 @@ function SignupForm() {
         <ImageCarousel className="image-carousel" />
       </div>
 
-      <div className="form-container">
+      <div className="form-container2">
         <form className="signup-form" onSubmit={handleSubmit}>
           <div id="tag-line">
             <h1>Soundspace</h1>
