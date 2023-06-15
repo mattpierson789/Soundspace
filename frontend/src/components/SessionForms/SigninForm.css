@@ -3,7 +3,6 @@
   height: 100vh;
   width: 100%;
 }
-
 .image-carousel-container {
   position: absolute;
   top: 0;
@@ -14,20 +13,18 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-    /* Adjust the width as desired */
+    
     height: 0vh;
-    /* Adjust the height as desired */
+    
   padding-top: 10px;
   z-index: 1;
-  /* Add a higher z-index to make sure it's behind the form */
-}
 
+}
 .carousel-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-
 .form-container {
   position: absolute;
   top: 50%;
@@ -38,14 +35,13 @@
   justify-content: center;
   width: 30%;
   height: 90%;
-  /* Adjust the height of the form container */
-  background-color: #f8f8f8;
+ 
+  background-color: #F8F8F8;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   z-index: 2;
-  /* Add a higher z-index to make sure it's in front of the carousel */
-}
 
+}
 .login-form {
   display: flex;
   flex-direction: column;
@@ -56,23 +52,19 @@
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
 #tag-line {
   margin-bottom: 20px;
   text-align: center;
 }
-
 .login-form h1,
 .login-form h2 {
   margin-top: 0px;
 }
-
 .login-form h2 {
   margin-bottom: 20px;
   font-size: 24px;
   color: #333;
 }
-
 .login-form h1 {
   margin-bottom: 20px;
   font-size: 44px;
@@ -81,32 +73,27 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-
 .errors {
   margin-bottom: 10px;
   font-size: 14px;
-  color: #ff0000;
+  color: #FF0000;
 }
-
 label {
   display: flex;
   flex-direction: column;
   margin-bottom: 10px;
 }
-
 span {
   margin-bottom: 5px;
   font-size: 16px;
   color: #333;
 }
-
 input[type="text"],
 input[type="password"] {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
-
 input[type="submit"] {
   padding: 10px 20px;
   background-color: #333;
@@ -117,7 +104,6 @@ input[type="submit"] {
   margin-top: 20px;
   margin-bottom: 20px;
 }
-
 input[type="submit"]:hover {
   background-color: #555;
 }
