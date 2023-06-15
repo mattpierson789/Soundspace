@@ -10,7 +10,7 @@ function TrackItem({ track: {_id, title, location, artist, genre, plays, likes, 
   const [isReshared, setIsReshared] = useState(false);
   const [commentValue, setCommentValue] = useState("");
   const user = useSelector((state) => state.session.currentUser);
-  const userId = useSelector((state) => state.session.currentUser._id)
+  const userId = useSelector((state) => state.session.currentUser ? state.session.currentUser._id : null)
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -33,8 +33,7 @@ function TrackItem({ track: {_id, title, location, artist, genre, plays, likes, 
   const handleDelete = () => {
     dispatch(deleteTrack(_id));
   }
-  
-  
+
   const handlePlay = () => {
     dispatch(setCurrentTrack({ title, artist, trackUrl, trackImageUrl }))
   };
@@ -43,8 +42,6 @@ function TrackItem({ track: {_id, title, location, artist, genre, plays, likes, 
     history.push(`/profile/${artist}`); 
   };
 
-
-  
   return (
       <div className="track-item">
         <img className="track-image" src={trackImageUrl} />
@@ -59,12 +56,9 @@ function TrackItem({ track: {_id, title, location, artist, genre, plays, likes, 
           </div>
           <div className="track-buttons-container">
             <div className="track-buttons">
-              {/* <button>Like</button> */}
               <button onClick={handleReshare}>{isReshared ? 'Reshared' : 'Repost'}</button>
-              {/* <button>Save</button> */}
               <button onClick={handleDelete}>Delete Track</button>
               <button onClick={handlePlay}>Play</button>
-
             </div>
           </div>
           <div className="comment-bar">
@@ -72,13 +66,9 @@ function TrackItem({ track: {_id, title, location, artist, genre, plays, likes, 
           <button onClick={(e) => handleCommentSubmit(e)}>Add A Comment..</button>
           </div>
         </div>
-        {/* <div className="waveform">
-          {/* Render the waveform or music bar here */}
-
       </div>
     );
-  };  
-
-
+};  
 
 export default TrackItem;
+
