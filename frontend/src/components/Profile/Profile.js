@@ -4,21 +4,26 @@ import { useParams } from 'react-router-dom';
 import { fetchUserTracks, clearTrackErrors } from '../../store/tracks';
 import { fetchUserFollows, fetchUserFollowing } from '../../store/follow';
 import TrackItem from '../Tracks/TrackItem';
-import './Profile.css';
-import ProfileHeader from './ProfileHeader';
+// import './Profile.css';
+// import ProfileHeader from './ProfileHeader';
 
 function Profile() {
   const dispatch = useDispatch();
   const { username } = useParams();
 
   const currentUser = useSelector(state => state.session.currentUser);
-  const currentUserId = currentUser._id;
+  // const currentUserId = currentUser._id;
   const userTracks = useSelector(state => state.tracks.usersTracks[username] || []);
   const allTracks = useSelector(state => state.tracks.allTracks);
   
 
   const userFollowing = useSelector(state => state.follow.all);
   
+  // const allTracks = useSelector(state => state.tracks.allTracks);
+  // const [isFollowing, setIsFollowing] = useState(false);
+
+  // const userFollowers = useSelector(state => state.follow.user);
+  // const userFollowing = useSelector(state => state.follow.all);
 
   // Put in useEffect
   useEffect(() => {

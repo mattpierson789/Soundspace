@@ -41,8 +41,11 @@ const Schema = mongoose.Schema;
     followerIds: [{ 
       type: Schema.Types.ObjectId,
       ref: 'User'
-
-    },]
+    }],
+    postIds: [{
+      type: Schema.Types.ObjectId,
+      ref: 'Post'
+    }]
   }, {
     timestamps: true
   });

@@ -4,7 +4,12 @@ const RECEIVE_CURRENT_USER = "session/RECEIVE_CURRENT_USER";
 const RECEIVE_SESSION_ERRORS = "session/RECEIVE_SESSION_ERRORS";
 const CLEAR_SESSION_ERRORS = "session/CLEAR_SESSION_ERRORS";
 export const RECEIVE_USER_LOGOUT = "session/RECEIVE_USER_LOGOUT";
+const RECEIVE_ALL_USERS = 'session/RECEIVE_ALL_USERS';
 
+const receiveAllUsers = users => ({
+  type: RECEIVE_ALL_USERS,
+  users
+});
 // Dispatch receiveCurrentUser when a user logs in.
 const receiveCurrentUser = currentUser => ({
     type: RECEIVE_CURRENT_USER,
@@ -63,6 +68,19 @@ export const getCurrentUser = () => async dispatch => {
     return dispatch(receiveCurrentUser(user));
   };
 
+export const getAllUsers = () => async dispatch => {
+    try {
+      const res = await jwtFetch('/api/users/');
+      console.log(res)
+      const users = await res.json();
+      console.log(users)
+      dispatch(receiveAllUsers(users));
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  
+
 // Remove JWT token from localStorage
 export const logout = () => dispatch => {
     localStorage.removeItem('jwtToken');
@@ -88,7 +106,8 @@ export const sessionErrorsReducer = (state = nullErrors, action) => {
 //--------------------------------------------------------//
 
 const initialState = {
-    currentUser: undefined
+    currentUser: undefined,
+    allUsers: []
 };
 
 const sessionReducer = (state = initialState, action) => {
@@ -97,6 +116,8 @@ const sessionReducer = (state = initialState, action) => {
         return { ...state, currentUser: action.currentUser };
       case RECEIVE_USER_LOGOUT:
         return initialState;
+      case RECEIVE_ALL_USERS:
+        return { ...state, allUsers: action.users };
       default:
         return state;
     }

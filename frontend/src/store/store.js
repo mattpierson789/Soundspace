@@ -5,9 +5,16 @@ import follow from './follow';
 import errors from './errors';
 import tracks, { trackErrorsReducer } from './tracks';
 import audioReducer from './audio';
+import postsReducer from './posts';
 
 const rootReducer = combineReducers({
-  session, errors, tracks, trackErrors: trackErrorsReducer, audio: audioReducer, follow
+  session,
+  errors, 
+  tracks, 
+  trackErrors: trackErrorsReducer, 
+  audio: audioReducer, 
+  follow, 
+  posts: postsReducer
 });
 
 let enhancer;

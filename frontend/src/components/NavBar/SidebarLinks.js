@@ -50,6 +50,7 @@ const SidebarLinks = ({ isLoggedIn }) => {
                 <Link to="/signup">Signup</Link>
                 <Link to="/tracks">Trending</Link>
                 <Link to="/tracks">Following</Link>
+                <Link to="/info">Check Out The Developers!</Link>
               </div>
               </div>
             </>

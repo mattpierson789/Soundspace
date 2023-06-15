@@ -29,7 +29,7 @@
   transform: translateY(-5px);
 }
 
-.track-image {
+.track-item img {
   width: 200px;
   height: 200px;
   object-fit: cover;
@@ -175,6 +175,7 @@
   justify-content: center;
   width: 100%;
   max-width: 1200px;
+  flex-direction: column;
 }
 
 .tracks {
