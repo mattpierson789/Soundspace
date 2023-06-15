@@ -38,15 +38,13 @@ const handleClickPrevious = () => {
 
   return (
     <div className='footer-container'>
-      <div className="play-bar-track-info">
+      <div className="now-playing-section">
         <div className="now-playing-image-container">
-          {trackImageUrl && <img src={trackImageUrl} alt="" />}
+          <img className="now-playing-image" src={trackImageUrl} alt="Now Playing Image" />
         </div>
-        <div className="now-playing-section">
-          <div className="now-playing-artist-info">
-            <p className="now-playing-artist-info-name">{title}</p>
-            <p className="now-playing-artist-info-artist">{artist}</p>
-          </div>
+        <div className="now-playing-info-container">
+          <p className="now-playing-info-name">{title}</p>
+          <p className="now-playing-info-artist">{artist}</p>
         </div>
       </div>
       <div className="play-bar-control-container">
