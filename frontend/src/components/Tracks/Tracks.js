@@ -6,22 +6,18 @@ import TrackItem from './TrackItem';
 import PostItem from '../Posts/PostItem'; 
 import './Tracks.css';
 
-function Tracks({ locationValue } = null) {
+function Tracks({ locationValue }) {
   const dispatch = useDispatch();
   let tracks = useSelector(state => Object.values(state.tracks.allTracks));
   const posts = useSelector(state => Object.values(state.posts.posts));
 
-  debugger;
   if (locationValue && locationValue !== "Global") {
-    debugger;
     tracks = tracks.filter(track => track.location && track.location === locationValue);
   }
 
   useEffect(() => {
     dispatch(fetchTracks());
-    debugger
     dispatch(fetchPosts());
-    debugger
     return () => dispatch(clearTrackErrors());
   }, [dispatch]);
 
@@ -34,17 +30,14 @@ function Tracks({ locationValue } = null) {
   } else if (locationValue === 'ATL') {
     backgroundImage = 'https://soundspace-seeds.s3.amazonaws.com/public/Theme+Images/ATL+MainPage+Background';
   } else {
-    backgroundImage = 'https://soundspace-seeds.s3.amazonaws.com/public/Theme+Images/Screen+Shot+2023-06-15+at+1.20-PhotoRoom.png'
-
+    backgroundImage = 'https://soundspace-seeds.s3.amazonaws.com/public/Theme+Images/Screen+Shot+2023-06-15+at+1.20-PhotoRoom.png';
   }
 
   return (
-    // <div className="tracks-container" style={{backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center'}}>
-    <div className="tracks-container">
+    <div className="tracks-container" style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
       <h2 className="trending-title">{`Trending ${
         locationValue !== 'Global' ? `in ${locationValue}` : 'around the World'
       }`}</h2>
-    {/* <div className="tracks-container" style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }}> */}
       <div className="main-content-tracks-container">
         <div className="main-content-tracks">
           {tracks.length === 0 ? (
