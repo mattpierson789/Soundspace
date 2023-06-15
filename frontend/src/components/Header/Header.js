@@ -20,10 +20,15 @@ function Header({ onLocationValue, locationValue }) {
     }
   };
 
-  const handleFeedClick = (type) => {
-    setFeedType(type);
-  };
-
+    const handleFeedClick = (type) => {
+      if (feedType !== type) {
+        setFeedType(type);
+        onTrendingPage(type);
+      }
+    }
+    
+    // use feedType state to switch between feeds
+debugger
   return (
     <div className="header-container">
       <div id="logo-header">
@@ -32,20 +37,23 @@ function Header({ onLocationValue, locationValue }) {
       </div>
 
       <div className="header-index-banner">
-        <h1>{`Trending ${locationValue !== 'Global' || location === null ? `in ${location}` : 'around the World'}`}</h1>
+      {feedType
+      ? <h1>{`Trending ${location !== 'Global' || location === null ? `in ${location}` : 'around the World'}`}</h1> 
+      : <h1>Following</h1>}
       </div>
 
       <div className="feed-type-buttons">
         <button onClick={() => handleFeedClick('Trending')}>Trending</button>
         <button onClick={() => handleFeedClick('Following')}>Following</button>
       </div>
-
-      <div className="mainfeed-city-filters">
-        <button value="NYC" onClick={(e) => handleClick(e.target.value)}>NYC</button>
-        <button value="LA" onClick={(e) => handleClick(e.target.value)}>LA</button>
-        <button value="ATL" onClick={(e) => handleClick(e.target.value)}>ATL</button>
-        <button value="Global" onClick={(e) => handleClick(e.target.value)}>Global</button>
-      </div>
+      {feedType &&
+        <div className="mainfeed-city-filters">
+            <button value={"NYC"} onClick={(e) => handleClick(e.target.value)}>NYC</button>
+            <button value={"LA"} onClick={(e) => handleClick(e.target.value)}>LA</button>
+            <button value={"ATL"} onClick={(e) => handleClick(e.target.value)}>ATL</button>
+            <button value={"Global"} onClick={(e) => handleClick(e.target.value)}>Global</button>
+        </div>
+      }
     </div>
   );
 }
