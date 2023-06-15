@@ -25,9 +25,12 @@ const ProfileHeader = ({ bannerUrl, profilePicUrl, followers, following }) => {
       
       <div className="profile-info">
         <div className="follower-info">
-        <button onClick={handleFollow}>
-          {isFollowing ? 'Unfollow' : 'Follow'}
-        </button>
+       
+       {currentUser.username !== username &&
+          <button onClick={handleFollow}>
+            {isFollowing ? 'Unfollow' : 'Follow'}
+          </button> 
+        }
           <div>{followers} Followers</div>
           <div>{following} Following</div>
         </div>
