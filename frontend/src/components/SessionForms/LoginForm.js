@@ -47,7 +47,17 @@ function LoginForm() {
 
       <div className="form-container">
         <form className="login-form" onSubmit={handleSubmit}>
+
+        <div id= 'tag-line'>
+
           <h1>Soundspace</h1>
+
+          <h2>Discover Your Local Scene </h2>
+
+          <h2>Connect with Music in your Backyard</h2>
+
+          </div>
+
           <h2>Log In Form</h2>
        
           <label>
