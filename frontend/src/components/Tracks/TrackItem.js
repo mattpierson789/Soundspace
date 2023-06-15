@@ -42,6 +42,8 @@ function TrackItem({ track: {_id, title, location, artist, genre, plays, likes, 
     history.push(`/profile/${artist}`); 
   };
 
+  const isCurrentUserArtist = user.username === artist;
+
   return (
       <div className="track-item">
         <img className="track-image" src={trackImageUrl} />
@@ -57,7 +59,7 @@ function TrackItem({ track: {_id, title, location, artist, genre, plays, likes, 
           <div className="track-buttons-container">
             <div className="track-buttons">
               <button onClick={handleReshare}>{isReshared ? 'Reshared' : 'Repost'}</button>
-              <button onClick={handleDelete}>Delete Track</button>
+              {isCurrentUserArtist && <button onClick={handleDelete}>Delete Track</button>}
               <button onClick={handlePlay}>Play</button>
             </div>
           </div>
