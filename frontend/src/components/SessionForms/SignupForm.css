@@ -1,25 +1,21 @@
-.session-form-container {
+.signup-page-container {
     display: flex;
-    margin-top: 50px;
-    align-items: center;
-    justify-content: center;
-}
-
-
-.session-form {
+    height: 100vh;
+  }
+  
+  .signup-form {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 300px;
-    margin: 0 auto;
+    width: 50%;
     padding: 50px;
     background-color: #f8f8f8;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
   
-  .session-form h2 {
+  .signup-form h2 {
     margin-bottom: 20px;
     font-size: 24px;
     color: #333;
@@ -43,11 +39,17 @@
     color: #333;
   }
   
+  input[type="email"],
+  input[type="password"],
   input[type="text"],
-  input[type="password"] {
+  select {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
+  }
+  
+  input[type="file"] {
+    margin-bottom: 10px;
   }
   
   input[type="submit"] {
@@ -64,6 +66,4 @@
   input[type="submit"]:hover {
     background-color: #555;
   }
-
- 
   
