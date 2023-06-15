@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import Tracks from '../Tracks/Tracks.js';
 import NavBar from '../NavBar/SidebarLinks.js';
 import Header from '../Header/Header.js';
-import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 // import { fetchTracks } from '../../store/tracks.js';
 // import MusicBar from '../MusicBar/MusicBar.js';
 
 function MainFeed() {
-    const [locationValue, setLocationValue] = useState('');
+    const location = useSelector((state) => state.session.currentUser.location)
+    const [locationValue, setLocationValue] = useState(location);
   
     const handleLocationValue = (value) => {
       setLocationValue(value);
