@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import Tracks from '../Tracks/Tracks.js';
 import NavBar from '../NavBar/SidebarLinks.js';
 import Header from '../Header/Header.js';
-import { useSelector } from 'react-redux';
-
-// import { fetchTracks } from '../../store/tracks.js';
-// import MusicBar from '../MusicBar/MusicBar.js';
 
 function MainFeed() {
     const location = useSelector((state) => state.session.currentUser.location)

@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
+const Post = mongoose.model('Post');
 const passport = require('passport');
 const { loginUser, restoreUser, requireUser } = require('../../config/passport');
 const { isProduction } = require('../../config/keys');
@@ -18,10 +19,21 @@ const Track = mongoose.model('Track')
 const DEFAULT_PROFILE_IMAGE_URL = 'https://soundspace-seeds.s3.amazonaws.com/public/blank-profile-picture-g84ce38eb1_1280.png';
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.json({
-    message: "GET /api/users"
-  });
+// router.get('/', function(req, res, next) {
+//   res.json({
+//     message: "GET /api/users"
+//   });
+// });
+
+
+router.get('/', async function(req, res, next) {
+  try {
+    const users = await User.find();
+    res.json(users);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
 });
 
 // POST /api/users/register
@@ -311,6 +323,41 @@ router.get('/:username/followerIds', async (req, res) => {
       return res.json(followers);
   } catch (err) {
       res.status(500).json({ error: err.message });
+  }
+});
+
+router.post('/upload-post', async (req, res, next) => {
+  try {
+    const { title, content, userId } = req.body;
+    const currentUser = await User.findById(userId);
+    debugger 
+
+    if (!currentUser) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    const post = new Post({
+      title,
+      content,
+      poster: currentUser._id,
+      posterImgUrl: currentUser.profileImageUrl
+    });
+
+    await post.save();
+
+    if (Array.isArray(currentUser.postIds)) {
+      debugger 
+      console.log(currentUser)
+      currentUser.postIds.push(post._id);
+    } else {
+      currentUser.postIds = [post._id];
+    }
+
+    await currentUser.save();
+
+    return res.json({ post });
+  } catch (err) {
+    next(err);
   }
 });
 

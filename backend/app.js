@@ -6,14 +6,15 @@ const debug = require('debug');
 const cors = require('cors');
 const csurf = require('csurf');
 const { isProduction } = require('./config/keys');
-debugger 
 require('./models/User');
 require('./models/Track');
+require('./models/Post'); 
 require('./config/passport');
 
 const passport = require('passport');
 const usersRouter = require('./routes/api/users');
 const tracksRouter = require('./routes/api/tracks');
+const postsRouter = require('./routes/api/posts'); 
 const csrfRouter = require('./routes/api/csrf');
 
 const app = express();
@@ -23,19 +24,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(passport.initialize());
-debugger 
-// Security Middleware
+
+// Security Middleware and CORS configuration
 if (!isProduction) {
-    // Enable CORS only in development because React will be on the React
-    // development server (http://localhost:3000). (In production, React files
-    // will be served statically on the Express server.)
-    app.use(cors(
-       
-    ));
+    app.use(cors());
 }
 
-// Set the _csrf token and create req.csrfToken method to generate a hashed
-// CSRF token
 app.use(
     csurf({
         cookie: {
@@ -49,6 +43,7 @@ app.use(
 // Attach Express routers
 app.use('/api/users', usersRouter);
 app.use('/api/tracks', tracksRouter);
+app.use('/api/posts', postsRouter); 
 app.use('/api/csrf', csrfRouter);
 
 app.use((req, res, next) => {
@@ -59,12 +54,10 @@ app.use((req, res, next) => {
 
 app.get('/', (req, res) => {
     res.send('Hello, World!');
-  });
+});
 
 const serverErrorLogger = debug('backend:error');
 
-// Express custom error handler that will be called whenever a route handler or
-// middleware throws an error or invokes the `next` function with a truthy value
 app.use((err, req, res, next) => {
     serverErrorLogger(err);
     const statusCode = err.statusCode || 500;
@@ -73,6 +66,7 @@ app.use((err, req, res, next) => {
         message: err.message,
         statusCode,
         errors: err.errors
-    })
+    });
 });
+
 module.exports = app;

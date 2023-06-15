@@ -15,12 +15,13 @@
   flex-direction: column;
   align-items: center;
   margin-left: 15%;
-  margin-right: 0;
+  margin-right: 10%;
   margin-top: 20px;
   height: calc(110vh - 350px);
   overflow-y: auto;
   margin-bottom: 20px;
   padding-bottom: 20px; 
+  color: gold
 }
 
 
@@ -29,7 +30,7 @@
   transform: translateY(-5px);
 }
 
-.track-image {
+.track-item img {
   width: 200px;
   height: 200px;
   object-fit: cover;
@@ -175,12 +176,14 @@
   justify-content: center;
   width: 100%;
   max-width: 1200px;
+  flex-direction: column;
 }
 
 .tracks {
   width: 100%;
   text-align: center;
-  font-size: 18px;
-  color: #555;
+  font-size: 40px;
+  color: gold;
   margin-top: 20px;
+  background-color: white
 }

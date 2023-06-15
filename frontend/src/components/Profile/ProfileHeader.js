@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { followUser, unfollowUser } from '../../store/follow';
 import { fetchUserTracks, clearTrackErrors } from '../../store/tracks';
 import { fetchUserFollows, fetchUserFollowing } from '../../store/follow';
+import CreatePostModal from '../UploadTextPost/UploadTextPost';
 
 // const ProfileHeader = ({ bannerUrl, profilePicUrl, followers, following }) => {
 const ProfileHeader = () => {
@@ -18,6 +19,10 @@ const ProfileHeader = () => {
   const userFollowers = useSelector(state => state.follow.followers);
   const isCurrentUserFollower = userFollowers.find(follower => follower._id === currentUser._id) !== undefined;  
   debugger
+
+  const [showModal, setShowModal] = useState(false);
+
+
   const handleFollow = () => {
     if (isCurrentUserFollower) {
       dispatch(unfollowUser(currentUser._id, username));
@@ -33,7 +38,17 @@ const ProfileHeader = () => {
     dispatch(fetchUserFollowing(username));
   }, [dispatch, username]);
 debugger
+
+  const openModal = () => {
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
   return (
+    <>
     <div className="profile-header">
       
       <div className="profile-info">
@@ -44,11 +59,23 @@ debugger
             {isCurrentUserFollower ? 'Unfollow' : 'Follow'}
           </button> 
         }
+        <button onClick={openModal}>Create A Post</button>
           <div>{followers} Followers</div>
           <div>{following} Following</div>
         </div>
-      </div>
+      {showModal && (
+        <div className="modal">
+          <div className="modal-content">
+            <span className="close" onClick={closeModal}>
+              &times;
+            </span>
+            < CreatePostModal closeModal={closeModal}/>
+          </div>
+        </div>
+      )}
+     </div>
     </div>
+    </>
   );
 }
 
