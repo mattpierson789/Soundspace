@@ -2,23 +2,25 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import './Header.css';
 
-function Header({ onLocationValue, locationValue }) {
-  const currentLocation = useSelector((state) => state.session.currentUser ? state.session.currentUser.location : 'Global');
-  const [location, setLocation] = useState(currentLocation);
-  const [feedType, setFeedType] = useState('Trending');
+function Header( {onLocationValue, locationValue, onTrendingPage} ) {
 
-  let tracks = useSelector(state => Object.values(state.tracks.allTracks));
+    const currentLocation = useSelector((state) => state.session.currentUser.location)
+    const [location, setLocation] = useState(currentLocation)
+    const [feedType, setFeedType] = useState(true)
 
-  if (locationValue && locationValue !== 'Global') {
-    tracks = tracks.filter((track) => track.location && (track.location === locationValue));
-  }
 
-  const handleClick = (value) => {
-    if (location !== value) {
-      setLocation(value);
-      onLocationValue(value);
+    let tracks = useSelector(state => Object.values(state.tracks.allTracks));
+  
+    if (locationValue && locationValue !== "Global") {
+      tracks = tracks.filter((track) => track.location && (track.location === locationValue));
     }
-  };
+
+    const handleClick = (value) => {
+        if (location !== value) {
+          setLocation(value);
+          onLocationValue(value);
+        } 
+    }
 
     const handleFeedClick = (type) => {
       if (feedType !== type) {
@@ -30,21 +32,27 @@ function Header({ onLocationValue, locationValue }) {
     // use feedType state to switch between feeds
 debugger
   return (
-    <div className="header-container">
-      <div id="logo-header">
-        <img className="logo" src="https://soundspace-seeds.s3.amazonaws.com/public/Theme+Images/Screen+Shot+2023-06-15+at+11.10-PhotoRoom.png" alt="Logo" />
-        <span>Soundspace</span>
-      </div>
+<>
+<div id='logo-header'>
+  <img className='logo' src='https://soundspace-seeds.s3.amazonaws.com/public/Theme+Images/Screen+Shot+2023-06-15+at+11.10-PhotoRoom.png' />
+  <span>Soundspace</span>
+  <div className='meet-team'>
+  {/* <span>Team</span> */}
+  </div>
+</div>
 
+
+    <div className="header-container">
+   
       <div className="header-index-banner">
       {feedType
       ? <h1>{`Trending ${location !== 'Global' || location === null ? `in ${location}` : 'around the World'}`}</h1> 
       : <h1>Following</h1>}
       </div>
-
+      
       <div className="feed-type-buttons">
-        <button onClick={() => handleFeedClick('Trending')}>Trending</button>
-        <button onClick={() => handleFeedClick('Following')}>Following</button>
+            <button onClick={() => handleFeedClick(true)}>Trending</button>
+            <button onClick={() => handleFeedClick(false)}>Following</button>
       </div>
       {feedType &&
         <div className="mainfeed-city-filters">
@@ -55,6 +63,7 @@ debugger
         </div>
       }
     </div>
+    </>
   );
 }
 
