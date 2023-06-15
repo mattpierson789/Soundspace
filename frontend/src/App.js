@@ -36,7 +36,7 @@ function App() {
       <SideBarLinks />
       <MusicBar />
       <Switch>
-        <AuthRoute exact path="/" component={MainPage} />
+        <AuthRoute exact path="/" component={MainFeed} />
         <AuthRoute exact path="/login" component={LoginForm} />
         <AuthRoute exact path="/signup" component={SignupForm} />
         <Route path="/info" component={GroupInfo} />

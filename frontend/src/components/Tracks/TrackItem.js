@@ -1,7 +1,7 @@
 import React, { useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './TrackItem.css';
-import { setCurrentTrack, increasePlayCount } from '../../store/audio';
+import { setCurrentTrack } from '../../store/audio';
 import { repostTrack, deleteTrack, addCommentToTrack} from '../../store/tracks';
 import { useHistory } from 'react-router-dom';
 
@@ -11,7 +11,6 @@ function TrackItem({ track: {_id, title, location, artist, genre, plays, likes, 
   const [commentValue, setCommentValue] = useState("");
   const user = useSelector((state) => state.session.currentUser);
   const userId = useSelector((state) => state.session.currentUser._id)
-  const currentTrack = useSelector((state) => state.audio.currentTrack);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -34,9 +33,9 @@ function TrackItem({ track: {_id, title, location, artist, genre, plays, likes, 
   const handleDelete = () => {
     dispatch(deleteTrack(_id));
   }
-
+  
+  
   const handlePlay = () => {
-    if ((currentTrack === null ) || (currentTrack.trackUrl != trackUrl)) dispatch(increasePlayCount(_id))
     dispatch(setCurrentTrack({ title, artist, trackUrl, trackImageUrl }))
   };
 
@@ -48,7 +47,7 @@ function TrackItem({ track: {_id, title, location, artist, genre, plays, likes, 
   
   return (
       <div className="track-item">
-        <img className="track-image" src={trackImageUrl} alt="Track-Image" />
+        <img className="track-image" src={trackImageUrl} />
         <div className="track-details">
           <h2 className="title">{title}</h2>
           <p className="artist" onClick={userShowPageRoute}>{artist}</p>
