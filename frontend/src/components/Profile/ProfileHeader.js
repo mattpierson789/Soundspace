@@ -58,16 +58,21 @@ const ProfileHeader = ({ onFilterValue, filterValue }) => {
       <div className="profile-header">
         <div className="profile-info">
           <div className="follower-info">
+            <div className="follow-status">
             {currentUser && currentUser._id !== userId && (
               <button onClick={handleFollow}>
                 {isCurrentUserFollower ? 'Unfollow' : 'Follow'}
               </button>
             )}
+            </div>
+            <div className="post-modal">
             <button onClick={openModal}>Create A Post</button>
+            </div>
+            <div className="follow-listings">
             <div>{followers} Followers</div>
             <div>{following} Following</div>
+            </div>
           </div>
-        </div>
         <div className="track-filters">
           <button
             value="Original"
@@ -90,6 +95,7 @@ const ProfileHeader = ({ onFilterValue, filterValue }) => {
           >
             All
           </button>
+          </div>
         </div>
         {showModal && (
           <div className="modal">
