@@ -48,6 +48,7 @@ debugger
   };
 
   return (
+    <>
     <div className="profile-header">
       
       <div className="profile-info">
@@ -62,7 +63,6 @@ debugger
           <div>{followers} Followers</div>
           <div>{following} Following</div>
         </div>
-      </div>
       {showModal && (
         <div className="modal">
           <div className="modal-content">
@@ -73,7 +73,9 @@ debugger
           </div>
         </div>
       )}
+     </div>
     </div>
+    </>
   );
 }
 
