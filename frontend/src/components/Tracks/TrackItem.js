@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import './TrackItem.css';
 import { setCurrentTrack, increasePlayCount } from '../../store/audio';
 import { repostTrack, deleteTrack, addCommentToTrack} from '../../store/tracks';
+import { useHistory } from 'react-router-dom';
 
 
 function TrackItem({ track: {_id, title, location, artist, genre, plays, likes, reshares, trackUrl, trackImageUrl } }) {
@@ -12,6 +13,7 @@ function TrackItem({ track: {_id, title, location, artist, genre, plays, likes, 
   const userId = useSelector((state) => state.session.currentUser._id)
   const currentTrack = useSelector((state) => state.audio.currentTrack);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const handleCommentChange = (e) => { // Ensure comment is under 180 chars
     const val = e.target.value
@@ -38,13 +40,18 @@ function TrackItem({ track: {_id, title, location, artist, genre, plays, likes, 
     dispatch(setCurrentTrack({ title, artist, trackUrl, trackImageUrl }))
   };
 
+  const userShowPageRoute = () => {
+    history.push(`/profile/${artist}`); 
+  };
+
+
   
   return (
       <div className="track-item">
         <img className="track-image" src={trackImageUrl} alt="Track-Image" />
         <div className="track-details">
           <h2 className="title">{title}</h2>
-          <p className="artist">{artist}</p>
+          <p className="artist" onClick={userShowPageRoute}>{artist}</p>
           <p className="genre">{genre}</p>
           <div className="track-stats">
           <p className="plays">Plays: {plays}</p>
@@ -53,7 +60,7 @@ function TrackItem({ track: {_id, title, location, artist, genre, plays, likes, 
           </div>
           <div className="track-buttons-container">
             <div className="track-buttons">
-              <button>Like</button>
+              {/* <button>Like</button> */}
               <button onClick={handleReshare}>{isReshared ? 'Reshared' : 'Repost'}</button>
               {/* <button>Save</button> */}
               <button onClick={handleDelete}>Delete Track</button>
