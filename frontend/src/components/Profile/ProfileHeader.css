@@ -77,3 +77,33 @@
     margin-left: 5%;
   }
 }
+
+.track-filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  justify-content: space-evenly;
+  position: absolute;
+}
+
+.track-filters button {
+  padding: 8px 12px;
+  font-size: 16px;
+  background-color: #fff;
+  border: 2px solid #e6e6e6;
+  border-radius: 30px;
+  color: #333;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.track-filters button.active {
+  background-color: #e6e6e6;
+  color: #555;
+}
+
+.track-filters button:hover {
+  background-color: #e6e6e6;
+  color: #555;
+}
