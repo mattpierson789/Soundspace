@@ -15,9 +15,9 @@ const ProfileHeader = () => {
   const followers = useSelector(state => state.follow.followers.length);
   const following = useSelector(state => state.follow.following.length);
   // const isfollowing = useSelector(state => state.follow.followers.length);
-  const [isFollowing, setIsFollowing] = useState(isCurrentUserFollower);
   const userFollowers = useSelector(state => state.follow.followers);
   const isCurrentUserFollower = userFollowers.find(follower => follower._id === currentUser._id) !== undefined;  
+  const [isFollowing, setIsFollowing] = useState(isCurrentUserFollower);
   debugger
 
   const [showModal, setShowModal] = useState(false);
