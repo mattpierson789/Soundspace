@@ -14,6 +14,7 @@ function MusicUploadForm() {
 
   const handleSubmit = e => {
     e.preventDefault();
+    if (genre === "") return null 
     const formData = new FormData();
     if (selectedAudioFile) {
       formData.append('files', selectedAudioFile);
