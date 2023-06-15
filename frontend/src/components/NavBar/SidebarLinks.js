@@ -34,7 +34,7 @@ const SidebarLinks = ({ isLoggedIn }) => {
               <div id="links-container">
                 <UserInfo />
                 <Link to="/tracks">Trending</Link>
-                <Link to="/tracks">Feed</Link>
+                <Link to="/tracks">Following</Link>
                 <button onClick={openModal}>Upload Track</button>
                 <li>
                   {loggedIn && <button onClick={logoutUser}>Logout</button>}
@@ -49,7 +49,6 @@ const SidebarLinks = ({ isLoggedIn }) => {
                 <Link to="/login">Login</Link>
                 <Link to="/signup">Signup</Link>
                 <Link to="/tracks">Trending</Link>
-                <Link to="/tracks">Feed</Link>
                 <Link to="/tracks">Following</Link>
               </div>
               </div>

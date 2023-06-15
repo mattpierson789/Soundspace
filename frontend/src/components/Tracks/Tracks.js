@@ -4,12 +4,11 @@ import { clearTrackErrors, fetchTracks } from '../../store/tracks';
 import TrackItem from './TrackItem';
 import './Tracks.css';
 
-function Tracks( {locationValue}=null ) {
+function Tracks( {locationValue} = null ) {
   const dispatch = useDispatch();
   let tracks = useSelector(state => Object.values(state.tracks.allTracks));
-  debugger
+  
   if (locationValue && locationValue !== "Global") {
-    debugger
     tracks = tracks.filter((track) => track.location && (track.location === locationValue));
   }
 
@@ -18,9 +17,12 @@ function Tracks( {locationValue}=null ) {
     return () => dispatch(clearTrackErrors());
   }, [dispatch]);
 
+  const backgroundImage = locationValue && locationValue !== "Global" ? 
+    'https://soundspace-seeds.s3.amazonaws.com/public/Theme+Images/NYC+MainPage+Background' : 
+    'https://soundspace-seeds.s3.amazonaws.com/public/Theme+Images/NYC+MainPage+Background'; 
+
   return (
-    <div className="tracks-container">
-      <h2 className="trending-title">{`Trending ${locationValue !== 'Global' ? `in ${locationValue}` : 'around the World'}`}</h2>
+    <div className="tracks-container" style={{backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center'}}>
       <div className="main-content-tracks-container">
         <div className="main-content-tracks">
           {tracks.length === 0 ? (
@@ -32,7 +34,6 @@ function Tracks( {locationValue}=null ) {
           )}
         </div>
       </div>
-      
     </div>
   );
 }
