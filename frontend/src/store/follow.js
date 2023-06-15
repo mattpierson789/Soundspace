@@ -42,25 +42,6 @@ const clearFollowerErrors = () => ({
     type: CLEAR_FOLLOWER_ERRORS,
 });
 
-const fetchFollowers = () => async dispatch => {
-    try {
-        const res = await jwtFetch('/api/follow/followers')
-        const followers = await res.json();
-        dispatch(receiveFollows(followers));
-    } catch (err) {
-        dispatch(receiveErrors(err))
-    }
-}
-
-const fetchFollowing = () => async dispatch => {
-    try {
-        const res = await jwtFetch('/api/follow/following')
-        const following = await res.json();
-        dispatch(receiveFollowing(following));
-    } catch (err) {
-        dispatch(receiveErrors(err))
-    }
-}
 
 const fetchUserFollows = username => async dispatch => {
   debugger
@@ -92,7 +73,9 @@ const followUser = (currentUserId, username) => async dispatch => {
   try {
       const res = await jwtFetch(`/api/users/${currentUserId}/follow/${username}`, { method: 'POST' });
       const data = await res.json();
-      dispatch(receiveNewFollow(data));
+      console.log(data);
+      dispatch(userFollowing(data.following));
+      dispatch(userFollows(data.followers));
       // dispatch(fetchUserFollows(username));
       // dispatch(fetchUserFollowing(username));
   } catch (err) {
@@ -101,14 +84,18 @@ const followUser = (currentUserId, username) => async dispatch => {
 }
 
 
-
 const unfollowUser = (currentUserId, username) => async dispatch => {
   try {
       const res = await jwtFetch(`/api/users/${currentUserId}/unfollow/${username}`, { method: 'DELETE' });
+    //   console.log(res.json())
       const data = await res.json();
-      dispatch(receiveNewFollow(data));
-      dispatch(fetchUserFollows(username));
-      dispatch(fetchUserFollowing(username));
+    //   dispatch(receiveNewFollow(data));
+    //   dispatch(fetchUserFollows(username));
+    //   dispatch(fetchUserFollowing(username));
+        console.log("data:", data);
+        dispatch(userFollowing(data.following));
+        dispatch(userFollows(data.followers));
+    
   } catch (err) {
       dispatch(receiveErrors(err));
   }
@@ -147,4 +134,4 @@ const followReducer = (state = initialState, action) => {
 };
 
 export default followReducer;
-export { fetchFollowers, fetchFollowing, fetchUserFollows, fetchUserFollowing, followUser, unfollowUser, receiveNewFollow, clearFollowerErrors };
+export { fetchUserFollows, fetchUserFollowing, followUser, unfollowUser, receiveNewFollow, clearFollowerErrors };

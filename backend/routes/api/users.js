@@ -221,26 +221,36 @@ router.post('/upload-music', multipleMulterUpload('files'), async (req, res, nex
 // One user follows another user
 
 router.post('/:_id/follow/:username', async (req, res, next) => {
-  
   try {
     const { _id, username } = req.params;
+
+
     const currentUser = await User.findById(_id);
+
+
     const userToFollow = await User.findOne({username: username});
+
 
     if (!userToFollow) {
       return res.status(404).json({ error: 'User not found' });
     }
+    
 
     currentUser.followingIds.push(userToFollow._id);
     await currentUser.save();
 
+
+    
+
     userToFollow.followerIds.push(currentUser._id);
+
     await userToFollow.save();
+
 
     await User.populate(currentUser, { path: 'followingIds', select: '_id username' });
     await User.populate(userToFollow, { path: 'followerIds', select: '_id username' });
 
-    return res.json({ following: currentUser.followingIds, followers: userToFollow.followerIds });
+    return res.json({ following: userToFollow.followingIds, followers: userToFollow.followerIds });
   } catch (err) {
     next(err);
   }
@@ -259,11 +269,15 @@ router.delete('/:_id/unfollow/:username', async (req, res, next) => {
     }
     currentUser.followingIds = currentUser.followingIds.filter(id => !id.equals(userToUnfollow._id));
     await currentUser.save();
+    
     userToUnfollow.followerIds = userToUnfollow.followerIds.filter(id => !id.equals(currentUser._id));
     await userToUnfollow.save();
+    
     await User.populate(currentUser, { path: 'followingIds', select: '_id username' });
     await User.populate(userToUnfollow, { path: 'followerIds', select: '_id username' });
-    return res.json({ following: currentUser.followingIds, followers: userToUnfollow.followerIds });
+    console.log("following:", currentUser.followingIds)
+    console.log("followers:", currentUser.followerIds)
+    return res.json({ following: userToUnfollow.followingIds, followers: userToUnfollow.followerIds });
   } catch (err) {
     next(err);
   }
@@ -273,12 +287,12 @@ router.delete('/:_id/unfollow/:username', async (req, res, next) => {
 router.get('/:username/followingIds', async (req, res) => {
   try {
       const user = await User.findOne({ username: req.params.username });
-      console.log("user:",user)
-      // const user = await User.findOne({ username: "demouser"});
-      const following = await User.find({ _id: { $in: user.following } });
-      console.log("following:", following);
 
-      res.json(following);
+      let followingPromises = user.followingIds.map((following) => 
+        User.findById(following._id));
+
+      const following = await Promise.all(followingPromises);
+      return res.json(following);
   } catch (err) {
       res.status(500).json({ error: err.message });
   }
@@ -288,14 +302,16 @@ router.get('/:username/followingIds', async (req, res) => {
 router.get('/:username/followerIds', async (req, res) => {
   try {
       const user = await User.findOne({ username: req.params.username });
-      const follows = await User.find({ _id: { $in: user.follows } });
-      console.log("follows:", follows);
-      res.json(follows);
+      let followerPromises = user.followerIds.map(follower => 
+          User.findById(follower._id) )
+  
+      const followers = await Promise.all(followerPromises);
+      console.log(followers)
+      return res.json(followers);
   } catch (err) {
       res.status(500).json({ error: err.message });
   }
 });
-
 
 
 module.exports = router; 

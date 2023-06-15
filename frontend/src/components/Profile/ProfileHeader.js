@@ -13,15 +13,18 @@ const ProfileHeader = () => {
   const currentUser = useSelector(state => state.session.currentUser);
   const followers = useSelector(state => state.follow.followers.length);
   const following = useSelector(state => state.follow.following.length);
-  const [isFollowing, setIsFollowing] = useState(false);
-
+  // const isfollowing = useSelector(state => state.follow.followers.length);
+  const [isFollowing, setIsFollowing] = useState(isCurrentUserFollower);
+  const userFollowers = useSelector(state => state.follow.followers);
+  const isCurrentUserFollower = userFollowers.find(follower => follower._id === currentUser._id) !== undefined;  
+  debugger
   const handleFollow = () => {
-    if (isFollowing) {
+    if (isCurrentUserFollower) {
       dispatch(unfollowUser(currentUser._id, username));
-      setIsFollowing(false);
+      // setIsFollowing(false);
     } else {
       dispatch(followUser(currentUser._id, username));
-      setIsFollowing(true);
+      // setIsFollowing(true);
     }
   };
 
@@ -38,7 +41,7 @@ debugger
        
        {currentUser.username !== username &&
           <button onClick={handleFollow}>
-            {isFollowing ? 'Unfollow' : 'Follow'}
+            {isCurrentUserFollower ? 'Unfollow' : 'Follow'}
           </button> 
         }
           <div>{followers} Followers</div>
