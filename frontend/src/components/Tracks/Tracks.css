@@ -15,12 +15,13 @@
   flex-direction: column;
   align-items: center;
   margin-left: 15%;
-  margin-right: 0;
+  margin-right: 10%;
   margin-top: 20px;
   height: calc(110vh - 350px);
   overflow-y: auto;
   margin-bottom: 20px;
   padding-bottom: 20px; 
+  color: gold
 }
 
 
@@ -181,7 +182,8 @@
 .tracks {
   width: 100%;
   text-align: center;
-  font-size: 18px;
-  color: #555;
+  font-size: 40px;
+  color: gold;
   margin-top: 20px;
+  background-color: white
 }
