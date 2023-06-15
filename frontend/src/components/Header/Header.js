@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-// import MainFeed from '../MainFeed/MainFeed';
 import './Header.css';
 
 function Header( {onLocationValue} ) {
 
     const currentLocation = useSelector((state) => state.session.currentUser.location)
     const [location, setLocation] = useState(currentLocation)
+    const [feedType, setFeedType] = useState("Trending")
 
     const handleClick = (value) => {
         if (location !== value) {
@@ -14,14 +14,21 @@ function Header( {onLocationValue} ) {
           onLocationValue(value);
         } 
     }
-    debugger
+
+    const handleFeedClick = (type) => {
+      setFeedType(type);
+    }
+    
+    // use feedType state to switch between feeds
+
   return (
     <div className="header-container">
-      <div className="search-bar">
-        <p>Search For Songs!</p>
-      </div>
       <div className="header-index-banner">
         <h1>Your Feed</h1>
+      </div>
+      <div className="feed-type-buttons">
+            <button onClick={() => handleFeedClick("Trending")}>Trending</button>
+            <button onClick={() => handleFeedClick("Following")}>Following</button>
       </div>
       <div className="mainfeed-city-filters">
             <button value={"NYC"} onClick={(e) => handleClick(e.target.value)}>NYC</button>
@@ -29,10 +36,8 @@ function Header( {onLocationValue} ) {
             <button value={"ATL"} onClick={(e) => handleClick(e.target.value)}>ATL</button>
             <button value={"Global"} onClick={(e) => handleClick(e.target.value)}>Global</button>
         </div>
-        {/* <MainFeed location={location} /> */}
     </div>
   );
 }
 
 export default Header;
-

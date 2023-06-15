@@ -11,8 +11,10 @@
   
   .header-index-banner {
     position: relative;
-    transform: translate(195%, 0%);
+    transform: translate(115%, 65%);
     font-size: 30px;
+    color: goldenrod
+  ;
   }
   
   .search-bar {
@@ -32,6 +34,14 @@
     display: flex;
     gap: 10px;
     margin-bottom: 20px;
+    transform: translate(235%, 135%);
+  }
+
+  .feed-type-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    transform: translate(50%, 135%);
   }
   
   .mainfeed-city-filters button {
@@ -44,8 +54,24 @@
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;
   }
+
+  .feed-type-buttons button {
+    padding: 8px 12px;
+    font-size: 16px;
+    background-color: #fff;
+    border: 2px solid #e6e6e6;
+    border-radius: 30px;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
   
   .mainfeed-city-filters button:hover {
+    background-color: #e6e6e6;
+    color: #555;
+  }
+
+  .feed-type-buttons button:hover {
     background-color: #e6e6e6;
     color: #555;
   }
