@@ -35,9 +35,9 @@ function Tracks({ locationValue }) {
 
   return (
     <div className="tracks-container" style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
-      <h2 className="trending-title">{`Trending ${
+      {/* <h2 className="trending-title">{`Trending ${
         locationValue !== 'Global' ? `in ${locationValue}` : 'around the World'
-      }`}</h2>
+      }`}</h2> */}
       <div className="main-content-tracks-container">
         <div className="main-content-tracks">
           {tracks.length === 0 ? (
