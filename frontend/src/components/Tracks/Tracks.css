@@ -19,9 +19,10 @@
   margin-top: 20px;
   height: calc(110vh - 350px);
   overflow-y: auto;
-  margin-bottom: 20px; /* Add margin at the bottom */
-  padding-bottom: 20px; /* Add padding at the bottom */
+  margin-bottom: 20px;
+  padding-bottom: 20px; 
 }
+
 
 
 .track-item:hover {

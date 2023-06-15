@@ -25,13 +25,13 @@ function MainFeed() {
             </div>
             <div className="mainfeed-index">
                 <Tracks locationValue={ locationValue }/>
+                <img src='https://soundspace-seeds.s3.amazonaws.com/public/Theme+Images/NYC+MainPage+Background.jpg' alt='Background' />
             </div>
             {/* <div className="mainfeed-musicbar">
                 <MusicBar />
             </div> */}
         </div>
     );
-
 }
 
 export default MainFeed;
