@@ -20,11 +20,8 @@ function Profile() {
   const userFollowers = useSelector(state => state.follow.user);
   const userFollowing = useSelector(state => state.follow.all);
 
-  useEffect(() => {
-    dispatch(fetchUserTracks(username));
-    dispatch(fetchUserFollows(username));
-    dispatch(fetchUserFollowing(username));
-  }, [dispatch, username]);
+  // Put in useEffect
+  dispatch(fetchUserTracks(username));
 
   // useEffect(() => {
   //   const isFollowing = userFollowing.some(user => user.username === username);

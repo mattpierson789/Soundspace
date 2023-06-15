@@ -43,7 +43,7 @@ const tracksSchema = new Schema({
   genre: {
     type: String,
     required: false,
-    index: true
+    enum: ['Pop', 'Rock', 'Hip Hop', 'Electronic']
     },
   owner: [{
     type: Schema.Types.ObjectId,

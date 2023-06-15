@@ -23,9 +23,9 @@ const receiveNewFollow = follow => ({
     follow
 });
 
-const userFollows = follows => ({
+const userFollows = followers => ({
     type: USER_FOLLOWS,
-    follows
+    followers
 });
 
 const userFollowing = following => ({
@@ -65,9 +65,10 @@ const fetchFollowing = () => async dispatch => {
 const fetchUserFollows = username => async dispatch => {
   debugger
     try {
-        const res = await jwtFetch(`/api/users/${username}/follows`);
-        const follows = await res.json();
-        dispatch(userFollows(follows));
+        const res = await jwtFetch(`/api/users/${username}/followerIds`);
+        const followers = await res.json();
+        console.log("follows:", followers)
+        dispatch(userFollows(followers));
     } catch (err) {
         dispatch(receiveErrors(err));
     }
@@ -76,8 +77,9 @@ const fetchUserFollows = username => async dispatch => {
 const fetchUserFollowing = username => async dispatch => {
   debugger
     try {
-        const res = await jwtFetch(`/api/users/${username}/following`);
+        const res = await jwtFetch(`/api/users/${username}/followingIds`);
         const following = await res.json();
+        console.log("following:", following)
         dispatch(userFollowing(following));
     } catch (err) {
         dispatch(receiveErrors(err));
@@ -115,6 +117,8 @@ const unfollowUser = (currentUserId, username) => async dispatch => {
 
 const initialState = {
     all: [],
+    followers: [],
+    following: [],
     user: {},
     new: undefined,
     errors: null
@@ -126,8 +130,11 @@ const followReducer = (state = initialState, action) => {
         case RECEIVE_FOLLOWING:
             return { ...state, all: action.follows };
         case USER_FOLLOWS:
+            return { ...state, followers: action.followers}
+        // case USER_FOLLOWING:
+        //     return { ...state, user: action.following };
         case USER_FOLLOWING:
-            return { ...state, user: action.following };
+            return { ...state, following: action.following };
         case RECEIVE_NEW_FOLLOW:
             return { ...state, new: action.follow };
         case RECEIVE_FOLLOWER_ERRORS:

@@ -1,14 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './ProfileHeader.css';
 import { useParams } from 'react-router-dom';
 import { followUser, unfollowUser } from '../../store/follow';
+import { fetchUserTracks, clearTrackErrors } from '../../store/tracks';
+import { fetchUserFollows, fetchUserFollowing } from '../../store/follow';
 
-const ProfileHeader = ({ bannerUrl, profilePicUrl, followers, following }) => {
-  const [isFollowing, setIsFollowing] = useState(false);
+// const ProfileHeader = ({ bannerUrl, profilePicUrl, followers, following }) => {
+const ProfileHeader = () => {
   const dispatch = useDispatch();
-  const currentUser = useSelector(state => state.session.currentUser);
   const { username } = useParams();
+  const currentUser = useSelector(state => state.session.currentUser);
+  const followers = useSelector(state => state.follow.followers.length);
+  const following = useSelector(state => state.follow.following.length);
+  const [isFollowing, setIsFollowing] = useState(false);
 
   const handleFollow = () => {
     if (isFollowing) {
@@ -20,6 +25,11 @@ const ProfileHeader = ({ bannerUrl, profilePicUrl, followers, following }) => {
     }
   };
 
+  useEffect(() => {
+    dispatch(fetchUserFollows(username));
+    dispatch(fetchUserFollowing(username));
+  }, [dispatch, username]);
+debugger
   return (
     <div className="profile-header">
       

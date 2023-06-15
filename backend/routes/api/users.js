@@ -270,11 +270,14 @@ router.delete('/:_id/unfollow/:username', async (req, res, next) => {
 });
 
 // Get the users that the given user is following
-router.get('/api/users/:username/following', async (req, res) => {
-  debugger
+router.get('/:username/followingIds', async (req, res) => {
   try {
       const user = await User.findOne({ username: req.params.username });
+      console.log("user:",user)
+      // const user = await User.findOne({ username: "demouser"});
       const following = await User.find({ _id: { $in: user.following } });
+      console.log("following:", following);
+
       res.json(following);
   } catch (err) {
       res.status(500).json({ error: err.message });
@@ -282,11 +285,11 @@ router.get('/api/users/:username/following', async (req, res) => {
 });
 
 // Get the users that follow the given user
-router.get('/api/users/:username/follows', async (req, res) => {
-  debugger
+router.get('/:username/followerIds', async (req, res) => {
   try {
       const user = await User.findOne({ username: req.params.username });
       const follows = await User.find({ _id: { $in: user.follows } });
+      console.log("follows:", follows);
       res.json(follows);
   } catch (err) {
       res.status(500).json({ error: err.message });
