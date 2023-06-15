@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import AudioPlayer, { RHAP_UI } from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 import './MusicBar.css';
-import { setCurrentTrack } from '../../store/audio';
+import { setCurrentTrack, increasePlayCount } from '../../store/audio';
 
 function MusicBar() {
   const dispatch = useDispatch();
@@ -18,16 +18,23 @@ function MusicBar() {
   const { title, artist, trackUrl, trackImageUrl } = currentTrack;
 
   const handleClickNext = () => {
-    const currentIndex = tracks.findIndex((track) => track === currentTrack);
-    const nextIndex = (currentIndex + 1) % tracks.length;
-    dispatch(setCurrentTrack(tracks[nextIndex]));
-  };
+  const currentIndex = tracks.findIndex((track) => track._id === currentTrack._id);
+  const nextIndex = (currentIndex + 1) % tracks.length;
+  dispatch(setCurrentTrack(tracks[nextIndex]));
+  if (currentTrack.trackUrl !== tracks[nextIndex].trackUrl) {
+    dispatch(increasePlayCount(currentTrack._id));
+  }
+};
 
-  const handleClickPrevious = () => {
-    const currentIndex = tracks.findIndex((track) => track === currentTrack);
-    const previousIndex = (currentIndex - 1 + tracks.length) % tracks.length;
-    dispatch(setCurrentTrack(tracks[previousIndex]));
-  };
+const handleClickPrevious = () => {
+  const currentIndex = tracks.findIndex((track) => track._id === currentTrack._id);
+  const previousIndex = (currentIndex - 1 + tracks.length) % tracks.length;
+  dispatch(setCurrentTrack(tracks[previousIndex]));
+  if (currentTrack.trackUrl !== tracks[previousIndex].trackUrl) {
+    dispatch(increasePlayCount(currentTrack._id));
+  }
+};
+
 
   return (
     <div className='footer-container'>

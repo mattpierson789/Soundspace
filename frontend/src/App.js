@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Switch } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import React from 'react';
 import 'normalize.css';
 
@@ -10,11 +10,11 @@ import SideBarLinks from './components/NavBar/SidebarLinks';
 import MainPage from './components/MainPage/MainPage'; 
 import LoginForm from './components/SessionForms/LoginForm'; 
 import SignupForm from './components/SessionForms/SignupForm'; 
-// import Tracks from './components/Tracks/Tracks';
+import Tracks from './components/Tracks/Tracks';
 import Profile from './components/Profile/Profile';
 import { getCurrentUser } from './store/session';
-// import TrackUpload from './components/Tracks/TrackUpload';
-// import startSession from './store/session';
+import TrackUpload from './components/Tracks/TrackUpload';
+import startSession from './store/session';
 import MainFeed from './components/MainFeed/MainFeed';
 import MusicBar from './components/MusicBar/MusicBar';
 import MusicUploadForm from './components/MusicFileUpload/MusicFileUpload';
@@ -34,7 +34,7 @@ function App() {
       <SideBarLinks />
       <MusicBar />
       <Switch>
-        <AuthRoute exact path="/" component={MainPage} />
+        <AuthRoute exact path="/" component={MainFeed} />
         <AuthRoute exact path="/login" component={LoginForm} />
         <AuthRoute exact path="/signup" component={SignupForm} />
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import './SidebarLinks.css';
@@ -24,6 +24,20 @@ const SidebarLinks = ({ isLoggedIn }) => {
   const closeModal = () => {
     setShowModal(false);
   };
+
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      if (showModal && !e.target.closest('.modal-content')) {
+        setShowModal(false);
+      }
+    };
+
+    window.addEventListener('click', handleOutsideClick);
+
+    return () => {
+      window.removeEventListener('click', handleOutsideClick);
+    };
+  }, [showModal]);
 
   return (
     <div className="container">
