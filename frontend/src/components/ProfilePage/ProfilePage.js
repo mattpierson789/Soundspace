@@ -6,14 +6,20 @@ import './ProfilePage.css'
 
 function ProfilePage() {
   const currentUser = useSelector((state) => state.session.currentUser);
-  // const []
+
+  const [filter, setFilter] = useState("All");
+
+  const handleFilter = (filter) => {
+    setFilter(filter);
+  };
+
   return (
     <div className="profile-page-container">
       <div className="profile-header-main">
-        <ProfileHeader />
+      <ProfileHeader onFilterValue={handleFilter} />
       </div>
       <div className="profile-feed">
-        <Profile />
+        <Profile filter={filter}/>
       </div>
     </div>
   );
