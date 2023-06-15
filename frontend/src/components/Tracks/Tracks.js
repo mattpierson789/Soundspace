@@ -3,14 +3,38 @@ import { useDispatch, useSelector } from 'react-redux';
 import { clearTrackErrors, fetchTracks } from '../../store/tracks';
 import TrackItem from './TrackItem';
 import './Tracks.css';
+import { fetchUserFollows, fetchUserFollowing } from '../../store/follow';
 
-function Tracks( {locationValue} = null ) {
+
+function Tracks( {trendingPage, locationValue = null} ) {
   const dispatch = useDispatch();
+  const currentUser = useSelector(state => state.session.currentUser);
+
+
+  // These are for the following page ONLY
+  const following = useSelector(state => Object.values(state.follow.following))
+  const filteredFollowing = following.filter(item => item !== null);
+  const usernames = filteredFollowing.map(item => item.username);
+
   let tracks = useSelector(state => Object.values(state.tracks.allTracks));
-  
+  debugger
+  if (trendingPage === false) {
+    debugger
+    tracks = tracks.filter(track => usernames.includes(track.artist))
+    console.log(tracks)
+    locationValue = null
+    debugger
+    // tracks = tracks.filter((track) => )
+  }
   if (locationValue && locationValue !== "Global") {
     tracks = tracks.filter((track) => track.location && (track.location === locationValue));
   }
+  
+  useEffect(() => {
+    debugger
+    dispatch(fetchUserFollows(currentUser.username));
+    dispatch(fetchUserFollowing(currentUser.username));
+  }, []);
 
   useEffect(() => {
     dispatch(fetchTracks());

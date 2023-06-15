@@ -10,10 +10,15 @@ import { useSelector } from 'react-redux';
 function MainFeed() {
     const location = useSelector((state) => state.session.currentUser.location)
     const [locationValue, setLocationValue] = useState(location);
+    const [trendingPage, setTrendingPage] = useState(true);
   
     const handleLocationValue = (value) => {
       setLocationValue(value);
     };
+
+    const handleTrendingPage = () => {
+        setTrendingPage(!trendingPage);
+    }
     debugger
     return (
         <div className="mainfeed-container">
@@ -21,10 +26,10 @@ function MainFeed() {
                 <NavBar />
             </div>
             <div className="mainfeed-header">
-                <Header onLocationValue={handleLocationValue}/>
+                <Header onLocationValue={handleLocationValue} onTrendingPage={handleTrendingPage}/>
             </div>
             <div className="mainfeed-index">
-                <Tracks locationValue={ locationValue }/>
+                <Tracks locationValue={ locationValue } trendingPage={trendingPage}/>
                 <img src='https://soundspace-seeds.s3.amazonaws.com/public/Theme+Images/NYC+MainPage+Background.jpg' alt='Background' />
             </div>
             {/* <div className="mainfeed-musicbar">

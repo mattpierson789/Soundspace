@@ -292,6 +292,7 @@ router.get('/:username/followingIds', async (req, res) => {
         User.findById(following._id));
 
       const following = await Promise.all(followingPromises);
+      console.log('following:', following)
       return res.json(following);
   } catch (err) {
       res.status(500).json({ error: err.message });
@@ -306,7 +307,7 @@ router.get('/:username/followerIds', async (req, res) => {
           User.findById(follower._id) )
   
       const followers = await Promise.all(followerPromises);
-      console.log(followers)
+      console.log(followers.map(follower => follower.username))
       return res.json(followers);
   } catch (err) {
       res.status(500).json({ error: err.message });

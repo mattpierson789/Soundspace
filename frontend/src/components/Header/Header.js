@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import './Header.css';
 
-function Header( {onLocationValue, locationValue} ) {
+function Header( {onLocationValue, locationValue, onTrendingPage} ) {
 
     const currentLocation = useSelector((state) => state.session.currentUser.location)
     const [location, setLocation] = useState(currentLocation)
-    const [feedType, setFeedType] = useState("Trending")
+    const [feedType, setFeedType] = useState(true)
 
 
     let tracks = useSelector(state => Object.values(state.tracks.allTracks));
@@ -23,7 +23,10 @@ function Header( {onLocationValue, locationValue} ) {
     }
 
     const handleFeedClick = (type) => {
-      setFeedType(type);
+      if (feedType !== type) {
+        setFeedType(type);
+        onTrendingPage(type);
+      }
     }
     
     // use feedType state to switch between feeds
@@ -46,8 +49,8 @@ function Header( {onLocationValue, locationValue} ) {
       </div>
       
       <div className="feed-type-buttons">
-            <button onClick={() => handleFeedClick("Trending")}>Trending</button>
-            <button onClick={() => handleFeedClick("Following")}>Following</button>
+            <button onClick={() => handleFeedClick(true)}>Trending</button>
+            <button onClick={() => handleFeedClick(false)}>Following</button>
       </div>
       <div className="mainfeed-city-filters">
             <button value={"NYC"} onClick={(e) => handleClick(e.target.value)}>NYC</button>
