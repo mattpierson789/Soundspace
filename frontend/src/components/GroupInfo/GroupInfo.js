@@ -41,7 +41,7 @@ function GroupInfo() {
         </div>
       </div>
       <div className="card">
-        <h3 className="card-title">Flex</h3>
+        <h3 className="card-title">Flex Lead</h3>
         <div className="bar">
           <div className="github">github</div>
           <div className="linkedin">linkedin</div>
