@@ -4,17 +4,17 @@ import './PostItem.css';
 import { updatePost } from '../../store/posts';
 
 function PostItem({ post }) {
-  const { _id, title, content, poster, posterImgUrl } = post; // Destructure the post object
+  const { _id, title, content, poster, posterImgUrl } = post || {}; // Destructure the post object
   const [isEditing, setIsEditing] = useState(false);
   const [editedTitle, setEditedTitle] = useState(title);
   const [editedContent, setEditedContent] = useState(content);
   const dispatch = useDispatch();
-  const users = useSelector((state) => state.session.allUsers);
- 
+  const currentUser = useSelector((state) => state.session.currentUser);
+
   const handleEdit = () => {
-    if (!isEditing) {
+    if (!isEditing && currentUser && currentUser._id === poster) {
       setIsEditing(true);
-    } else {
+    } else if (isEditing && currentUser && currentUser._id === poster) {
       dispatch(updatePost(_id, { title: editedTitle, content: editedContent }));
       setIsEditing(false);
     }
@@ -60,7 +60,7 @@ function PostItem({ post }) {
           <button onClick={handleEdit}>Save</button>
         ) : (
           <>
-            <button onClick={handleEdit}>Edit</button>
+            {currentUser && currentUser._id === poster && <button onClick={handleEdit}>Edit</button>}
           </>
         )}
       </div>

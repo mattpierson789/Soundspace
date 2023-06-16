@@ -49,6 +49,7 @@ const SidebarLinks = ({ isLoggedIn }) => {
                 <UserInfo />
                 <Link to="/tracks">Trending</Link>
                 <Link to="/tracks">Following</Link>
+                <Link to="/info">Check Out The Developers!</Link>
                 <button onClick={openModal}>Upload Track</button>
                 <li>
                   {loggedIn && <button onClick={logoutUser}>Logout</button>}
