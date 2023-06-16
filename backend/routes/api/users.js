@@ -64,7 +64,7 @@ router.post('/register', singleMulterUpload("image"), validateRegisterInput, asy
   const profileImageUrl = req.file ? 
     await singleFileUpload({ file: req.file, public: true}) :
     DEFAULT_PROFILE_IMAGE_URL;
-    debugger
+    
   const newUser = new User({
     username: req.body.username,
     profileImageUrl,
@@ -82,7 +82,7 @@ router.post('/register', singleMulterUpload("image"), validateRegisterInput, asy
         newUser.hashedPassword = hashedPassword;
         const user = await newUser.save();
         console.log(user)
-        debugger
+        
         return res.json(await loginUser(user)); 
       }
       catch(err) {
@@ -109,7 +109,7 @@ router.post('/login', singleMulterUpload(""), validateLoginInput, async (req, re
 // module.exports = router;
 
 router.get('/current', restoreUser, (req, res) => {
-  debugger 
+   
   if (!isProduction) {
     const csrfToken = req.csrfToken();
     res.cookie("CSRF-TOKEN", csrfToken);
@@ -135,7 +135,7 @@ router.get('/current', restoreUser, (req, res) => {
 
 
 // const { artist, song, location, genre, user} = req.body;
-//     debugger
+//     
 //     const newTrack = new Track({
 //       artist,
 //       song,
@@ -330,7 +330,7 @@ router.post('/upload-post', async (req, res, next) => {
   try {
     const { title, content, userId } = req.body;
     const currentUser = await User.findById(userId);
-    debugger 
+     
 
     if (!currentUser) {
       return res.status(404).json({ error: 'User not found' });
@@ -346,7 +346,7 @@ router.post('/upload-post', async (req, res, next) => {
     await post.save();
 
     if (Array.isArray(currentUser.postIds)) {
-      debugger 
+       
       console.log(currentUser)
       currentUser.postIds.push(post._id);
     } else {

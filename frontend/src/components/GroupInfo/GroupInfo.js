@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './GroupInfo.css';
 
 function GroupInfo() {
-    debugger 
+     
 
     return (
 

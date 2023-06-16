@@ -91,7 +91,7 @@ export const repostTrack = (id, userId) => async dispatch => {
 
 export const addCommentToTrack = (trackId, content) => async dispatch => {
   console.log(trackId, content);
-  debugger
+  
   try {
     const res = await jwtFetch(`/api/tracks/${trackId}/comments`, {
       method: 'POST',

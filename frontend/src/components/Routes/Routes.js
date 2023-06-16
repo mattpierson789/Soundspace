@@ -4,7 +4,7 @@ import React from 'react';
 
 export const AuthRoute = ({ component: Component, path, exact }) => {
   const loggedIn = useSelector(state => !!state.session.currentUser);
-  debugger 
+   
   return (
     <Route path={path} exact={exact} render={(props) => (
       loggedIn ? (

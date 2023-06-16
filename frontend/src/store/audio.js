@@ -31,7 +31,7 @@ export const increasePlayCount = (trackId) => async dispatch => {
     if (res.ok) {
       const responseData = await res.json();
       console.log(responseData);
-      debugger
+      
       // dispatch(receiveNewTrack(responseData)); // Dispatch the received track data
     } else {
       console.log('Upload failed');

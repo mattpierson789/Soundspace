@@ -20,7 +20,7 @@ function CreatePostModal({ closeModal }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    debugger 
+     
 
     // Dispatch createPost action with the form data and user ID
     dispatch(createPost({ title, content, userId: currentUser._id }));

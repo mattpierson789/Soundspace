@@ -30,7 +30,7 @@ function Header( {onLocationValue, locationValue, onTrendingPage} ) {
     }
     
     // use feedType state to switch between feeds
-debugger
+
   return (
 <>
 <div id='logo-header'>

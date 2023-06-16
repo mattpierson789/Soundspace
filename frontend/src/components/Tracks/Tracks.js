@@ -34,13 +34,13 @@ function Tracks({ trendingPage, locationValue = null }) {
       dispatch(fetchUserFollows(currentUser.username));
       dispatch(fetchUserFollowing(currentUser.username));
     }
-  }, [currentUser, dispatch]);
+  }, [currentUser]);
 
   useEffect(() => {
     dispatch(fetchTracks());
     dispatch(fetchPosts());
     return () => dispatch(clearTrackErrors());
-  }, [dispatch]);
+  }, []);
 
 
   return (

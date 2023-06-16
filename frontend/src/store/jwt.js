@@ -7,7 +7,7 @@ async function jwtFetch(url, options = {}) {
     // Set the "Authorization" header to the value of "jwtToken" in localStorage.
     // Remember to add 'Bearer ' to the front of the token.
     const jwtToken = localStorage.getItem("jwtToken");
-    debugger
+    
     console.log(jwtToken);
     if (jwtToken) options.headers["Authorization"] = 'Bearer ' + jwtToken;
     
@@ -16,10 +16,10 @@ async function jwtFetch(url, options = {}) {
 
     // TAKE A LOOK PLS , FIGURE OUT CSRF TOKEN, AFTER AWS CHANGES
     if (options.method.toUpperCase() !== "GET") {
-      debugger
+      
       if (!options.headers["Content-Type"] && !(options.body instanceof FormData)) {
         options.headers["Content-Type"] = "application/json";
-        debugger
+        
       }
       options.headers["CSRF-Token"] = getCookie("CSRF-TOKEN");
   }
