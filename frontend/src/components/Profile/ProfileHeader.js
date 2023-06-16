@@ -9,7 +9,7 @@ import CreatePostModal from '../UploadTextPost/UploadTextPost';
 
 const ProfileHeader = ({ onFilterValue, filterValue }) => {
   const dispatch = useDispatch();
-  const { userId } = useParams();
+  const { username } = useParams();
   const currentUser = useSelector(state => state.session.currentUser);
   const userFollowers = useSelector(state => state.follow.followers);
   const isCurrentUserFollower = userFollowers.find(follower => follower._id === currentUser._id) !== undefined;
@@ -29,7 +29,6 @@ const ProfileHeader = ({ onFilterValue, filterValue }) => {
   };
 
   const history = useHistory();
-  const { username } = useParams();
   const followers = useSelector(state => state.follow.followers);
   const following = useSelector(state => state.follow.following);
   const [showFollowModal, setShowFollowModal] = useState(false);
@@ -37,9 +36,9 @@ const ProfileHeader = ({ onFilterValue, filterValue }) => {
 
   const handleFollow = () => {
     if (isCurrentUserFollower) {
-      dispatch(unfollowUser(currentUser._id, userId));
+      dispatch(unfollowUser(currentUser._id, username));
     } else {
-      dispatch(followUser(currentUser._id, userId));
+      dispatch(followUser(currentUser._id, username));
     }
   };
 
