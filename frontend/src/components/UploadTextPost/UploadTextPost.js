@@ -50,6 +50,7 @@ function CreatePostModal({ closeModal }) {
   return (
     <div className="modal" ref={modalRef}>
       <div className="modal-content">
+        <button className="close-button" onClick={closeModal}>X</button>
         <h2>Create a New Post</h2>
         <form onSubmit={handleSubmit}>
           <label htmlFor="title">Title:</label>

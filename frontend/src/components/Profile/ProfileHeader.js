@@ -157,13 +157,14 @@ const ProfileHeader = ({ onFilterValue, filterValue }) => {
                 {isFollowing ? 'Unfollow' : 'Follow'}
               </button>
             )}
-            {username === currentUser.username && <button onClick={openModal}>Create A Post</button>}
+           
             <div className="showUser-username">
               {showUser.username}
             </div>
             <div className="showUser-location">
               {showUser.location}
             </div>
+            {username === currentUser.username && <button onClick={openModal}>Create A Post</button>}
             {/* <button onClick={openModal}>Create A Post</button> */}
             <div onClick={openFollowModal}>{followers.length} Followers</div>
             <div onClick={openFollowModal}>{following.length} Following</div>

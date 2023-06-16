@@ -5,7 +5,7 @@
     width: 100%;
     height: 100px;
     border-top: 1px solid rgb(0, 22, 220);
-    background-color: rgb(123, 132, 216);
+    background-color: rgb(108, 108, 255);
     box-sizing: border-box;
     user-select: none;
     display: flex;
@@ -96,7 +96,7 @@
     font-family: inherit;
     width: 100%;
     padding: 10px 15px;
-    background-color: rgb(123, 132, 216);
+    background-color: rgb(108, 108, 255);
 }
 
 .rhap_container:focus:not(:focus-visible) {

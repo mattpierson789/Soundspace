@@ -30,11 +30,11 @@ function Header({ onLocationValue, locationValue, onTrendingPage }) {
 
   return (
 <>
-{/* <div id='logo-header'>
+{/* /* <div id='logo-header'>
   <img className='logo' src='https://soundspace-seeds.s3.amazonaws.com/public/Theme+Images/Screen+Shot+2023-06-15+at+11.10-PhotoRoom.png' />
   <span>Soundspace</span>
   <div className='meet-team'>
-  {/* <span>Team</span> */}
+  <span>Team</span> */}
 
     <div className="header-container">
 
@@ -47,11 +47,11 @@ function Header({ onLocationValue, locationValue, onTrendingPage }) {
       }
 
 
-    <div className="header-index-banner">
-      {feedType
-      ? <h1>{`Trending ${location !== 'Global' || location === null ? `in ${location}` : 'Globally' }`}</h1> 
-      : <h1>Following</h1>}
-      </div>
+    {/* <div className="header-index-banner"> */}
+      {/* {feedType
+    //   ? <h1>{`Trending ${location !== 'Global' || location === null ? `in ${location}` : 'around the World'}`}</h1>  */}
+      {/* <h1>Following</h1> */}
+      {/* </div> */}
       
       <div className="feed-type-buttons">
             <button onClick={() => handleFeedClick(true)}>Trending</button>

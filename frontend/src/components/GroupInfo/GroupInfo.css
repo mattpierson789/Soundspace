@@ -15,7 +15,7 @@
   height: 400px; /* Adjust the height as needed */
   padding: 20px;
   margin: 0 auto; /* Center horizontally */
-  background-color: #17141d;
+  background-color: rgb(108, 108, 255);
   border-radius: 10px;
   box-shadow: -1rem 0 1rem #000;
   transition: 0.4s ease-out;

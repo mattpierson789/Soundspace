@@ -13,7 +13,24 @@ const RECEIVE_NEW_TRACK = "tracks/RECEIVE_NEW_TRACK";
 const RECEIVE_TRACK_ERRORS = "tracks/RECEIVE_TRACK_ERRORS";
 const CLEAR_TRACK_ERRORS = "tracks/CLEAR_TRACK_ERRORS";
 const REMOVE_TRACK = 'tracks/REMOVE_TRACK';
+export const RECEIVE_COMMENTS = 'comments/RECEIVE_COMMENTS';
 
+
+const receiveComments = (trackId, comments) => ({
+  type: RECEIVE_COMMENTS,
+  trackId,
+  comments,
+});
+
+
+export const getCommentsByTrackId = (trackId) => async (dispatch) => {
+  try {
+    const res = await jwtFetch(`/api/tracks/${trackId}/comments`);
+    const comments = await res.json();
+    dispatch(receiveComments(trackId, comments));
+  } catch (err) {
+  }
+};
 
 const receiveTracks = tracks => ({
   type: RECEIVE_TRACKS,
