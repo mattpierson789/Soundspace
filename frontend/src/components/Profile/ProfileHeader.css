@@ -4,7 +4,7 @@
   position: fixed;
   right: 0;
   bottom: 0;
-  top: 170px;
+  top: 130px;
   width: 300px; /* Adjust the width as needed */
   display: flex;
   flex-direction: column;
@@ -14,14 +14,28 @@
 }
 
 .showPage-profilePageImg {
-  margin-left: 20px;
-  width: 90%;
+  position: fixed;
+  /* margin-left: 20px; */
+  /* top: -5; */
+  bottom: 400px;
+  margin-bottom: 20px;
+  margin-left: 10px;
+  /* transform: translate(10%, -170%); */
+  /* margin-top: 100px; */
+  width: 10%;
   border-radius: 150px;
   box-shadow: -.05rem 0 1rem #000;
 }
 
+.profile-info {
+  margin-top: 220px;
+  position: fixed;
+  flex-direction: column;
+}
+
 .profile-info > * {
-  margin-bottom: 10px;
+  margin-top: 100px;
+  /* margin-bottom: 10px; */
 }
 
 .follower-info {
@@ -29,13 +43,31 @@
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  font-size: 14px;
+  font-size: 20px;
+  margin-top: 50px;
 }
 
+.follower-info button {
+  border-radius: 50px;
+  margin-bottom: 20px;
+  margin-top: -20px;
+}
+
+.showUser-username {
+  font-size: 40px;
+  font-weight: bold;
+  margin-top: -30px;
+}
+
+.showUser-location {
+  margin-bottom: 30px;
+  font-size: 30px;
+}
+/* 
 .follower-info div {
   font-weight: bold;
   color: #333;
-}
+} */
 
 .username-tracks-title {
   color: #1da1f2;
@@ -57,14 +89,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-left: 13%;
-  height: calc(100vh - 300px);
+  margin-left: 12.5%;
+  height: calc(100vh - 260px);
   overflow-y: auto;
   width: 70%;
 }
 
 .follow-status button {
-  padding: 8px 16px;
+  /* padding: 8px 16px; */
   font-size: 16px;
   background-color: #fff;
   border: 2px solid #e6e6e6;
@@ -72,6 +104,7 @@
   color: #333;
   cursor: pointer;
   margin-top: 30px;
+  position: fixed;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -81,7 +114,7 @@
 }
 
 .post-modal button {
-  padding: 8px 16px;
+  /* padding: 8px 16px; */
   font-size: 16px;
   background-color: #fff;
   border: 2px solid #e6e6e6;
@@ -101,24 +134,13 @@
   flex-direction: column;
   gap: 5px;
 }
-
+/* 
 .track-filters {
   display: flex;
   gap: 10px;
-}
+} */
 
-.track-filters button {
-  padding: 8px 12px;
-  font-size: 16px;
-  background-color: #fff;
-  border: 2px solid #e6e6e6;
-  border-radius: 30px;
-  color: #333;
-  cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.track-filters button.active {
+/* .track-filters button.active {
   background-color: #e6e6e6;
   color: #555;
 }
@@ -126,11 +148,11 @@
 .track-filters button:hover {
   background-color: #e6e6e6;
   color: #555;
-}
+} */
 
 .username-tracks {
   margin: 20px auto;
-  padding: 20px;
+  /* padding: 20px; */
   font-weight: bold;
   border-radius: 5px;
   text-align: center;
@@ -153,14 +175,16 @@
 }
 
 .track-filters button {
-  padding: 8px 12px;
-  font-size: 16px;
+  /* padding: 8px 12px; */
+  font-size: 20px;
+  font-weight: bold;
   background-color: #fff;
   border: 2px solid #e6e6e6;
   border-radius: 30px;
   color: #333;
   cursor: pointer;
-  margin-top: 20px;
+  margin-top: 5px;
+  /* position: fixed; */
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -202,7 +226,10 @@
   justify-content: space-between;
   margin-bottom: 10px;
 }
-
+.image-container-showPage {
+  position: fixed;
+  margin-right: 10px;
+}
 .toggle-button {
   background-color: transparent;
   border: none;
