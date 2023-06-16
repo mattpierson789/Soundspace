@@ -64,14 +64,45 @@ const ProfileHeader = ({ onFilterValue, filterValue }) => {
   return (
     <>
       <div className="profile-header">
+      <div className="track-filters">
+            <button
+              value="All"
+              onClick={(e) => onFilterValue(e.target.value)}
+              className={filterValue === 'All' ? 'active' : ''}
+            >
+              All
+            </button>
+            <button
+              value="Original"
+              onClick={(e) => onFilterValue(e.target.value)}
+              className={filterValue === 'Original' ? 'active' : ''}
+            >
+              Original
+            </button>
+            <button
+              value="Reposts"
+              onClick={(e) => onFilterValue(e.target.value)}
+              className={filterValue === 'Reposts' ? 'active' : ''}
+            >
+              Reposts
+            </button>
+        </div>
         <div className="profile-info">
+          <div className="image-container-showPage">
           <img className="showPage-profilePageImg" src={showUser.profileImageUrl} />
+          </div>
           <div className="follower-info">
             {currentUser.username !== username && (
               <button onClick={handleFollow}>
                 {isCurrentUserFollower ? 'Unfollow' : 'Follow'}
               </button>
             )}
+              <div className="showUser-username">
+              {showUser.username}
+              </div>
+              <div className="showUser-location">
+              {showUser.location}
+              </div>
             <button onClick={openModal}>Create A Post</button>
             <div onClick={openFollowModal}>{followers.length} Followers</div>
             <div onClick={openFollowModal}>{following.length} Following</div>
@@ -139,28 +170,6 @@ const ProfileHeader = ({ onFilterValue, filterValue }) => {
               </div>
             </div>
           )}
-          <div className="track-filters">
-            <button
-              value="All"
-              onClick={(e) => onFilterValue(e.target.value)}
-              className={filterValue === 'All' ? 'active' : ''}
-            >
-              All
-            </button>
-            <button
-              value="Original"
-              onClick={(e) => onFilterValue(e.target.value)}
-              className={filterValue === 'Original' ? 'active' : ''}
-            >
-              Original
-            </button>
-            <button
-              value="Reposts"
-              onClick={(e) => onFilterValue(e.target.value)}
-              className={filterValue === 'Reposts' ? 'active' : ''}
-            >
-              Reposts
-            </button>
           </div>
         </div>
         {showModal && (
@@ -173,7 +182,6 @@ const ProfileHeader = ({ onFilterValue, filterValue }) => {
             </div>
           </div>
         )}
-      </div>
     </>
   );
 };
