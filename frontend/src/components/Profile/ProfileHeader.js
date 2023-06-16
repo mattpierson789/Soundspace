@@ -102,6 +102,25 @@ const ProfileHeader = ({ onFilterValue, filterValue }) => {
     };
   }, [showModal]);
 
+  useEffect(() => {
+    const handleDisableClick = (e) => {
+      e.preventDefault();
+    };
+
+    if (showFollowModal) {
+      document.body.classList.add('disable-click');
+      document.addEventListener('click', handleDisableClick, true);
+    } else {
+      document.body.classList.remove('disable-click');
+      document.removeEventListener('click', handleDisableClick, true);
+    }
+
+    return () => {
+      document.body.classList.remove('disable-click');
+      document.removeEventListener('click', handleDisableClick, true);
+    };
+  }, [showFollowModal]);
+
   return (
     <>
       <div className="profile-header">
@@ -177,6 +196,9 @@ const ProfileHeader = ({ onFilterValue, filterValue }) => {
                 >
                   Following
                 </button>
+                <button className="close-button" onClick={() => setShowFollowModal(false)}>
+                  X
+               </button>
               </div>
               <div className="modal-body">
                 {followType === 'followers' && (
@@ -213,41 +235,7 @@ const ProfileHeader = ({ onFilterValue, filterValue }) => {
             </div>
           </div>
         )}
-
-        <div className="track-filters">
-          <button
-            value="All"
-            onClick={(e) => onFilterValue(e.target.value)}
-            className={filterValue === 'All' ? 'active' : ''}
-          >
-            All
-          </button>
-          <button
-            value="Original"
-            onClick={(e) => onFilterValue(e.target.value)}
-            className={filterValue === 'Original' ? 'active' : ''}
-          >
-            Original
-          </button>
-          <button
-            value="Reposts"
-            onClick={(e) => onFilterValue(e.target.value)}
-            className={filterValue === 'Reposts' ? 'active' : ''}
-          >
-            Reposts
-          </button>
-        </div>
       </div>
-      {showModal && (
-        <div className="modal">
-          <div className="modal-content">
-            <span className="close" onClick={closeModal}>
-              &times;
-            </span>
-            <CreatePostModal closeModal={closeModal} />
-          </div>
-        </div>
-      )}
     </>
   );
 };
