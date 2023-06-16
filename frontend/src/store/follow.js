@@ -44,7 +44,7 @@ const clearFollowerErrors = () => ({
 
 
 const fetchUserFollows = username => async dispatch => {
-  debugger
+  
     try {
         const res = await jwtFetch(`/api/users/${username}/followerIds`);
         const followers = await res.json();
@@ -56,7 +56,7 @@ const fetchUserFollows = username => async dispatch => {
 }
 
 const fetchUserFollowing = username => async dispatch => {
-  debugger
+  
     try {
         const res = await jwtFetch(`/api/users/${username}/followingIds`);
         const following = await res.json();

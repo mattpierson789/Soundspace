@@ -17,14 +17,37 @@ function Profile({filter}) {
 
   // const allTracks = useSelector(state => state.tracks.allTracks);
 
-  const filteredTracks =
-    filter === 'Original'
-      ? userTracks.filter((track) => track.artist === username)
-      : filter === 'Reposts'
-      ? userTracks.filter((track) => track.artist !== username)
-      : userTracks;
+  // const filteredTracks =
+  //   filter === 'Original'
+  //     ? userTracks.filter((track) => track.artist === username)
+  //     : filter === 'Reposts'
+  //     ? userTracks.filter((track) => track.artist !== username)
+  //     : userTracks;
 
-  const userFollowing = useSelector(state => state.follow.all);
+  // const userFollowing = useSelector(state => state.follow.all);
+  const [filteredTracks, setFilteredTracks] = useState([]);
+  useEffect(() => {
+    const filterTracks = () => {
+      if (filter === 'Original') {
+        setFilteredTracks(userTracks.filter(track => track.artist === username));
+      } else if (filter === 'Reposts') {
+        setFilteredTracks(userTracks.filter(track => track.artist !== username));
+      } else {
+        setFilteredTracks(userTracks);
+      }
+    };
+
+    dispatch(fetchUserTracks(username))
+      .then(filterTracks)
+      .catch(error => {
+        // Handle error
+        console.log(error);
+      });
+
+    return () => {
+      dispatch(clearTrackErrors()); // Cleanup by clearing any track errors
+    };
+  }, [dispatch, username, filter, userTracks]);
   
   // const allTracks = useSelector(state => state.tracks.allTracks);
   // const [isFollowing, setIsFollowing] = useState(false);
@@ -33,9 +56,9 @@ function Profile({filter}) {
   // const userFollowing = useSelector(state => state.follow.all);
 
   // Put in useEffect
-  useEffect(() => {
-    dispatch(fetchUserTracks(username));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(fetchUserTracks(username));
+  // }, [dispatch]);
 
   // useEffect(() => {
   //   const isFollowing = userFollowing.some(user => user.username === username);

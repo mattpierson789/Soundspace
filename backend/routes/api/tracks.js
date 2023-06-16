@@ -42,7 +42,7 @@ router.get('/user/:username', async (req, res, next) => {
       const tracks = await Track.find({ owner: user._id })
           .sort({ createdAt: -1 })
           .populate("owner", "_id username");
-          debugger
+          
       return res.json(tracks);
   }
   catch (err) {
@@ -99,7 +99,7 @@ router.get('./location/:location', async function(req, res, next) {
 router.post('/', requireUser, validateTrackInput, async (req, res, next) => {
   try {
     const { artist, song, location, genre, user} = req.body;
-    debugger
+    
     const newTrack = new Track({
       artist,
       song,
@@ -120,7 +120,7 @@ router.post('/', requireUser, validateTrackInput, async (req, res, next) => {
 
 // Add an owner to a track
 router.post('/:id/owner/:userId', requireUser, async (req, res, next) => {
-  debugger
+  
   console.log("track not tyvan found")
   try {
     const trackId = req.params.id;

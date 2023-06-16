@@ -36,11 +36,11 @@ export const fetchPosts = () => async (dispatch) => {
     console.log(response)
     const data = await response.json();
     console.log(data)
-    debugger 
+     
 
     // Dispatch the receivePosts action with the fetched posts
     dispatch(receivePosts(data));
-    debugger 
+     
   } catch (error) {
     console.error('Failed to fetch posts:', error);
   }
@@ -99,7 +99,7 @@ const initialState = {
 const postsReducer = (state = initialState, action) => {
     switch (action.type) {
       case RECEIVE_POSTS:
-        debugger 
+         
         return {
           ...state,
           posts: action.payload,

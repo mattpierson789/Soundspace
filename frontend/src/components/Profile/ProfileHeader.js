@@ -46,7 +46,7 @@ const ProfileHeader = ({ onFilterValue, filterValue }) => {
     dispatch(fetchUserFollows(username));
     dispatch(fetchUserFollowing(username));
   }, [dispatch, username]);
-  debugger
+  
 
   const openModal = () => {
     setShowModal(true);
@@ -61,10 +61,25 @@ const ProfileHeader = ({ onFilterValue, filterValue }) => {
   };
 
   const handleShowPage = (user) => {
-    debugger
+    
     if (user.username) {history.push(`/profile/${user.username}`) ; setShowFollowModal(false); }
   }
-  debugger
+
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      if (showModal && !e.target.closest('.modal-content')) {
+        setShowModal(false);
+      }
+    };
+
+    window.addEventListener('click', handleOutsideClick);
+
+    return () => {
+      window.removeEventListener('click', handleOutsideClick);
+    };
+  }, [showModal]);
+
+  
   return (
     <>
       <div className="profile-header">
@@ -77,7 +92,7 @@ const ProfileHeader = ({ onFilterValue, filterValue }) => {
                 {isCurrentUserFollower ? 'Unfollow' : 'Follow'}
               </button>
             }
-            <button onClick={openModal}>Create A Post</button>
+            {username === currentUser.username && <button onClick={openModal}>Create A Post</button>}
             <div onClick={openFollowModal}>{followers.length} Followers</div>
             <div onClick={openFollowModal}>{following.length} Following</div>
           </div>
