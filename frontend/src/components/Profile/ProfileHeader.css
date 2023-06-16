@@ -108,33 +108,13 @@
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-<<<<<<< HEAD
-.follow-status button {
-  /* padding: 8px 16px; */
-  font-size: 16px;
-  background-color: #fff;
-  border: 2px solid #e6e6e6;
-  border-radius: 30px;
-  color: #333;
-  cursor: pointer;
-  margin-top: 30px;
-  position: fixed;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-=======
->>>>>>> 727d124 (showpage css)
 .follow-status button:hover {
   background-color: #e6e6e6;
   color: #555;
 }
 
 .post-modal button {
-<<<<<<< HEAD
-  /* padding: 8px 16px; */
-=======
   padding: 8px 16px;
->>>>>>> 727d124 (showpage css)
   font-size: 16px;
   background-color: #fff;
   border: 2px solid #e6e6e6;
@@ -154,17 +134,6 @@
   flex-direction: column;
   gap: 5px;
 }
-<<<<<<< HEAD
-/* 
-.track-filters {
-  display: flex;
-  gap: 10px;
-} */
-
-/* .track-filters button.active {
-  background-color: #e6e6e6;
-  color: #555;
-=======
 
 .track-filters {
   display: flex;
@@ -180,18 +149,13 @@
   color: #333;
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
->>>>>>> 727d124 (showpage css)
 }
 
 .track-filters button:hover {
   background-color: #e6e6e6;
   color: #555;
-<<<<<<< HEAD
-} */
-=======
 }
 
->>>>>>> 727d124 (showpage css)
 
 .username-tracks {
   margin: 20px auto;
