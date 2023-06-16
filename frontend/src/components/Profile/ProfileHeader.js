@@ -11,11 +11,9 @@ const ProfileHeader = ({ onFilterValue, filterValue }) => {
   const history = useHistory();
   const currentUser = useSelector(state => state.session.currentUser);
   const userFollowers = useSelector(state => state.follow.followers);
-  const followers = useSelector(state => state.follow.followers);
-  const following = useSelector(state => state.follow.following);
-  const isCurrentUserFollower = userFollowers.find(follower => follower._id === currentUser._id) !== undefined;
-  const userTracks = useSelector(state => state.tracks.userTracks);
   const showUser = useSelector(state => state.session.allUsers.find(user => user.username === username ));
+  let followers = useSelector(state => state.follow.followers);
+  let following = useSelector(state => state.follow.following);
 
   const [isFollowing, setIsFollowing] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -23,6 +21,30 @@ const ProfileHeader = ({ onFilterValue, filterValue }) => {
   const [followType, setFollowType] = useState('following');
 
   const isMountedRef = useRef(null);
+
+  // Change follower #
+  if (followers.length > 0) {
+    let temp = [];
+    followers = followers.filter((follower) => {
+      if (follower !== null && !temp.includes(follower.username)) {
+        temp.push(follower.username);
+        return true;
+      }
+      return false;
+    });
+  }
+  
+  // Change following
+  if (following.length > 0) {
+    let temp = [];
+    following = following.filter((celeb) => {
+      if (celeb !== null && !temp.includes(celeb.username)) {
+        temp.push(celeb.username);
+        return true;
+      }
+      return false;
+    });
+  }
 
   const handleFollow = () => {
     if (isFollowing) {
