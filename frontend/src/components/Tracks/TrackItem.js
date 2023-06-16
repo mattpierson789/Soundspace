@@ -51,7 +51,7 @@ function TrackItem({ track: {_id, title, location, artist, genre, plays, likes, 
           <p className="genre">{genre}</p>
           <div className="track-stats">
           <p className="plays">Plays: {plays}</p>
-          <p className="likes">Likes: {likes}</p>
+          {/* <p className="likes">Likes: {likes}</p> */}
           <p className="reshares">Reshares: {reshares}</p>
           </div>
           <div className="track-buttons-container">
