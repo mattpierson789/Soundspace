@@ -17,9 +17,9 @@
   position: fixed;
   /* margin-left: 20px; */
   /* top: -5; */
-  bottom: 555px;
+  bottom: 350px;
   margin-bottom: 65px;
-  margin-left: -5px;
+  margin-left: 10px;
   /* transform: translate(10%, -170%); */
   /* margin-top: 100px; */
   width: 10%;
@@ -215,12 +215,15 @@
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
+  z-index: 999;
+
   align-items: center;
   justify-content: center;
 }
 
 .follow-modal-content {
   position: relative;
+  z-index: 999;
   width: 375px;
   height: 420px;
   background-color: #fff;

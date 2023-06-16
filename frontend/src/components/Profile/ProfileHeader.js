@@ -11,11 +11,9 @@ const ProfileHeader = ({ onFilterValue, filterValue }) => {
   const history = useHistory();
   const currentUser = useSelector(state => state.session.currentUser);
   const userFollowers = useSelector(state => state.follow.followers);
-  const followers = useSelector(state => state.follow.followers);
-  const following = useSelector(state => state.follow.following);
-  const isCurrentUserFollower = userFollowers.find(follower => follower._id === currentUser._id) !== undefined;
-  const userTracks = useSelector(state => state.tracks.userTracks);
   const showUser = useSelector(state => state.session.allUsers.find(user => user.username === username ));
+  let followers = useSelector(state => state.follow.followers);
+  let following = useSelector(state => state.follow.following);
 
   const [isFollowing, setIsFollowing] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -23,6 +21,30 @@ const ProfileHeader = ({ onFilterValue, filterValue }) => {
   const [followType, setFollowType] = useState('following');
 
   const isMountedRef = useRef(null);
+
+  // Change follower #
+  if (followers.length > 0) {
+    let temp = [];
+    followers = followers.filter((follower) => {
+      if (follower !== null && !temp.includes(follower.username)) {
+        temp.push(follower.username);
+        return true;
+      }
+      return false;
+    });
+  }
+  
+  // Change following
+  if (following.length > 0) {
+    let temp = [];
+    following = following.filter((celeb) => {
+      if (celeb !== null && !temp.includes(celeb.username)) {
+        temp.push(celeb.username);
+        return true;
+      }
+      return false;
+    });
+  }
 
   const handleFollow = () => {
     if (isFollowing) {
@@ -79,6 +101,25 @@ const ProfileHeader = ({ onFilterValue, filterValue }) => {
       window.removeEventListener('click', handleOutsideClick);
     };
   }, [showModal]);
+
+  useEffect(() => {
+    const handleDisableClick = (e) => {
+      e.preventDefault();
+    };
+
+    if (showFollowModal) {
+      document.body.classList.add('disable-click');
+      document.addEventListener('click', handleDisableClick, true);
+    } else {
+      document.body.classList.remove('disable-click');
+      document.removeEventListener('click', handleDisableClick, true);
+    }
+
+    return () => {
+      document.body.classList.remove('disable-click');
+      document.removeEventListener('click', handleDisableClick, true);
+    };
+  }, [showFollowModal]);
 
   return (
     <>
@@ -155,6 +196,9 @@ const ProfileHeader = ({ onFilterValue, filterValue }) => {
                 >
                   Following
                 </button>
+                <button className="close-button" onClick={() => setShowFollowModal(false)}>
+                  X
+               </button>
               </div>
               <div className="modal-body">
                 {followType === 'followers' && (
@@ -191,41 +235,7 @@ const ProfileHeader = ({ onFilterValue, filterValue }) => {
             </div>
           </div>
         )}
-
-        <div className="track-filters">
-          <button
-            value="All"
-            onClick={(e) => onFilterValue(e.target.value)}
-            className={filterValue === 'All' ? 'active' : ''}
-          >
-            All
-          </button>
-          <button
-            value="Original"
-            onClick={(e) => onFilterValue(e.target.value)}
-            className={filterValue === 'Original' ? 'active' : ''}
-          >
-            Original
-          </button>
-          <button
-            value="Reposts"
-            onClick={(e) => onFilterValue(e.target.value)}
-            className={filterValue === 'Reposts' ? 'active' : ''}
-          >
-            Reposts
-          </button>
-        </div>
       </div>
-      {showModal && (
-        <div className="modal">
-          <div className="modal-content">
-            <span className="close" onClick={closeModal}>
-              &times;
-            </span>
-            <CreatePostModal closeModal={closeModal} />
-          </div>
-        </div>
-      )}
     </>
   );
 };
