@@ -49,7 +49,7 @@ function Header({ onLocationValue, locationValue, onTrendingPage }) {
 
     <div className="header-index-banner">
       {feedType
-      ? <h1>{`Trending ${location !== 'Global' || location === null ? `in ${location}` : 'around the World'}`}</h1> 
+      ? <h1>{`Trending ${location !== 'Global' || location === null ? `in ${location}` : 'Globally' }`}</h1> 
       : <h1>Following</h1>}
       </div>
       
