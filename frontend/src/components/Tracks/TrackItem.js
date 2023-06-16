@@ -44,7 +44,7 @@ function TrackItem({ track: {_id, title, location, artist, genre, plays, likes, 
 
   return (
       <div className="track-item">
-        <img className="track-image" src={trackImageUrl} />
+        <img className="track-image" onClick={handlePlay} src={trackImageUrl} />
         <div className="track-details">
           <h2 className="title">{title}</h2>
           <p className="artist" onClick={userShowPageRoute}>{artist}</p>
