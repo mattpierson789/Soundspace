@@ -74,7 +74,6 @@ function Profile({filter}) {
     // const renderedTracks = [...userTracks];
     return (
       <div className="profile-grid">
-        <h2 className="username-tracks-title">All of {username}'s Tracks</h2>
         {filteredTracks.map((track, index) => (
           <TrackItem key={index} track={track} />
         ))}

@@ -2,9 +2,10 @@
   display: flex;
   align-items: center;
   border-radius: 10px;
-  padding: 15px;
-  margin: 10px;
-  background-image: linear-gradient(45deg, #657bf6, #6b6b6b);
+  padding: 10px;
+  margin: 20px;
+  /* background-image: linear-gradient(45deg, #657bf6, #6b6b6b); */
+  background-color: rgb(42, 42, 152);
   box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   width: 80%;
@@ -21,8 +22,30 @@
   overflow-y: auto;
   margin-bottom: 20px;
   padding-bottom: 20px; 
-  color: gold
+  /* color: rgb(83, 44, 255) */
 }
+
+.tracks-container-index {
+  display: flex;
+  flex-wrap: wrap;
+  width: 70%;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 15%;
+  margin-right: 10%;
+  margin-top: 20px;
+  /* margin: 20px; */
+  height: calc(100vh - 210px);
+  overflow-y: auto;
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+}
+
+.tracks-container-index .track-item {
+  margin: 30px;
+}
+
+/* Add any additional styling for .track-item as needed */
 
 
 
@@ -168,6 +191,7 @@
 .main-content-tracks-container {
   display: flex;
   justify-content: center;
+  /* margin-right: 20px; */
 }
 
 .main-content-tracks {
@@ -177,6 +201,7 @@
   width: 100%;
   max-width: 1200px;
   flex-direction: column;
+  /* margin-right: 10px; */
 }
 
 .tracks {

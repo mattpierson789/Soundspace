@@ -1,0 +1,15 @@
+.city-banner-component {
+  width: 100%;
+  margin-top: -100px;
+  height: 200px; 
+  background-position: center;
+  background-repeat: repeat;
+  background-size: cover;
+} 
+  
+  .city-banner-component img {
+    width: 300%;
+    max-height: 200px;
+    object-fit: cover;
+    border-radius: 5px;
+  }

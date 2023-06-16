@@ -44,11 +44,11 @@ function Tracks({ trendingPage, locationValue = null }) {
 
 
   return (
-    <div className="tracks-container" >
-      <div className="main-content-tracks-container">
-        <div className="main-content-tracks">
+    <div className="tracks-container-index" >
+      <div className="main-content-tracks-container-index">
+        <div className="main-content-tracks-index">
           {tracks.length === 0 ? (
-            <div className="tracks">There are no Tracks at this location &#128577; </div>
+            <div className="tracks-index">There are no Tracks at this location &#128577; </div>
           ) : (
             tracks.map((track) => <TrackItem key={track._id} track={track} />)
           )}

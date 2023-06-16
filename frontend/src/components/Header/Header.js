@@ -29,38 +29,37 @@ function Header({ onLocationValue, locationValue, onTrendingPage }) {
   };
 
   return (
-    <>
-      <div id="logo-header">
-        <img className="logo" src="https://soundspace-seeds.s3.amazonaws.com/public/Theme+Images/Screen+Shot+2023-06-15+at+11.10-PhotoRoom.png" alt="Logo" />
-        <span>Soundspace</span>
-        <div className="meet-team">
-          {/* <span>Team</span> */}
+<>
+{/* <div id='logo-header'>
+  <img className='logo' src='https://soundspace-seeds.s3.amazonaws.com/public/Theme+Images/Screen+Shot+2023-06-15+at+11.10-PhotoRoom.png' />
+  <span>Soundspace</span>
+  <div className='meet-team'>
+  {/* <span>Team</span> */}
+
+    <div className="header-container">
+
+    {feedType &&
+        <div className="mainfeed-city-filters">
+            <button value={"NYC"} class="d-1" onClick={(e) => handleClick(e.target.value)}>NYC</button>
+            <button value={"LA"} class="d-2" onClick={(e) => handleClick(e.target.value)}>LA</button>
+            <button value={"Global"} class="d-3" onClick={(e) => handleClick(e.target.value)}>Global</button>
         </div>
+      }
+
+
+    <div className="header-index-banner">
+      {feedType
+      ? <h1>{`Trending ${location !== 'Global' || location === null ? `in ${location}` : 'around the World'}`}</h1> 
+      : <h1>Following</h1>}
+      </div>
+      
+      <div className="feed-type-buttons">
+            <button onClick={() => handleFeedClick(true)}>Trending</button>
+            <button onClick={() => handleFeedClick(false)}>Following</button>
       </div>
 
-      <div className="header-container">
-        <div className="header-index-banner">
-          {feedType ? (
-            <h1>{`Trending ${location ? `in ${location}` : 'around the World'}`}</h1>
-          ) : (
-            <h1>Following</h1>
-          )}
-        </div>
 
-        <div className="feed-type-buttons">
-          <button onClick={() => handleFeedClick(true)}>Trending</button>
-          <button onClick={() => handleFeedClick(false)}>Following</button>
-        </div>
-
-        {feedType && (
-          <div className="mainfeed-city-filters">
-            <button value="NYC" onClick={(e) => handleClick(e.target.value)}>NYC</button>
-            <button value="LA" onClick={(e) => handleClick(e.target.value)}>LA</button>
-            {/* <button value="ATL" onClick={(e) => handleClick(e.target.value)}>ATL</button> */}
-            <button value="" onClick={(e) => handleClick(e.target.value)}>Global</button>
-          </div>
-        )}
-      </div>
+    </div>
     </>
   );
 }

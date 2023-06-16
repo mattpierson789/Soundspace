@@ -9,16 +9,16 @@ function PostItem({ post }) {
   const [editedTitle, setEditedTitle] = useState(title);
   const [editedContent, setEditedContent] = useState(content);
   const dispatch = useDispatch();
-  const currentUser = useSelector((state) => state.session.currentUser);
-
-  const handleEdit = () => {
-    if (!isEditing && currentUser && currentUser._id === poster) {
-      setIsEditing(true);
-    } else if (isEditing && currentUser && currentUser._id === poster) {
-      dispatch(updatePost(_id, { title: editedTitle, content: editedContent }));
-      setIsEditing(false);
-    }
-  };
+  const users = useSelector((state) => state.session.allUsers);
+ 
+//   const handleEdit = () => {
+//     if (!isEditing) {
+//       setIsEditing(true);
+//     } else {
+//       dispatch(updatePost(_id, { title: editedTitle, content: editedContent }));
+//       setIsEditing(false);
+//     }
+//   };
 
   const handleTitleChange = (e) => {
     setEditedTitle(e.target.value);
@@ -47,24 +47,20 @@ function PostItem({ post }) {
       ) : (
         <>
           <div className="track-item">
+            <div className="post-img-name">
             {posterImgUrl && (
               <img className="post-image" src={posterImgUrl} alt="Profile-Image" />
             )}
+            <p className="user-post-username">{poster.username}</p>
+            </div>
+            <div className="main-post-content">
             <h2 className="post-title">{title}</h2>
             <p className="post-content">{content}</p>
+            </div>
           </div>
         </>
       )}
-      <div className="post-buttons">
-        {isEditing ? (
-          <button onClick={handleEdit}>Save</button>
-        ) : (
-          <>
-            {currentUser && currentUser._id === poster && <button onClick={handleEdit}>Edit</button>}
-          </>
-        )}
-      </div>
-    </div>
+   </div>
   );
 }
 
