@@ -14,6 +14,13 @@
   background-color: #f2f2f2;
   padding: 20px;
 }
+
+.showPage-profilePageImg {
+  margin-left: 20px;
+  width: 90%;
+  border-radius: 150px;
+  box-shadow: -.05rem 0 1rem #000;
+}
 /* 
 .profile-header > * {
   margin-bottom: 10px;
@@ -21,21 +28,25 @@
 
 .profile-info > {
   display: flex;
-  position: absolute;
+  /* margin-top: 10px; */
+  /* position: absolute; */
   flex-direction: column;
-  gap: 10px; /* Adjust the gap as needed */
+  gap: 10px;
   align-items: center;
   justify-content: space-between;
   /* flex-s: end; */
-  width: 500px; /* Adjust the width as needed */
+  width: 500px; 
 }
 
 .profile-info > * {
-  margin-bottom: 10px; /* Adjust the margin as needed */
+  margin-bottom: 10px; 
 }
 
 .follower-info {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* gap: 10px; */
   gap: 10px;
   font-size: 14px;
 }
@@ -83,7 +94,69 @@
   /* margin-bottom: 20px; */
   /* padding-bottom: 20px; */
   width: 70%;
+} 
+
+
+.follow-status button {
+  padding: 8px 16px;
+  font-size: 16px;
+  background-color: #fff;
+  border: 2px solid #e6e6e6;
+  border-radius: 30px;
+  color: #333;
+  cursor: pointer;
+  margin-top: 30px;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
+
+.follow-status button:hover {
+  background-color: #e6e6e6;
+  color: #555;
+}
+
+.post-modal button {
+  padding: 8px 16px;
+  font-size: 16px;
+  background-color: #fff;
+  border: 2px solid #e6e6e6;
+  border-radius: 30px;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.post-modal button:hover {
+  background-color: #e6e6e6;
+  color: #555;
+}
+
+.follow-listings {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.track-filters {
+  display: flex;
+  gap: 10px;
+}
+
+.track-filters button {
+  padding: 8px 12px;
+  font-size: 16px;
+  background-color: #fff;
+  border: 2px solid #e6e6e6;
+  border-radius: 30px;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.track-filters button:hover {
+  background-color: #e6e6e6;
+  color: #555;
+}
+
 
 .username-tracks {
   margin: 20px auto;
