@@ -9,12 +9,17 @@ import CreatePostModal from '../UploadTextPost/UploadTextPost';
 
 const ProfileHeader = ({ onFilterValue, filterValue }) => {
   const dispatch = useDispatch();
+<<<<<<< HEAD
   const { username } = useParams();
+=======
+  const { userId, username } = useParams();
+>>>>>>> vince-style
   const currentUser = useSelector(state => state.session.currentUser);
   const userFollowers = useSelector(state => state.follow.followers);
   const isCurrentUserFollower = userFollowers.find(follower => follower._id === currentUser._id) !== undefined;
   const [isFollowing, setIsFollowing] = useState(isCurrentUserFollower);
   const userTracks = useSelector(state => state.tracks.userTracks);
+  const showUser = useSelector(state => state.session.allUsers.find(user => user.username === username ));
 
   // const originalTracks = userTracks.filter(track => track.artist === userId);
   // const reposts = userTracks.filter(track => track.artist !== userId);
@@ -146,6 +151,13 @@ const ProfileHeader = ({ onFilterValue, filterValue }) => {
           )}
         </div>
         <div className="track-filters">
+        <button
+            value="All"
+            onClick={(e) => onFilterValue(e.target.value)}
+            className={filterValue === 'All' ? 'active' : ''}
+          >
+            All
+          </button>
           <button
             value="Original"
             onClick={(e) => onFilterValue(e.target.value)}
@@ -160,13 +172,8 @@ const ProfileHeader = ({ onFilterValue, filterValue }) => {
           >
             Reposts
           </button>
-          <button
-            value="All"
-            onClick={(e) => onFilterValue(e.target.value)}
-            className={filterValue === 'All' ? 'active' : ''}
-          >
-            All
-          </button>
+      
+          </div>
         </div>
         {showModal && (
           <div className="modal">

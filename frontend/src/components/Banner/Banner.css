@@ -1,0 +1,17 @@
+.banner-component {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* top: 0; */
+    margin-top: -100px;
+    background-color: #f2f2f2;
+    /* padding: 20px; */
+  }
+  
+  .banner-component img {
+    width: 100%;
+    max-height: 200px;
+    object-fit: cover;
+    border-radius: 5px;
+  }
+  
