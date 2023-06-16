@@ -31,7 +31,7 @@ function Header({ onLocationValue, locationValue, onTrendingPage }) {
   return (
     <>
       <div id="logo-header">
-        <img className="logo" src="https://soundspace-seeds.s3.amazonaws.com/public/Theme+Images/Screen+Shot+2023-06-15+at+11.10-PhotoRoom.png" />
+        <img className="logo" src="https://soundspace-seeds.s3.amazonaws.com/public/Theme+Images/Screen+Shot+2023-06-15+at+11.10-PhotoRoom.png" alt="Logo" />
         <span>Soundspace</span>
         <div className="meet-team">
           {/* <span>Team</span> */}
@@ -41,7 +41,7 @@ function Header({ onLocationValue, locationValue, onTrendingPage }) {
       <div className="header-container">
         <div className="header-index-banner">
           {feedType ? (
-            <h1>{`Trending ${location !== 'Global' || location === null ? `in ${location}` : 'around the World'}`}</h1>
+            <h1>{`Trending ${location ? `in ${location}` : 'around the World'}`}</h1>
           ) : (
             <h1>Following</h1>
           )}
@@ -57,7 +57,7 @@ function Header({ onLocationValue, locationValue, onTrendingPage }) {
             <button value="NYC" onClick={(e) => handleClick(e.target.value)}>NYC</button>
             <button value="LA" onClick={(e) => handleClick(e.target.value)}>LA</button>
             {/* <button value="ATL" onClick={(e) => handleClick(e.target.value)}>ATL</button> */}
-            <button value="Global" onClick={(e) => handleClick(e.target.value)}>Global</button>
+            <button value="" onClick={(e) => handleClick(e.target.value)}>Global</button>
           </div>
         )}
       </div>

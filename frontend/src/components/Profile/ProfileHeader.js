@@ -71,10 +71,18 @@ const ProfileHeader = ({ onFilterValue, filterValue }) => {
       }
     };
 
+    const handleEscapeKey = (e) => {
+      if (showModal && e.key === 'Escape') {
+        setShowModal(false);
+      }
+    };
+
     window.addEventListener('click', handleOutsideClick);
+    window.addEventListener('keydown', handleEscapeKey);
 
     return () => {
       window.removeEventListener('click', handleOutsideClick);
+      window.removeEventListener('keydown', handleEscapeKey);
     };
   }, [showModal]);
 
@@ -129,8 +137,8 @@ const ProfileHeader = ({ onFilterValue, filterValue }) => {
         </div>
       </div>
       {showModal && (
-        <div className="modal">
-          <div className="modal-content">
+        <div className="modal" onClick={closeModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <span className="close" onClick={closeModal}>
               &times;
             </span>
