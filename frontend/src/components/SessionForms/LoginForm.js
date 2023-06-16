@@ -14,11 +14,13 @@ function LoginForm() {
   const errors = useSelector(state => state.errors.session);
   const currentUser = useSelector(state => state.session.currentUser);
   const dispatch = useDispatch();
+
   useEffect(() => {
     return () => {
       dispatch(clearSessionErrors());
     };
   }, [dispatch]);
+  
   const update = field => {
     const setState = field === 'email' ? setEmail : setPassword;
     return e => setState(e.currentTarget.value);

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearTrackErrors, fetchTracks } from '../../store/tracks';
 import { fetchPosts } from '../../store/posts';
@@ -6,6 +6,7 @@ import TrackItem from './TrackItem';
 import PostItem from '../Posts/PostItem';
 import './Tracks.css';
 import { fetchUserFollows, fetchUserFollowing } from '../../store/follow';
+import { getAllUsers } from '../../store/session';
 
 function Tracks({ trendingPage, locationValue = null }) {
   const dispatch = useDispatch();
@@ -29,18 +30,47 @@ function Tracks({ trendingPage, locationValue = null }) {
     tracks = tracks.filter((track) => track.location && track.location === locationValue);
   }
 
-  useEffect(() => {
-    if (currentUser) {
-      dispatch(fetchUserFollows(currentUser.username));
-      dispatch(fetchUserFollowing(currentUser.username));
-    }
-  }, [currentUser]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
+
+  // useEffect(() => {
+  //   if (currentUser) {
+  //     dispatch(fetchUserFollows(currentUser.username));
+  //     dispatch(fetchUserFollowing(currentUser.username));
+  //   }
+  // }, [currentUser]);
+
+  // useEffect(() => {
+  //   dispatch(fetchTracks());
+  //   dispatch(fetchPosts());
+  //   dispatch(getAllUsers())
+  //   return () => dispatch(clearTrackErrors());
+  // }, []);
+
+  function useMount(callback) {
+    useState(() => {
+      callback();
+    }, []);
+  }
+  
+
+  useMount(async () => {
+    setIsLoading(true);
     dispatch(fetchTracks());
     dispatch(fetchPosts());
+    dispatch(getAllUsers());
+    setIsLoading(false);
     return () => dispatch(clearTrackErrors());
-  }, []);
+  });
+
+  useMount(async () => {
+    setIsLoading(true);
+    if (currentUser) {
+       dispatch(fetchUserFollows(currentUser.username));
+      dispatch(fetchUserFollowing(currentUser.username));
+    }
+    setIsLoading(false);
+  });
 
 
   return (
@@ -52,9 +82,9 @@ function Tracks({ trendingPage, locationValue = null }) {
           ) : (
             tracks.map((track) => <TrackItem key={track._id} track={track} />)
           )}
-          {posts.map((post) => (
+          {/* {posts.map((post) => (
             <PostItem key={post._id} post={post} />
-          ))}
+          ))} */}
         </div>
       </div>
     </div>

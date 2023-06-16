@@ -11,9 +11,9 @@ const ProfileHeader = ({ onFilterValue, filterValue }) => {
   const history = useHistory();
   const currentUser = useSelector(state => state.session.currentUser);
   const userFollowers = useSelector(state => state.follow.followers);
-  const showUser = useSelector(state => state.session.allUsers.find(user => user.username === username ));
-  let followers = useSelector(state => state.follow.followers);
-  let following = useSelector(state => state.follow.following);
+  const showUser = useSelector(state => state.session.allUsers.find(user => user.username === username));
+  const followers = useSelector(state => state.follow.followers) || [];
+  const following = useSelector(state => state.follow.following) || [];
 
   const [isFollowing, setIsFollowing] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -22,29 +22,20 @@ const ProfileHeader = ({ onFilterValue, filterValue }) => {
 
   const isMountedRef = useRef(null);
 
-  // Change follower #
-  if (followers.length > 0) {
-    let temp = [];
-    followers = followers.filter((follower) => {
-      if (follower !== null && !temp.includes(follower.username)) {
-        temp.push(follower.username);
-        return true;
-      }
-      return false;
-    });
-  }
-
-  // Change following
-  if (following.length > 0) {
-    let temp = [];
-    following = following.filter((celeb) => {
-      if (celeb !== null && !temp.includes(celeb.username)) {
-        temp.push(celeb.username);
-        return true;
-      }
-      return false;
-    });
-  }
+  // useEffect(() => {
+  //   isMountedRef.current = true;
+  //   dispatch(fetchUserFollows(username)).then(() => {
+  //     dispatch(fetchUserFollowing(username)).then(() => {
+  //       if (isMountedRef.current) {
+  //         const isCurrentUserFollower = userFollowers.find(follower => follower._id === currentUser._id) !== undefined;
+  //         setIsFollowing(isCurrentUserFollower);
+  //       }
+  //     });
+  //   });
+  //   return () => {
+  //     isMountedRef.current = false;
+  //   };
+  // }, [dispatch, username, userFollowers, currentUser]);
 
   const handleFollow = () => {
     if (isFollowing) {
@@ -53,21 +44,6 @@ const ProfileHeader = ({ onFilterValue, filterValue }) => {
       dispatch(followUser(currentUser._id, username));
     }
   };
-
-  useEffect(() => {
-    isMountedRef.current = true;
-    dispatch(fetchUserFollows(username)).then(() => {
-      dispatch(fetchUserFollowing(username)).then(() => {
-        const isCurrentUserFollower = userFollowers.find(follower => follower._id === currentUser._id) !== undefined;
-        if(isMountedRef.current) {
-          setIsFollowing(isCurrentUserFollower);
-        }
-      });
-    });
-    return () => {
-      isMountedRef.current = false;
-    }
-  }, [dispatch, username, userFollowers, currentUser]);
 
   const openModal = () => {
     setShowModal(true);
@@ -82,7 +58,7 @@ const ProfileHeader = ({ onFilterValue, filterValue }) => {
   };
 
   const handleShowPage = (user) => {
-    if (user.username) {
+    if (user && user.username) {
       history.push(`/profile/${user.username}`);
       setShowFollowModal(false);
     }
@@ -152,20 +128,20 @@ const ProfileHeader = ({ onFilterValue, filterValue }) => {
             {showUser && <img className="showPage-profilePageImg" src={showUser.profileImageUrl} alt="Profile" />}
           </div>
           <div className="follower-info">
-          {(currentUser && (currentUser.username !== username)) && (
+            {currentUser && currentUser.username !== username && (
               <button onClick={handleFollow}>
                 {isFollowing ? 'Unfollow' : 'Follow'}
               </button>
             )}
-           
-            <div className="showUser-username">
-              {showUser.username}
-            </div>
-            <div className="showUser-location">
-              {showUser.location}
-            </div>
-            {username === currentUser.username && <button onClick={openModal}>Create A Post</button>}
-            {/* <button onClick={openModal}>Create A Post</button> */}
+           {showUser && (
+                  <>
+                    <div className="showUser-username">{showUser.username}</div>
+                    <div className="showUser-location">{showUser.location}</div>
+                  </>
+                )}
+                {currentUser && username === currentUser.username && (
+                  <button onClick={openModal}>Create A Post</button>
+                )}
             <div onClick={openFollowModal}>{followers.length} Followers</div>
             <div onClick={openFollowModal}>{following.length} Following</div>
           </div>
@@ -199,7 +175,7 @@ const ProfileHeader = ({ onFilterValue, filterValue }) => {
                 </button>
                 <button className="close-button" onClick={() => setShowFollowModal(false)}>
                   X
-               </button>
+                </button>
               </div>
               <div className="modal-body">
                 {followType === 'followers' && (

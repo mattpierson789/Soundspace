@@ -28,7 +28,7 @@ function App() {
   
   useEffect(() => {
     dispatch(getCurrentUser()).then(() => setLoaded(true));  
-    dispatch(getAllUsers())
+    // dispatch(getAllUsers())
   }, [dispatch]);
 
   return loaded && (
