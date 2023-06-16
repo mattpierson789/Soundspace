@@ -7,7 +7,7 @@ import CreatePostModal from '../UploadTextPost/UploadTextPost';
 
 const ProfileHeader = ({ onFilterValue, filterValue }) => {
   const dispatch = useDispatch();
-  const { username } = useParams();
+  const { username, userId } = useParams();
   const history = useHistory();
   const currentUser = useSelector(state => state.session.currentUser);
   const userFollowers = useSelector(state => state.follow.followers);
