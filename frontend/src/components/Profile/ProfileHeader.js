@@ -1,36 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './ProfileHeader.css';
 import { useParams, useHistory } from 'react-router-dom';
-import { followUser, unfollowUser } from '../../store/follow';
-import { fetchUserTracks, clearTrackErrors } from '../../store/tracks';
-import { fetchUserFollows, fetchUserFollowing } from '../../store/follow';
+import { followUser, unfollowUser, fetchUserFollows, fetchUserFollowing } from '../../store/follow';
 import CreatePostModal from '../UploadTextPost/UploadTextPost';
 
 const ProfileHeader = ({ onFilterValue, filterValue }) => {
   const dispatch = useDispatch();
   const { username } = useParams();
+  const history = useHistory();
   const currentUser = useSelector(state => state.session.currentUser);
   const userFollowers = useSelector(state => state.follow.followers);
-  const isCurrentUserFollower = userFollowers.find(follower => follower._id === currentUser._id) !== undefined;
-  const [isFollowing, setIsFollowing] = useState(isCurrentUserFollower);
-  const userTracks = useSelector(state => state.tracks.userTracks);
   const showUser = useSelector(state => state.session.allUsers.find(user => user.username === username ));
-
-  const [showModal, setShowModal] = useState(false);
-
-  const handleFilter = (value) => {
-    onFilterValue(value);
-  };
-
-  const history = useHistory();
   const followers = useSelector(state => state.follow.followers);
   const following = useSelector(state => state.follow.following);
+
+  const [isFollowing, setIsFollowing] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [showFollowModal, setShowFollowModal] = useState(false);
   const [followType, setFollowType] = useState('following');
 
+  const isMountedRef = useRef(null);
+
   const handleFollow = () => {
-    if (isCurrentUserFollower) {
+    if (isFollowing) {
       dispatch(unfollowUser(currentUser._id, username));
     } else {
       dispatch(followUser(currentUser._id, username));
@@ -38,10 +31,19 @@ const ProfileHeader = ({ onFilterValue, filterValue }) => {
   };
 
   useEffect(() => {
-    dispatch(fetchUserFollows(username));
-    dispatch(fetchUserFollowing(username));
-  }, [dispatch, username]);
-  
+    isMountedRef.current = true;
+    dispatch(fetchUserFollows(username)).then(() => {
+      dispatch(fetchUserFollowing(username)).then(() => {
+        const isCurrentUserFollower = userFollowers.find(follower => follower._id === currentUser._id) !== undefined;
+        if(isMountedRef.current) {
+          setIsFollowing(isCurrentUserFollower);
+        }
+      });
+    });
+    return () => {
+      isMountedRef.current = false;
+    }
+  }, [dispatch, username, userFollowers, currentUser]);
 
   const openModal = () => {
     setShowModal(true);
@@ -56,8 +58,10 @@ const ProfileHeader = ({ onFilterValue, filterValue }) => {
   };
 
   const handleShowPage = (user) => {
-    
-    if (user.username) {history.push(`/profile/${user.username}`) ; setShowFollowModal(false); }
+    if (user.username) {
+      history.push(`/profile/${user.username}`);
+      setShowFollowModal(false);
+    }
   }
 
   useEffect(() => {
@@ -74,16 +78,15 @@ const ProfileHeader = ({ onFilterValue, filterValue }) => {
     };
   }, [showModal]);
 
-  
   return (
     <>
       <div className="profile-header">
         <div className="profile-info">
-          <img className="showPage-profilePageImg" src={showUser.profileImageUrl} />
+          {showUser && <img className="showPage-profilePageImg" src={showUser.profileImageUrl} />}
           <div className="follower-info">
             {currentUser.username !== username && (
               <button onClick={handleFollow}>
-                {isCurrentUserFollower ? 'Unfollow' : 'Follow'}
+                {isFollowing ? 'Unfollow' : 'Follow'}
               </button>
             )}
             {username === currentUser.username && <button onClick={openModal}>Create A Post</button>}
@@ -100,7 +103,7 @@ const ProfileHeader = ({ onFilterValue, filterValue }) => {
               </div>
             </div>
           )}
-
+  
           {showFollowModal && (
             <div className="follow-modal">
               <div className="follow-modal-content">
@@ -190,6 +193,7 @@ const ProfileHeader = ({ onFilterValue, filterValue }) => {
       </div>
     </>
   );
+  
 };
 
 export default ProfileHeader;
