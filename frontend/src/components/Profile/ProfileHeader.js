@@ -33,7 +33,7 @@ const ProfileHeader = ({ onFilterValue, filterValue }) => {
       return false;
     });
   }
-  
+
   // Change following
   if (following.length > 0) {
     let temp = [];
@@ -133,7 +133,7 @@ const ProfileHeader = ({ onFilterValue, filterValue }) => {
             {showUser && <img className="showPage-profilePageImg" src={showUser.profileImageUrl} alt="Profile" />}
           </div>
           <div className="follower-info">
-            {currentUser && currentUser._id !== userId && (
+          {(currentUser && (currentUser.username !== username)) && (
               <button onClick={handleFollow}>
                 {isFollowing ? 'Unfollow' : 'Follow'}
               </button>
@@ -145,7 +145,7 @@ const ProfileHeader = ({ onFilterValue, filterValue }) => {
             <div className="showUser-location">
               {showUser.location}
             </div>
-            <button onClick={openModal}>Create A Post</button>
+            {/* <button onClick={openModal}>Create A Post</button> */}
             <div onClick={openFollowModal}>{followers.length} Followers</div>
             <div onClick={openFollowModal}>{following.length} Following</div>
           </div>
