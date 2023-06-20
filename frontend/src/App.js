@@ -31,8 +31,13 @@ function App() {
     // dispatch(getAllUsers())
   }, [dispatch]);
 
+  if (!loaded) {
+    return <h1>Failed to load</h1>
+  }
+  
   return loaded && (
     <>
+    <hi>Hi my name is Matt </hi>
       <SideBarLinks />
       <MusicBar />
       <Switch>
