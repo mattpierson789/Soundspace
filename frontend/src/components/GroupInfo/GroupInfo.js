@@ -25,7 +25,7 @@ function GroupInfo() {
             src="https://soundspace-seeds.s3.amazonaws.com/public/Dev+Photos/IMG_3804.jpg"
             alt="Tycan Cheng"
           />
-          <p>Tycan Cheng</p>
+          <p>Tyvan Cheng</p>
         </div>
       </div>
       <div className="card">
