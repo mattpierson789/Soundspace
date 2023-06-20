@@ -46,15 +46,17 @@ app.use('/api/tracks', tracksRouter);
 app.use('/api/posts', postsRouter); 
 app.use('/api/csrf', csrfRouter);
 
+
+app.get('/', (req, res) => {
+    res.send('Hello, World!');
+});
+
 app.use((req, res, next) => {
     const err = new Error('Not Found');
     err.statusCode = 404;
     next(err);
 });
 
-app.get('/', (req, res) => {
-    res.send('Hello, World!');
-});
 
 const serverErrorLogger = debug('backend:error');
 
