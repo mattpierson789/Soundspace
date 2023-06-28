@@ -1,85 +1,125 @@
-
 .upload-track {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 20px;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  margin-top: 20px;
 }
 
-.upload-track input[type="text"],
-.upload-track input[type="file"] {
+.error-message {
+  color: red;
+  margin-bottom: 10px;
+}
+
+input[type="text"],
+select {
   width: 300px;
   padding: 10px;
   margin-bottom: 10px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 4px;
 }
 
-.upload-track input[type="submit"] {
-  width: 120px;
-  padding: 10px;
-  background-color: #657bf6;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.upload-track input[type="submit"]:hover {
-  background-color: #e74c3c;
-}
-
-.errors {
-  color: #ff6b6b;
-  font-size: 14px;
+.file-input-label {
+  display: flex;
+  align-items: center;
   margin-bottom: 10px;
 }
 
-/* Optional: Add some additional styling to make it cuter */
-
-.upload-track {
-  max-width: 400px;
-  margin: 20px auto;
-}
-
-.upload-track h2 {
-  font-size: 20px;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.upload-track label {
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-.upload-track .file-input-label {
-  display: flex;
+.file-upload-button {
   align-items: center;
-  gap: 10px;
+  background-color: #ffffff;
+  border: 2px solid #111;
+  border-radius: 8px;
+  font-weight: bold;
+  box-sizing: border-box;
+  color: rgb(108, 108, 255);
+  cursor: pointer;
+  display: flex;
+  font-family: Inter,sans-serif;
+  font-size: 20px;
+  height: 48px;
+  justify-content: center;
+  line-height: 24px;
+  max-width: 100%;
+  margin: 10px;
+  padding: 0 25px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  /* margin-top: -20px; */
+  touch-action: manipulation;
 }
 
-.upload-track .file-input-label input[type="file"] {
-  opacity: 0;
+.file-upload-button::after {
+  background-color: #111;
+  border-radius: 8px;
+  content: "";
+  display: block;
+  height: 48px;
+  left: 0;
+  width: 100%;
   position: absolute;
-  pointer-events: none;
+  top: -2px;
+  transform: translate(8px, 8px);
+  transition: transform .2s ease-out;
+  z-index: -1;
 }
 
-.upload-track .file-input-label .file-input-button {
-  background-color: #ff6b6b;
-  color: #fff;
-  padding: 10px 15px;
-  border-radius: 5px;
+.file-upload-button a:hover:after {
+  transform: translate(0, 0);
+}
+
+.file-upload-button a:active {
+  background-color: #ffdeda;
+  outline: 0;
+}
+
+.file-upload-button a:hover {
+  outline: 0;
+}
+
+.file-upload-button:hover {
+  color: black
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.file-upload-button::before {
+  content: "Select Image";
+}
+
+.file-upload-button[for="audioFile"]::before {
+  content: "Select Audio";
+}
+
+input[type="file"]:focus + .file-upload-button {
+  outline: 2px solid #000000;
+}
+
+.file-input-label span {
+  margin-left: 10px;
+  font-size: 14px;
+  display: inline-block;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+input[type="submit"] {
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-.upload-track .file-input-label .file-input-button:hover {
-  background-color: #e74c3c;
+input[type="submit"]:hover {
+  background-color: #45a049;
 }
-

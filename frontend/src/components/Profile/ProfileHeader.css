@@ -15,13 +15,13 @@
 
 .showPage-profilePageImg {
   position: fixed;
-  /* margin-left: 20px; */
-  /* top: -5; */
-  bottom: 350px;
+  margin-left: 20px;
+  top: -5;
+  /* bottom: 350px; */
   margin-bottom: 65px;
   margin-left: 10px;
-  /* transform: translate(10%, -170%); */
-  /* margin-top: 100px; */
+  transform: translate(10%, -170%);
+  margin-top: 100px;
   width: 10%;
   border-radius: 150px;
   box-shadow: -.05rem 0 1rem #000;
@@ -167,11 +167,11 @@
 }
 
 /* Adjustments for responsive layout */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .profile-grid {
     margin-left: 5%;
   }
-}
+} */
 
 .track-filters {
   display: flex;
@@ -236,10 +236,10 @@
   justify-content: space-between;
   margin-bottom: 10px;
 }
-.image-container-showPage {
+/* .image-container-showPage {
   position: fixed;
   margin-right: 10px;
-}
+} */
 .toggle-button {
   background-color: transparent;
   border: none;

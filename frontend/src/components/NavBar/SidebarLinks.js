@@ -47,12 +47,20 @@ const SidebarLinks = ({ isLoggedIn }) => {
             <>
               <div id="links-container">
                 <UserInfo />
+              <div className="linksForAll">
                 <Link to="/tracks">Trending</Link>
                 <Link to="/tracks">Following</Link>
-                <Link to="/info">Check Out The Developers!</Link>
-                <button onClick={openModal}>Upload Track</button>
+                <Link className="developersLink" to="/info">Developers!</Link>
+              </div>
+                <button className="uploadTrackButton-pushable" onClick={openModal}>
+                <span class="uploadTrackButton-shadow"></span>
+                <span class="uploadTrackButton-edge"></span>
+                <span class="uploadTrackButton-front text">
+                  Upload Track
+                </span>
+                </button>
                 <li>
-                  {loggedIn && <button onClick={logoutUser}>Logout</button>}
+                  {loggedIn && <button className="logOutButton" onClick={logoutUser}>Logout</button>}
                 </li>
               </div>
             </>
@@ -61,11 +69,13 @@ const SidebarLinks = ({ isLoggedIn }) => {
               <div>
               {/* <h2 className="welcome-message">Welcome to Soundspace</h2> */}
               <div id= 'links-container'>
+                <div className="linksBeforeAuth">
                 <Link to="/login">Login</Link>
                 <Link to="/signup">Signup</Link>
                 <Link to="/tracks">Trending</Link>
                 <Link to="/tracks">Following</Link>
-                <Link to="/info">Check Out The Developers!</Link>
+                <Link to="/info">Developers!</Link>
+                </div>
               </div>
               </div>
             </>

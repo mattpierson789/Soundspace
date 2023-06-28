@@ -1,58 +1,108 @@
-.sidebarLinks {
-  display: flex;
-  flex-direction: column;
-  align-items: left;
-  justify-content: left;
-  list-style: none;
-  height: 100%;
-}
-
 #links-container {
-  /* background-color: rgb(88, 101, 210); */
   background-color: rgb(108, 108, 255);
   width: 15%;
   height: 100vh;
   position: fixed;
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 30px 0;
+  align-items: center;
   justify-content: space-evenly;
   top: 0;
   left: 0;
-  z-index: 9;
+  z-index: 999;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 
-.sidebarLinks li {
-  margin-bottom: 50px;
-}
-
-.sidebarLinks li a {
-  display: block;
-  color: #ffffff;
-  text-decoration: none;
-  font-size: 30px;
+.username-link {
   font-weight: bold;
-  transition: color 0.3s ease;
-}
-
-.sidebarLinks li a:hover {
-  color: #7270e6;
-}
-
-.sidebarLinks li button {
-  margin-right: 25px;
-  background-color: transparent;
-  border: none;
-  color: #ffffff;
+  font-size: 40px;
   cursor: pointer;
-  font-size: 20px;
-  font-weight: bold;
-  transition: color 0.3s ease;
-  margin-bottom: 30px;
+  text-decoration: none;
+  color: whitesmoke;
+  border: none;
+  transition: text-shadow 0.3s;
+  /* padding-top: 10px; */
 }
 
-.sidebarLinks li button:hover {
-  color: #7270e6;
+.username-link:hover {
+  text-shadow: 0 0 10px rgba(0, 0, 0, 1.0);
+}
+
+.username-link:active {
+  transform: scale(0.9);
+}
+
+.linksForAll {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 20%;
+}
+
+.linksForAll a:hover {
+  color: black;
+}
+
+.linksForAll a  {
+  align-items: center;
+  background-color: #ffffff;
+  border: 2px solid #111;
+  border-radius: 8px;
+  font-weight: bold;
+  box-sizing: border-box;
+  color: rgb(108, 108, 255);
+  cursor: pointer;
+  display: flex;
+  font-family: Inter,sans-serif;
+  font-size: 20px;
+  height: 48px;
+  justify-content: center;
+  line-height: 24px;
+  max-width: 100%;
+  margin: 10px;
+  padding: 0 25px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  /* margin-top: -20px; */
+  touch-action: manipulation;
+}
+
+.linksForAll a:after {
+  background-color: #111;
+  border-radius: 8px;
+  content: "";
+  display: block;
+  height: 48px;
+  left: 0;
+  width: 100%;
+  position: absolute;
+  top: -2px;
+  transform: translate(8px, 8px);
+  transition: transform .2s ease-out;
+  z-index: -1;
+}
+
+.linksForAll a:hover:after {
+  transform: translate(0, 0);
+}
+
+.linksForAll a:active {
+  background-color: #ffdeda;
+  outline: 0;
+}
+
+.linksForAll a:hover {
+  outline: 0;
+}
+
+@media (min-width: 768px) {
+  .linksForAll a {
+    padding: 0 80px;
+  }
 }
 
 .modal {
@@ -68,13 +118,13 @@
   justify-content: center;
 }
 
+
 .modal-content {
-  background-color: #fff;
+  background-color: rgb(108, 108, 255);
   border-radius: 4px;
   padding: 20px;
   max-width: 400px;
   position: relative;
-  /* Add position relative */
 }
 
 .close {
@@ -84,8 +134,201 @@
   font-size: 24px;
   font-weight: bold;
   cursor: pointer;
+  color: rgb(0, 0, 0);
 }
 
-ul.sidebarLinks {
-  height: 10px;
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* margin-bottom: 20px; */
 }
+
+.user-profile-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.username-link {
+  font-weight: bold;
+  font-size: 42px;
+  color: whitesmoke;
+  text-decoration: none;
+  transition: text-shadow 0.3s;
+  margin-top: 10px;
+  margin-left: 33px;
+  /* text-decoration-line: overline; */
+  text-shadow:
+  -2px -2px 0 black,
+  2px -2px 0 black,
+  -2px 2px 0 black,
+  2px 5px 0 black;
+}
+
+.username-link:hover {
+  text-shadow: 0 0 10px rgba(0, 0, 0, 1.0);
+}
+
+.profile-image-userInfo {
+  width: 70%;
+  margin-left: 38px;
+  /* height: 100px; */
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 30px;
+  box-shadow: -.05rem 0 2rem #000;
+  border: 2px solid white;
+}
+
+.uploadTrackButton-pushable {
+  position: relative;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  outline-offset: 4px;
+  transition: filter 250ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  font-weight: bold;
+  /* font-size: 30px; */
+}
+
+
+.uploadTrackButton-shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  background: hsl(0deg 0% 0% / 0.25);
+  will-change: transform;
+  transform: translateY(2px);
+  transition:
+    transform
+    600ms
+    cubic-bezier(.3, .7, .4, 1);
+}
+
+.uploadTrackButton-edge {
+  
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  background: linear-gradient(
+    to left,
+    hsl(0, 0%, 0%) 0%,
+    hsl(0, 0%, 22%) 8%,
+    hsl(0, 0%, 7%) 92%,
+    hsl(0, 0%, 0%) 100%
+  );
+}
+
+.uploadTrackButton-front {
+  display: block;
+  position: relative;
+  padding: 12px 27px;
+  border-radius: 12px;
+  font-size: 1.2rem;
+  color: rgb(108, 108, 255);
+  background: white;
+  will-change: transform;
+  transform: translateY(-4px);
+  transition:
+    transform
+    600ms
+    cubic-bezier(.3, .7, .4, 1);
+}
+
+@media (min-width: 768px) {
+  .uploadTrackButton-front {
+    font-size: 1.25rem;
+    padding: 12px 42px;
+  }
+}
+
+.uploadTrackButton-pushable:hover {
+  filter: brightness(110%);
+  -webkit-filter: brightness(110%);
+}
+
+.uploadTrackButton-pushable:hover .uploadTrackButton-front {
+  transform: translateY(-6px);
+  transition:
+    transform
+    250ms
+    cubic-bezier(.3, .7, .4, 1.5);
+}
+
+.uploadTrackButton-pushable:active .uploadTrackButton-front {
+  transform: translateY(-2px);
+  transition: transform 34ms;
+}
+
+.uploadTrackButton-pushable:hover .uploadTrackButton-shadow {
+  transform: translateY(4px);
+  transition:
+    transform
+    250ms
+    cubic-bezier(.3, .7, .4, 1.5);
+}
+
+.uploadTrackButton-pushable:active .uploadTrackButton-shadow {
+  transform: translateY(1px);
+  transition: transform 34ms;
+}
+
+.uploadTrackButton-pushable:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.logOutButton {
+  appearance: none;
+  background-color: white;
+  border: 4px solid #1A1A1A;
+  border-radius: 15px;
+  box-sizing: border-box;
+  color: rgb(108, 108, 255);
+  cursor: pointer;
+  display: inline-block;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: normal;
+  margin: 0;
+  min-height: 60px;
+  min-width: 0;
+  outline: none;
+  padding: 16px 24px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: 100%;
+  will-change: transform;
+}
+
+.logOutButton:disabled {
+  pointer-events: none;
+}
+
+.logOutButton:hover {
+  color: #fff;
+  background-color: #1A1A1A;
+  box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+  transform: translateY(-2px);
+}
+
+.logOutButton:active {
+  box-shadow: none;
+  transform: translateY(0);
+}
+
