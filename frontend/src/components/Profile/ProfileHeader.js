@@ -12,8 +12,8 @@ const ProfileHeader = ({ onFilterValue, filterValue }) => {
   const currentUser = useSelector(state => state.session.currentUser);
   const userFollowers = useSelector(state => state.follow.followers);
   const showUser = useSelector(state => state.session.allUsers.find(user => user.username === username));
-  const followers = useSelector(state => state.follow.followers) || [];
-  const following = useSelector(state => state.follow.following) || [];
+  const followers = sortFollowNumber(useSelector(state => state.follow.followers)) || [];
+  const following = sortFollowNumber(useSelector(state => state.follow.following)) || [];
 
   const [isFollowing, setIsFollowing] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -37,6 +37,17 @@ const ProfileHeader = ({ onFilterValue, filterValue }) => {
   //   };
   // }, [dispatch, username, userFollowers, currentUser]);
 
+  function sortFollowNumber(column) {
+    // Column is either followers or following
+    const newColumn = {}
+    for (let i = 0; i < column.length; i++) {
+      if (!(column[i] === null || newColumn.hasOwnProperty(column[i].username))) {
+        debugger
+        if (username !== column[i].username) newColumn[column[i].username] = column[i]
+    }}
+    return Object.values(newColumn)
+  }
+
   const handleFollow = () => {
     if (isFollowing) {
       dispatch(unfollowUser(currentUser._id, username));
@@ -53,7 +64,8 @@ const ProfileHeader = ({ onFilterValue, filterValue }) => {
     setShowModal(false);
   };
 
-  const openFollowModal = () => {
+  const openFollowModal = (type) => {
+    setFollowType(type);
     setShowFollowModal(true);
   };
 
@@ -142,8 +154,8 @@ const ProfileHeader = ({ onFilterValue, filterValue }) => {
                 {currentUser && username === currentUser.username && (
                   <button onClick={openModal}>Create A Post</button>
                 )}
-            <div onClick={openFollowModal}>{followers.length} Followers</div>
-            <div onClick={openFollowModal}>{following.length} Following</div>
+            <div onClick={() => openFollowModal('followers')}>{followers.length} Followers</div>
+            <div onClick={() => openFollowModal('following')}>{following.length} Following</div>
           </div>
         </div>
         {showModal && (

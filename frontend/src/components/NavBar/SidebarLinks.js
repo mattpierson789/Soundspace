@@ -11,6 +11,7 @@ const SidebarLinks = ({ isLoggedIn }) => {
   const dispatch = useDispatch();
 
   const [showModal, setShowModal] = useState(false);
+  const [toFollowingPage, setToFollowingPage] = useState(true);
 
   const logoutUser = e => {
     e.preventDefault();
@@ -26,7 +27,7 @@ const SidebarLinks = ({ isLoggedIn }) => {
   };
 
   useEffect(() => {
-    const handleOutsideClick = (e) => {
+    const handleOutsideClick = e => {
       if (showModal && !e.target.closest('.modal-content')) {
         setShowModal(false);
       }
@@ -47,36 +48,34 @@ const SidebarLinks = ({ isLoggedIn }) => {
             <>
               <div id="links-container">
                 <UserInfo />
-              <div className="linksForAll">
-                <Link to="/tracks">Trending</Link>
-                <Link to="/tracks">Following</Link>
-                <Link className="developersLink" to="/info">Developers!</Link>
-              </div>
+                <div className="linksForAll">
+                  <Link to={{ pathname: "/tracks", state: { toFollowingPage: false } }}>Trending</Link>
+                  <Link to={{ pathname: "/tracks", state: { toFollowingPage: true } }}>Following</Link>
+                  <Link className="developersLink" to="/info">Developers!</Link>
+                </div>
                 <button className="uploadTrackButton-pushable" onClick={openModal}>
-                <span class="uploadTrackButton-shadow"></span>
-                <span class="uploadTrackButton-edge"></span>
-                <span class="uploadTrackButton-front text">
-                  Upload Track
-                </span>
+                  <span className="uploadTrackButton-shadow"></span>
+                  <span className="uploadTrackButton-edge"></span>
+                  <span className="uploadTrackButton-front text">
+                    Upload Track
+                  </span>
                 </button>
-                <li>
-                  {loggedIn && <button className="logOutButton" onClick={logoutUser}>Logout</button>}
-                </li>
+                {loggedIn && <button className="logOutButton" onClick={logoutUser}>Logout</button>}
               </div>
             </>
           ) : (
             <>
               <div>
-              {/* <h2 className="welcome-message">Welcome to Soundspace</h2> */}
-              <div id= 'links-container'>
-                <div className="linksBeforeAuth">
-                <Link to="/login">Login</Link>
-                <Link to="/signup">Signup</Link>
-                <Link to="/tracks">Trending</Link>
-                <Link to="/tracks">Following</Link>
-                <Link to="/info">Developers!</Link>
+                {/* <h2 className="welcome-message">Welcome to Soundspace</h2> */}
+                <div id="links-container">
+                  <div className="linksBeforeAuth">
+                    <Link to="/login">Login</Link>
+                    <Link to="/signup">Signup</Link>
+                    <Link to="/tracks">Trending</Link>
+                    <Link to="/tracks">Following</Link>
+                    <Link to="/info">Developers!</Link>
+                  </div>
                 </div>
-              </div>
               </div>
             </>
           )}
