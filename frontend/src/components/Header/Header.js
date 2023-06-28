@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import './Header.css';
 
-function Header({ onLocationValue, locationValue, onTrendingPage }) {
+function Header({ onLocationValue, locationValue, onTrendingPage, prop }) {
   const currentUser = useSelector((state) => state.session.currentUser);
   const currentLocation = currentUser && currentUser.location;
   const [location, setLocation] = useState(currentLocation);
   const [feedType, setFeedType] = useState(true);
 
+  if (prop === true) { handleFeedClick(false); debugger } // Goes to following
+  if (prop === false) { handleFeedClick(true); debugger } // Goes to trending
   let tracks = useSelector((state) => Object.values(state.tracks.allTracks));
 
   if (locationValue && locationValue !== "Global") {
@@ -21,10 +23,13 @@ function Header({ onLocationValue, locationValue, onTrendingPage }) {
     }
   };
 
-  const handleFeedClick = (type) => {
-    if (feedType !== type) {
+  function handleFeedClick(type) {
+    // if type === false and prop == true
+    if ((feedType !== type)) {
+      debugger
       setFeedType(type);
       onTrendingPage(type);
+      // prop = !prop
     }
   };
 
@@ -54,8 +59,8 @@ function Header({ onLocationValue, locationValue, onTrendingPage }) {
       {/* </div> */}
       
       <div className="feed-type-buttons">
-            <button onClick={() => handleFeedClick(true)}>Trending</button>
-            <button onClick={() => handleFeedClick(false)}>Following</button>
+            {/* <button onClick={() => handleFeedClick(true)}>Trending</button>
+            <button onClick={() => handleFeedClick(false)}>Following</button> */}
       </div>
 
 

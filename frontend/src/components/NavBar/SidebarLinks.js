@@ -11,6 +11,7 @@ const SidebarLinks = ({ isLoggedIn }) => {
   const dispatch = useDispatch();
 
   const [showModal, setShowModal] = useState(false);
+  const [toFollowingPage, setToFollowingPage] = useState(true);
 
   const logoutUser = e => {
     e.preventDefault();
@@ -47,8 +48,9 @@ const SidebarLinks = ({ isLoggedIn }) => {
             <>
               <div id="links-container">
                 <UserInfo />
-                <Link to="/tracks">Trending</Link>
-                <Link to="/tracks">Following</Link>
+                <Link to={{ pathname: "/tracks", state: { toFollowingPage: false } }}>Trending</Link>
+                <Link to={{ pathname: "/tracks", state: { toFollowingPage: true } }}>Following</Link>
+                {/* <Link to="/tracks">Following</Link> */}
                 <Link to="/info">Check Out The Developers!</Link>
                 <button onClick={openModal}>Upload Track</button>
                 <li>
