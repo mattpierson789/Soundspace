@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { signup, clearSessionErrors } from '../../store/session';
 import './SignupForm.css';
-import ImageCarousel from '../ImageCarousel/ImageCarousel';
 
 function SignupForm() {
   const [email, setEmail] = useState('');
@@ -56,58 +55,57 @@ function SignupForm() {
 
   return (
     <div className="signup-page-container">
-      <div className="image-carousel-container">
-        <ImageCarousel className="image-carousel" />
-      </div>
-
-      <div className="form-container2">
+      <div className="signup-form-container">
         <form className="signup-form" onSubmit={handleSubmit}>
-          <div id="tag-line">
-            <h1>Soundspace</h1>
-            <h2>Discover Your Local Scene</h2>
-            <h2>Connect with Music in your Backyard</h2>
+          <div className="signup-tag-line">
+            <h1 className="signup-title">Soundspace</h1>
+            <h2 className="signup-subtitle">Discover Your Local Scene</h2>
+            <h2 className="signup-subtitle">Connect with Music in Your Backyard</h2>
           </div>
 
-          <h2>Sign Up Form</h2>
-          <label>
-            <span>Email</span>
+          <h2 className="signup-heading">Sign Up Form</h2>
+          <label className="signup-label">
+            <span className="signup-label-text">Email</span>
             <input
               type="text"
               value={email}
               onChange={e => setEmail(e.target.value)}
               placeholder="Email"
+              className="signup-input-field"
             />
-            <div className="errors">{errors ? errors.email : null}</div>
+            <div className="signup-errors">{errors ? errors.email : null}</div>
           </label>
 
-          <label>
-            <span>Name</span>
+          <label className="signup-label">
+            <span className="signup-label-text">Name</span>
             <input
               type="text"
               value={name}
               onChange={e => setName(e.target.value)}
               placeholder="Name"
+              className="signup-input-field"
             />
           </label>
 
-          <label>
-            <span>Username</span>
+          <label className="signup-label">
+            <span className="signup-label-text">Username</span>
             <input
               type="text"
               value={username}
               onChange={e => setUsername(e.target.value)}
               placeholder="Username"
+              className="signup-input-field"
             />
           </label>
 
-          <label>
+          <label className="signup-label">
             Profile Image
-            <input type="file" accept=".jpg, .jpeg, .png" onChange={updateFile} />
+            <input type="file" accept=".jpg, .jpeg, .png" onChange={updateFile} className="signup-input-field" />
           </label>
 
-          <label>
-            <span>Location:</span>
-            <select value={location} onChange={e => setLocation(e.target.value)}>
+          <label className="signup-label">
+            <span className="signup-label-text">Location:</span>
+            <select value={location} onChange={e => setLocation(e.target.value)} className="signup-input-field">
               <option value="">Select Location</option>
               <option value="NYC">NYC</option>
               <option value="LA">LA</option>
@@ -115,36 +113,38 @@ function SignupForm() {
             </select>
           </label>
 
-          <label>
-            <span>Password</span>
+          <label className="signup-label">
+            <span className="signup-label-text">Password</span>
             <input
               type="password"
               value={password}
               onChange={e => setPassword(e.target.value)}
               placeholder="Password"
+              className="signup-input-field"
             />
           </label>
 
-          <label>
-            <span>Confirm Password</span>
+          <label className="signup-label">
+            <span className="signup-label-text">Confirm Password</span>
             <input
               type="password"
               value={password2}
               onChange={e => setPassword2(e.target.value)}
               placeholder="Confirm Password"
+              className="signup-input-field"
             />
-            <div className="errors">
+            <div className="signup-errors">
               {password !== password2 && 'Passwords do not match'}
             </div>
           </label>
 
-          <div className="errors">
+          <div className="signup-errors">
             {errorMessages.map((error, idx) => (
               <div key={idx}>{error}</div>
             ))}
           </div>
 
-          <button type="submit">Sign Up</button>
+          <button type="submit" className="signup-submit-btn">Sign Up</button>
         </form>
       </div>
     </div>
