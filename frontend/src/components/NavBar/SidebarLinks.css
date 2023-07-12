@@ -205,7 +205,7 @@
   width: 100%;
   height: 100%;
   border-radius: 12px;
-  background: hsl(0deg 0% 0% / 0.25);
+  background: hsla(0, 0%, 100%, 0.25);
   will-change: transform;
   transform: translateY(2px);
   transition:
@@ -224,10 +224,10 @@
   border-radius: 12px;
   background: linear-gradient(
     to left,
-    hsl(0, 0%, 0%) 0%,
-    hsl(0, 0%, 22%) 8%,
-    hsl(0, 0%, 7%) 92%,
-    hsl(0, 0%, 0%) 100%
+    hsl(0, 0%, 100%) 0%,
+    hsl(0, 0%, 78%) 8%,
+    hsl(0, 0%, 50%) 92%,
+    hsl(0, 0%, 36%) 100%
   );
 }
 
@@ -237,8 +237,8 @@
   padding: 12px 27px;
   border-radius: 12px;
   font-size: 1.2rem;
-  color: rgb(108, 108, 255);
-  background: white;
+  color: rgb(255, 255, 255);
+  background: rgb(0, 0, 0);
   will-change: transform;
   transform: translateY(-4px);
   transition:
@@ -247,10 +247,10 @@
     cubic-bezier(.3, .7, .4, 1);
 }
 
-@media (min-width: 768px) {
+@media (min-width: 400px) {
   .uploadTrackButton-front {
     font-size: 1.25rem;
-    padding: 12px 42px;
+    padding: 10px 30px;
   }
 }
 
@@ -312,7 +312,7 @@
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-  width: 100%;
+  width: 50%;
   will-change: transform;
 }
 

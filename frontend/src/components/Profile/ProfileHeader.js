@@ -137,7 +137,7 @@ const ProfileHeader = ({ onFilterValue, filterValue }) => {
         </div>
         <div className="profile-info">
           <div className="image-container-showPage">
-            {/* {showUser && <img className="showPage-profilePageImg" src={showUser.profileImageUrl} alt="Profile" />} */}
+            {showUser && <img className="showPage-profilePageImg" src={showUser.profileImageUrl} alt="Profile" />}
           </div>
           <div className="follower-info">
             {currentUser && currentUser.username !== username && (
