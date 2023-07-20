@@ -3,26 +3,28 @@
 .profile-header {
   position: fixed;
   right: 0;
-  bottom: 0;
-  top: 130px;
-  width: 300px; /* Adjust the width as needed */
+  bottom: -50px;
+  top: 138px;
+  width: 300px; 
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: #f2f2f2;
   padding: 20px;
+  /* z-index: 999 */
 }
 
 .showPage-profilePageImg {
   position: fixed;
   /* margin-left: 20px; */
   /* top: -5; */
-  bottom: 350px;
-  margin-bottom: 65px;
-  margin-left: 10px;
-  /* transform: translate(10%, -170%); */
+  /* bottom: 350px; */
+  /* margin-bottom: 205px; */
+  /* margin-left: 10px; */
+  transform: translate(0%, -165%);
   /* margin-top: 100px; */
   width: 10%;
+  /* margin-bottom: 290px; */
   border-radius: 150px;
   box-shadow: -.05rem 0 1rem #000;
 }
@@ -167,11 +169,11 @@
 }
 
 /* Adjustments for responsive layout */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .profile-grid {
     margin-left: 5%;
   }
-}
+} */
 
 .track-filters {
   display: flex;
@@ -215,7 +217,7 @@
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
-  z-index: 999;
+    z-index: 999;
 
   align-items: center;
   justify-content: center;
@@ -236,10 +238,12 @@
   justify-content: space-between;
   margin-bottom: 10px;
 }
+
 .image-container-showPage {
   position: fixed;
   margin-right: 10px;
 }
+
 .toggle-button {
   background-color: transparent;
   border: none;

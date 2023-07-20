@@ -56,18 +56,18 @@ function Tracks({ trendingPage, locationValue = null }) {
 
   useMount(async () => {
     setIsLoading(true);
-    dispatch(fetchTracks());
-    dispatch(fetchPosts());
-    dispatch(getAllUsers());
-    setIsLoading(false);
+    await dispatch(fetchTracks());
+    await dispatch(fetchPosts());
+    await dispatch(getAllUsers());
+    await setIsLoading(false);
     return () => dispatch(clearTrackErrors());
   });
 
   useMount(async () => {
     setIsLoading(true);
     if (currentUser) {
-       dispatch(fetchUserFollows(currentUser.username));
-      dispatch(fetchUserFollowing(currentUser.username));
+      await dispatch(fetchUserFollows(currentUser.username));
+      await dispatch(fetchUserFollowing(currentUser.username));
     }
     setIsLoading(false);
   });
@@ -82,9 +82,9 @@ function Tracks({ trendingPage, locationValue = null }) {
           ) : (
             tracks.map((track) => <TrackItem key={track._id} track={track} />)
           )}
-          {/* {posts.map((post) => (
+          {posts.map((post) => (
             <PostItem key={post._id} post={post} />
-          ))} */}
+          ))}
         </div>
       </div>
     </div>

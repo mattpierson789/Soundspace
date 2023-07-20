@@ -4,13 +4,17 @@ import Tracks from '../Tracks/Tracks.js';
 import NavBar from '../NavBar/SidebarLinks.js';
 import Header from '../Header/Header.js';
 import CityBanner from '../CityBanner/CityBanner';
-
+import { useLocation } from 'react-router-dom';
 
 function MainFeed() {
   const currentUser = useSelector((state) => state.session.currentUser);
   const location = currentUser ? currentUser.location : null;
   const [locationValue, setLocationValue] = useState(location);
   const [trendingPage, setTrendingPage] = useState(true);
+
+  const stateLocation = useLocation();
+  const prop = stateLocation.state && stateLocation.state.toFollowingPage;
+  debugger
 
   const handleLocationValue = (value) => {
     setLocationValue(value);
@@ -44,7 +48,7 @@ function MainFeed() {
         <CityBanner locationValue={locationValue}/>
       </div>
       <div className="mainfeed-header">
-        <Header onLocationValue={handleLocationValue} onTrendingPage={handleTrendingPage} />
+        <Header onLocationValue={handleLocationValue} onTrendingPage={handleTrendingPage} prop={prop} />
       </div>
       <div className="mainfeed-index">
         <Tracks locationValue={locationValue} trendingPage={trendingPage} />

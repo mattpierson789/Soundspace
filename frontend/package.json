@@ -17,6 +17,10 @@
     "redux": "^4.2.1",
     "redux-thunk": "^2.4.2"
   },
+  "devServer": {
+    "historyApiFallback": true,
+    "hot": true
+  },
   "scripts": {
     "backend-install": "npm install --prefix backend",
     "backend": "npm run dev --prefix backend",

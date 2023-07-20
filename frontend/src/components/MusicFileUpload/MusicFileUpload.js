@@ -55,49 +55,56 @@ function MusicUploadForm() {
 
   return (
     <>
-      <form className="upload-track" onSubmit={handleSubmit}>
-        {error && <div className="error-message">{error}</div>} 
-        <input
-          type="text"
-          value={title}
-          onChange={e => setTitle(e.target.value)}
-          placeholder="Song Name"
-          required
-        />
-        <select
-          value={genre}
-          onChange={e => setGenre(e.target.value)}
-          placeholder="Genre"
-          required
-        >
-          <option value="">Select Genre</option>
-          <option value="Pop">Pop</option>
-          <option value="Rock">Rock</option>
-          <option value="Hip Hop">Hip Hop</option>
-          <option value="Electronic">Electronic</option>
-        </select>
-        <label className="file-upload-button">
-          Select Image
+          <form className="upload-track" onSubmit={handleSubmit}>
+          {error && <div className="error-message">{error}</div>} 
           <input
-            type="file"
-            onChange={handleImageFileChange}
-            name="imageFile"
-            accept="image/jpeg, image/png"
+            type="text"
+            value={title}
+            onChange={e => setTitle(e.target.value)}
+            placeholder="Song Name"
             required
           />
-        </label>
-        <label className="file-upload-button">
-          Select Audio
-          <input
-            type="file"
-            onChange={handleAudioFileChange}
-            name="audioFile"
-            accept="audio/mpeg"
+          <select
+            value={genre}
+            onChange={e => setGenre(e.target.value)}
+            placeholder="Genre"
             required
-          />
-        </label>
-        <input type="submit" value="Upload" />
-      </form>
+          >
+            <option value="">Select Genre</option>
+            <option value="Pop">Pop</option>
+            <option value="Rock">Rock</option>
+            <option value="Hip Hop">Hip Hop</option>
+            <option value="Electronic">Electronic</option>
+          </select>
+          <div className="file-input-label">
+            <label htmlFor="imageFile" className="file-upload-button">
+            </label>
+            <input
+              type="file"
+              id="imageFile"
+              onChange={handleImageFileChange}
+              name="imageFile"
+              accept="image/jpeg, image/png"
+              required
+            />
+            {selectedImageFile && <span>{selectedImageFile.name}</span>}
+          </div>
+          <div className="file-input-label">
+            <label htmlFor="audioFile" className="file-upload-button">
+            </label>
+            <input
+              type="file"
+              id="audioFile"
+              onChange={handleAudioFileChange}
+              name="audioFile"
+              accept="audio/mpeg"
+              required
+            />
+            {selectedAudioFile && <span>{selectedAudioFile.name}</span>}
+          </div>
+          <input type="submit" value="Upload" />
+        </form>
+
     </>
   );
 }

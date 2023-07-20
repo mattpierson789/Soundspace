@@ -2,10 +2,8 @@ import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
-import './SigninForm.css';
+import './LoginForm.css';
 import { login, clearSessionErrors } from '../../store/session';
-import ImageCarousel from '../ImageCarousel/ImageCarousel';
-
 
 function LoginForm() {
   const [email, setEmail] = useState('');
@@ -38,45 +36,47 @@ function LoginForm() {
   }
   return (
     <div className="login-page-container">
-      <div className="image-carousel-container">
-        <ImageCarousel className="image-carousel"/>
-      </div>
-      <div className="form-container">
+      <div className="login-form-container">
         <form className="login-form" onSubmit={handleSubmit}>
-        <div id= 'tag-line'>
-          <h1>Soundspace</h1>
-          <h2>Discover Your Local Scene </h2>
-          <h2>Connect with Music in your Backyard</h2>
+          <div className="tag-line">
+            <h1 className="form-title">Soundspace</h1>
+            <h2 className="form-subtitle">Discover Your Local Scene</h2>
+            <h2 className="form-subtitle">Connect with Music in your Backyard</h2>
           </div>
-          <h2>Log In Form</h2>
-          <label>
-            <span>Email</span>
+          <h2 className="form-heading">Log In Form</h2>
+          <label htmlFor="email-input" className="form-label">
+            <span className="form-label-text">Email</span>
             <input
               type="text"
+              id="email-input"
+              className="form-input"
               value={email}
               onChange={update('email')}
               placeholder="Email"
             />
             <div className="errors">{errors ? errors.email : null}</div>
           </label>
-          <label>
-            <span>Password</span>
+          <label htmlFor="password-input" className="form-label">
+            <span className="form-label-text">Password</span>
             <input
               type="password"
+              id="password-input"
+              className="form-input"
               value={password}
               onChange={update('password')}
               placeholder="Password"
             />
             <div className="errors">{errors ? errors.password : null}</div>
           </label>
-          <input type="submit" value="Log In" />
-          <label>
+          <input type="submit" value="Log In" className="form-submit-btn" />
+          <label className="form-link-label">
             Not a user? Sign Up Here!{' '}
-            <Link to="/signup">Sign Up</Link>
+            <Link to="/signup" className="form-link">Sign Up</Link>
           </label>
         </form>
       </div>
     </div>
   );
 }
+
 export default LoginForm;
