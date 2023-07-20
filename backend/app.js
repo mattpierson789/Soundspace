@@ -2,6 +2,7 @@ const express = require("express");
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const debug = require('debug');
+const path = require('path');
 
 const cors = require('cors');
 const csurf = require('csurf');
