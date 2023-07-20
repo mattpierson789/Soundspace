@@ -30,8 +30,6 @@ app.use(passport.initialize());
 // Security Middleware and CORS configuration
 if (!isProduction) {
     app.use(cors());
-
-    
 }
 
 app.use(
@@ -44,24 +42,24 @@ app.use(
     })
 );
 
+// Serve static files from the 'public' directory
+app.use(express.static(path.join(__dirname, 'public')));
+
 // Attach Express routers
 app.use('/api/users', usersRouter);
 app.use('/api/tracks', tracksRouter);
 app.use('/api/posts', postsRouter); 
 app.use('/api/csrf', csrfRouter);
 
-
 app.get('/', (req, res) => {
     res.send('Hello, World!');
 });
-
 
 app.use((req, res, next) => {
     const err = new Error('Not Found');
     err.statusCode = 404;
     next(err);
 });
-
 
 const serverErrorLogger = debug('backend:error');
 
@@ -77,6 +75,3 @@ app.use((err, req, res, next) => {
 });
 
 module.exports = app;
-
-
-app.use(express.static(path.join(__dirname, 'public')));
