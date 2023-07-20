@@ -42,7 +42,6 @@ const ProfileHeader = ({ onFilterValue, filterValue }) => {
     const newColumn = {}
     for (let i = 0; i < column.length; i++) {
       if (!(column[i] === null || newColumn.hasOwnProperty(column[i].username))) {
-        debugger
         if (username !== column[i].username) newColumn[column[i].username] = column[i]
     }}
     return Object.values(newColumn)

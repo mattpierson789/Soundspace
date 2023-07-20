@@ -14,7 +14,7 @@ function MainFeed() {
 
   const stateLocation = useLocation();
   const prop = stateLocation.state && stateLocation.state.toFollowingPage;
-  debugger
+  
 
   const handleLocationValue = (value) => {
     setLocationValue(value);

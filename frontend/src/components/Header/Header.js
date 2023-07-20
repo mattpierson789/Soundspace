@@ -8,8 +8,8 @@ function Header({ onLocationValue, locationValue, onTrendingPage, prop }) {
   const [location, setLocation] = useState(currentLocation);
   const [feedType, setFeedType] = useState(true);
 
-  if (prop === true) { handleFeedClick(false); debugger } // Goes to following
-  if (prop === false) { handleFeedClick(true); debugger } // Goes to trending
+  if (prop === true) { handleFeedClick(false); } // Goes to following
+  if (prop === false) { handleFeedClick(true); } // Goes to trending
   let tracks = useSelector((state) => Object.values(state.tracks.allTracks));
 
   if (locationValue && locationValue !== "Global") {
@@ -26,7 +26,6 @@ function Header({ onLocationValue, locationValue, onTrendingPage, prop }) {
   function handleFeedClick(type) {
     // if type === false and prop == true
     if ((feedType !== type)) {
-      debugger
       setFeedType(type);
       onTrendingPage(type);
       // prop = !prop

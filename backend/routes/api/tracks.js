@@ -121,20 +121,17 @@ router.post('/', requireUser, validateTrackInput, async (req, res, next) => {
 // Add an owner to a track
 router.post('/:id/owner/:userId', requireUser, async (req, res, next) => {
   
-  console.log("track not tyvan found")
   try {
     const trackId = req.params.id;
     const userId = req.params.userId;
 
     const track = await Track.findById(trackId);
     if (!track) {
-      console.log("track not tyvan found")
       return res.status(404).json({ error: 'Track not found' });
     }
 
     const user = await User.findById(userId);
     if (!user) {
-      console.log("user not tyvan found")
       return res.status(404).json({ error: 'User not found' });
     }
 
@@ -157,7 +154,6 @@ router.post('/:id/owner/:userId', requireUser, async (req, res, next) => {
 // Add comment to Track
 
 router.post('/:id/comments', async (req, res, next) => {
-  console.log("test hi");
   try {
     const trackId = req.params.id;
     const commentValue = req.body.commentValue;
@@ -170,7 +166,6 @@ router.post('/:id/comments', async (req, res, next) => {
 
     const user = await User.findById(userId);
     if (!user) {
-      console.log("user not tyvan found")
       return res.status(404).json({ error: 'User not found' });
     }
 
@@ -194,18 +189,15 @@ router.post('/:id/comments', async (req, res, next) => {
 // Increase play count to Track
 
 router.post('/:id/plays', async (req, res, next) => {
-  console.log("TEST COUNTER ADD")
   try {
     const trackId = req.params.id;
   
     const track = await Track.findById(trackId);
-    console.log(track.plays)
     if (!track) {
       return res.status(404).json({ error: 'Track not found' });
     }
 
     track.plays += 1;
-    console.log(track.plays)
 
     await track.save();
 

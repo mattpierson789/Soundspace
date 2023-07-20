@@ -4,7 +4,6 @@ const s3 = new AWS.S3({ apiVersion: "2006-03-01" });
 const NAME_OF_BUCKET = "soundspace-seeds"; 
 
 const singleFileUpload = async ({ file, public = false }) => {
-  console.log(file)
     const { originalname, buffer } = file;
     const path = require("path");
   

@@ -25,14 +25,12 @@
 //     e.preventDefault();
 //     const trackData = { artist, title, genre, trackFile, trackImageUrl };
 //     dispatch(uploadTrack(trackData));
-//     debugger 
 //     setArtist('');
 //     setTitle('');
 //     setGenre('');
 //     setTrackFile(null);
 //     setTrackImageUrl('');
 //   };
-// debugger 
 //   const updateArtist = e => setArtist(e.currentTarget.value);
 //   const updateTitle = e => setTitle(e.currentTarget.value);
 //   const updateGenre = e => setGenre(e.currentTarget.value);
