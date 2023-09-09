@@ -49,5 +49,5 @@
     "@babel/preset-react": "^7.22.5",
     "redux-logger": "^3.0.6"
   },
-  "proxy": "http://localhost:3002"
+  "proxy": "https://soundspace.onrender.com/"
 }
