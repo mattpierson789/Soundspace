@@ -25,7 +25,7 @@
   },
 
   "devServer": {
-    "public": "https://soundspace.onrender.com/"
+    "public": "https://soundspace.onrender.com/api/users/current"
   },
   
   "eslintConfig": {
