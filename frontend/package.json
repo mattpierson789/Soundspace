@@ -17,16 +17,17 @@
     "redux": "^4.2.1",
     "redux-thunk": "^2.4.2"
   },
-  "devServer": {
-    "historyApiFallback": true,
-    "hot": true
-  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+
+  "devServer": {
+    "public": "https://soundspace.onrender.com/"
+  },
+  
   "eslintConfig": {
     "extends": "react-app"
   },
