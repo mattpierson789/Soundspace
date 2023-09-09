@@ -45,7 +45,7 @@ function App() {
   
   return (
     <>
-      <h1>Hi my name is Matt</h1>
+     
       <SideBarLinks />
       <MusicBar />
       <Switch>
