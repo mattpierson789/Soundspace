@@ -24,20 +24,28 @@ import { getAllUsers } from './store/session';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
+  const [error, setError] = useState(null);
   const dispatch = useDispatch();
   
   useEffect(() => {
-    dispatch(getCurrentUser()).then(() => setLoaded(true));  
-    // dispatch(getAllUsers())
+    dispatch(getCurrentUser())
+      .then(() => {
+        setLoaded(true);
+      })
+      .catch((err) => {
+        console.error('Error fetching current user:', err);
+        setError('There was an issue fetching user data. Please try again later.');
+        setLoaded(true); 
+      });
   }, [dispatch]);
 
   if (!loaded) {
-    return <h1>Failed to load</h1>
+    return error ? <h1>{error}</h1> : <h1>Loading...</h1>;
   }
   
-  return loaded && (
+  return (
     <>
-    <hi>Hi my name is Matt </hi>
+      <h1>Hi my name is Matt</h1>
       <SideBarLinks />
       <MusicBar />
       <Switch>
