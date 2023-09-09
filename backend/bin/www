@@ -13,7 +13,7 @@ const debug = require('debug')
 const serverLogger = debug('backend:server');
 const dbLogger = debug('backend:mongodb');
 
-// debug.enable('backend:server');
+debug.enable('backend:server');
 
 var http = require('http');
 
