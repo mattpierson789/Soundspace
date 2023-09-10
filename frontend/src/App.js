@@ -58,6 +58,7 @@ function App() {
         <ProtectedRoute exact path="/tracks/new" component={MusicUploadForm} />
       </Switch>
       <m></m>
+      <a></a>
     </>
   );
 }
