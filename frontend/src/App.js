@@ -57,6 +57,7 @@ function App() {
         <ProtectedRoute exact path="/profile/:username" component={ProfilePage} />
         <ProtectedRoute exact path="/tracks/new" component={MusicUploadForm} />
       </Switch>
+      <m></m>
     </>
   );
 }
