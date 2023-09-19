@@ -6,7 +6,6 @@ const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
 const { Strategy: JwtStrategy, ExtractJwt } = require('passport-jwt');
-debugger 
 
 passport.use(new LocalStrategy({
     session: false,
