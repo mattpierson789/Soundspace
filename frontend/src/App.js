@@ -27,8 +27,9 @@ function App() {
   const dispatch = useDispatch();
   
   useEffect(() => {
-    dispatch(getCurrentUser()).then(() => setLoaded(true));  
+    // dispatch(getCurrentUser()).then(() => setLoaded(true));  
     // dispatch(getAllUsers())
+    setLoaded(true);
   }, [dispatch]);
 
   if (!loaded) {
@@ -37,7 +38,6 @@ function App() {
   
   return loaded && (
     <>
-    <hi>Hi my name is Matt </hi>
       <SideBarLinks />
       <MusicBar />
       <Switch>

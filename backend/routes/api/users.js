@@ -95,6 +95,7 @@ router.post('/register', singleMulterUpload("image"), validateRegisterInput, asy
 // POST /api/users/login
 router.post('/login', singleMulterUpload(""), validateLoginInput, async (req, res, next) => {
 // router.post('/login', validateLoginInput, async (req, res, next) => {
+  debugger 
   passport.authenticate('local', async function(err, user) {
     if (err) return next(err);
     if (!user) {

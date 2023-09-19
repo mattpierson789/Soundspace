@@ -6,12 +6,14 @@ const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
 const { Strategy: JwtStrategy, ExtractJwt } = require('passport-jwt');
+debugger 
 
 passport.use(new LocalStrategy({
     session: false,
     usernameField: 'email',
     passwordField: 'password',
 }, async function (email, password, done) {
+    debugger 
     const user = await User.findOne({ email });
     if (user) {
         bcrypt.compare(password, user.hashedPassword, (err, isMatch) => {
@@ -24,6 +26,7 @@ passport.use(new LocalStrategy({
  
 
 exports.loginUser = async function (user) {
+    debugger 
     const userInfo = {
         _id: user._id,
         username: user.username,
@@ -32,6 +35,7 @@ exports.loginUser = async function (user) {
         name: user.name,
         email: user.email
     };
+    debugger 
     const token = await jwt.sign(
         userInfo, // payload
         secretOrKey, // sign with secret key
@@ -39,7 +43,6 @@ exports.loginUser = async function (user) {
     );
     return {
         user: userInfo,
-        
         token
     };
 };

@@ -36,14 +36,16 @@ export const signup = user => startSession(user, 'api/users/register');
 export const login = user => startSession(user, 'api/users/login');
 
 const startSession = (userInfo, route) => async dispatch => {
+  debugger 
     const { image, username, password, email, name, location } = userInfo;
+    debugger 
     const formData = new FormData();
     formData.append("username", username);
     formData.append("password", password);
     formData.append("name", name);
     formData.append("location", location);
     formData.append("email", email);
-
+  debugger 
   if (image) formData.append("image", image);
     try {
         const res = await jwtFetch(route, {
