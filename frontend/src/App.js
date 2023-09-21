@@ -37,7 +37,6 @@ function App() {
   
   return loaded && (
     <>
-    <hi>Hi my name is Matt </hi>
       <SideBarLinks />
       <MusicBar />
       <Switch>

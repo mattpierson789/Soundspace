@@ -51,7 +51,10 @@ function PostItem({ post }) {
             {posterImgUrl && (
               <img className="post-image" src={posterImgUrl} alt="Profile-Image" />
             )}
-            <p className="user-post-username">{poster.username}</p>
+            {poster && (
+                <p className="user-post-username">{poster.username}</p>
+
+            )}
             </div>
             <div className="main-post-content">
             <h2 className="post-title">{title}</h2>
