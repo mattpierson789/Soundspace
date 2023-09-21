@@ -25,12 +25,15 @@ import { getAllUsers } from './store/session';
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
-  
-  useEffect(() => {
-    dispatch(getCurrentUser()).then(() => setLoaded(true));  
-    // dispatch(getAllUsers())
-  }, [dispatch]);
 
+  useEffect(() => {
+    dispatch(getCurrentUser())
+      .then(() => setLoaded(true))
+      .catch((error) => {
+        console.error("Error loading user:", error);
+      });
+  }, [dispatch]);
+  
   if (!loaded) {
     return <h1>Failed to load</h1>
   }
