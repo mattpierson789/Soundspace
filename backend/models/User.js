@@ -12,7 +12,7 @@ const Schema = mongoose.Schema;
     },
     username: {
       type: String,
-      required: false
+      required: true
     },
     email: {
       type: String,
