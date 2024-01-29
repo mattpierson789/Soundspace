@@ -58,7 +58,7 @@ const handleClickPrevious = () => {
             width: '100%',
             height: '100%',
           }}
-          customControlsSection={[RHAP_UI.MAIN_CONTROLS]}
+          // customControlsSection={[RHAP_UI.MAIN_CONTROLS]}
           customProgressBarSection={[
             RHAP_UI.CURRENT_TIME,
             RHAP_UI.PROGRESS_BAR,
