@@ -30,6 +30,16 @@ if (!isProduction) {
     app.use(cors());
 }
 
+app.use(
+    csurf({
+        cookie: {
+            secure: isProduction,
+            sameSite: isProduction && "Lax",
+            httpOnly: true
+        }
+    })
+);
+
 // Serve static React build files statically in production
 if (isProduction) {
     const path = require('path');
@@ -53,23 +63,11 @@ if (isProduction) {
   });
 }
 
-
-app.use(
-    csurf({
-        cookie: {
-            secure: isProduction,
-            sameSite: isProduction && "Lax",
-            httpOnly: true
-        }
-    })
-);
-
 // Attach Express routers
 app.use('/api/users', usersRouter);
 app.use('/api/tracks', tracksRouter);
 app.use('/api/posts', postsRouter); 
 app.use('/api/csrf', csrfRouter);
-
 
 app.get('/', (req, res) => {
     res.send('Hello, World!');
