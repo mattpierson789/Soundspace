@@ -37,14 +37,14 @@ function App() {
   
   return loaded && (
     <>
-    <hi>Hi my name is Matt </hi>
+    {/* <hi>Hi my name is Matt </hi> */}
       <SideBarLinks />
       <MusicBar />
       <Switch>
         <AuthRoute exact path="/" component={MainFeed} />
         <AuthRoute exact path="/login" component={LoginForm} />
         <AuthRoute exact path="/signup" component={SignupForm} />
-        <Route path="/info" component={GroupInfo} />
+        {/* <Route path="/info" component={GroupInfo} /> */}
         <ProtectedRoute exact path="/tracks" component={MainFeed} />
         <ProtectedRoute exact path="/profile/:username" component={ProfilePage} />
         <ProtectedRoute exact path="/tracks/new" component={MusicUploadForm} />

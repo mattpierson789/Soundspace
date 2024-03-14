@@ -51,7 +51,7 @@ const SidebarLinks = ({ isLoggedIn }) => {
                 <div className="linksForAll">
                   <Link to={{ pathname: "/tracks", state: { toFollowingPage: false } }}>Trending</Link>
                   <Link to={{ pathname: "/tracks", state: { toFollowingPage: true } }}>Following</Link>
-                  <Link className="developersLink" to="/info">Developers!</Link>
+                  {/* <Link className="developersLink" to="/info">Developers!</Link> */}
                 </div>
                 <button className="uploadTrackButton-pushable" onClick={openModal}>
                   <span className="uploadTrackButton-shadow"></span>
