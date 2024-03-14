@@ -8,7 +8,7 @@ const Schema = mongoose.Schema;
     },
     profileImageUrl: {
       type: String,
-      required: true
+      required: false
     },
     username: {
       type: String,
@@ -24,7 +24,7 @@ const Schema = mongoose.Schema;
     },
     location: {
       type: String,
-      required: true,
+      required: false,
     },
     profilePicture: {
       type: String,
