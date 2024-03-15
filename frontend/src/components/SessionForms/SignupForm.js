@@ -57,55 +57,55 @@ function SignupForm() {
     <div className="signup-page-container">
       <div className="signup-form-container">
         <form className="signup-form" onSubmit={handleSubmit}>
-          <div className="signup-tag-line">
-            <h1 className="signup-title">Soundspace</h1>
-            <h2 className="signup-subtitle">Discover Your Local Scene</h2>
-            <h2 className="signup-subtitle">Connect with Music in Your Backyard</h2>
+          <div className="form-tag-line">
+            <h1 className="form-title">Soundspace</h1>
+            <h2 className="form-subtitle">Discover Your Local Scene</h2>
+            <h2 className="form-subtitle">Connect with Music in Your Backyard</h2>
           </div>
-
-          <h2 className="signup-heading">Sign Up Form</h2>
-          <label className="signup-label">
-            <span className="signup-label-text">Email</span>
+          <label className="form-label">
+            <span className="form-label-text">Email</span>
             <input
               type="text"
               value={email}
-              onChange={e => setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="Email"
-              className="signup-input-field"
+              className="form-input"
             />
-            <div className="signup-errors">{errors ? errors.email : null}</div>
+            <div className="errors">{errors ? errors.email : null}</div>
           </label>
 
-          <label className="signup-label">
-            <span className="signup-label-text">Name</span>
+          <label className="form-label">
+            <span className="form-label-text">Name</span>
             <input
               type="text"
               value={name}
-              onChange={e => setName(e.target.value)}
+              onChange={(e) => setName(e.target.value)}
               placeholder="Name"
-              className="signup-input-field"
+              className="form-input"
             />
           </label>
 
-          <label className="signup-label">
-            <span className="signup-label-text">Username</span>
+          <label className="form-label">
+            <span className="form-label-text">Username</span>
             <input
               type="text"
               value={username}
-              onChange={e => setUsername(e.target.value)}
+              onChange={(e) => setUsername(e.target.value)}
               placeholder="Username"
-              className="signup-input-field"
+              className="form-input"
             />
           </label>
 
-          <label className="signup-label">
+          <label className="form-label">
             Profile Image
-            <input type="file" accept=".jpg, .jpeg, .png" onChange={updateFile} className="signup-input-field" />
+            <div className="profile-image-upload">
+              <input type="file" accept=".jpg, .jpeg, .png" onChange={updateFile} />
+            </div>
           </label>
 
-          <label className="signup-label">
-            <span className="signup-label-text">Location:</span>
-            <select value={location} onChange={e => setLocation(e.target.value)} className="signup-input-field">
+          <label className="form-label">
+            <span className="form-label-text">Location:</span>
+            <select value={location} onChange={(e) => setLocation(e.target.value)} className="form-input">
               <option value="">Select Location</option>
               <option value="NYC">NYC</option>
               <option value="LA">LA</option>
@@ -113,42 +113,42 @@ function SignupForm() {
             </select>
           </label>
 
-          <label className="signup-label">
-            <span className="signup-label-text">Password</span>
+          <label className="form-label">
+            <span className="form-label-text">Password</span>
             <input
               type="password"
               value={password}
-              onChange={e => setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
-              className="signup-input-field"
+              className="form-input"
             />
           </label>
 
-          <label className="signup-label">
-            <span className="signup-label-text">Confirm Password</span>
+          <label className="form-label">
+            <span className="form-label-text">Confirm Password</span>
             <input
               type="password"
               value={password2}
-              onChange={e => setPassword2(e.target.value)}
+              onChange={(e) => setPassword2(e.target.value)}
               placeholder="Confirm Password"
-              className="signup-input-field"
+              className="form-input"
             />
-            <div className="signup-errors">
+            <div className="errors">
               {password !== password2 && 'Passwords do not match'}
             </div>
           </label>
 
-          <div className="signup-errors">
+          <div className="errors">
             {errorMessages.map((error, idx) => (
               <div key={idx}>{error}</div>
             ))}
           </div>
 
-          <button type="submit" className="signup-submit-btn">Sign Up</button>
+          <button type="submit" className="form-submit-btn">Sign Up</button>
         </form>
       </div>
     </div>
   );
-}
+};
 
 export default SignupForm;

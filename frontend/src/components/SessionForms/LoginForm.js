@@ -34,6 +34,11 @@ function LoginForm() {
   if (currentUser) {
     return <Redirect to="/tracks" />;
   }
+
+  const handleDemoUserLogin = () => {
+    dispatch(login({ email: 'demo@user.io', password: 'password' }));
+  };
+  
   return (
     <div className="login-page-container">
       <div className="login-form-container">
@@ -43,7 +48,6 @@ function LoginForm() {
             <h2 className="form-subtitle">Discover Your Local Scene</h2>
             <h2 className="form-subtitle">Connect with Music in your Backyard</h2>
           </div>
-          <h2 className="form-heading">Log In Form</h2>
           <label htmlFor="email-input" className="form-label">
             <span className="form-label-text">Email</span>
             <input
@@ -69,6 +73,7 @@ function LoginForm() {
             <div className="errors">{errors ? errors.password : null}</div>
           </label>
           <input type="submit" value="Log In" className="form-submit-btn" />
+          <button type="button" onClick={handleDemoUserLogin} className="form-demo-user-btn">Demo User</button>
           <label className="form-link-label">
             Not a user? Sign Up Here!{' '}
             <Link to="/signup" className="form-link">Sign Up</Link>

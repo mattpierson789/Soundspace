@@ -68,14 +68,13 @@ const SidebarLinks = ({ isLoggedIn }) => {
               <div>
                 {/* <h2 className="welcome-message">Welcome to Soundspace</h2> */}
                 <div id="links-container">
-                  <div className="linksBeforeAuth">
+                <div className="linksForAll">
                     <Link to="/login">Login</Link>
                     <Link to="/signup">Signup</Link>
                     <Link to="/tracks">Trending</Link>
                     <Link to="/tracks">Following</Link>
-                    <Link to="/info">Developers!</Link>
-                  </div>
                 </div>
+              </div>
               </div>
             </>
           )}
