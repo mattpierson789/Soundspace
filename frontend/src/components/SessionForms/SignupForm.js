@@ -123,7 +123,6 @@ function SignupForm() {
                 <option value="">Select Location</option>
                 <option value="NYC">NYC</option>
                 <option value="LA">LA</option>
-                <option value="ATL">ATL</option>
               </select>
             </label>
           </div>

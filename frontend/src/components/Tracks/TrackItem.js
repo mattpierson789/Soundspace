@@ -57,21 +57,20 @@ function TrackItem({ track: { _id, title, location, artist, genre, plays, likes,
         <h2 className="title">{title}</h2>
         <p className="artist" onClick={userShowPageRoute}>{artist}</p>
         <p className="genre">{genre}</p>
-        <div className="track-stats">
+        {/* <div className="track-stats">
           <p className="plays">Plays: {plays}</p>
-          {/* <p className="likes">Likes: {likes}</p> */}
           <p className="reshares">Reshares: {reshares}</p>
-        </div>
+        </div> */}
         <div className="track-buttons-container">
           <div className="track-buttons">
             <button onClick={handleReshare}>{isReshared ? 'Reshared' : 'Repost'}</button>
-            <button onClick={handleDelete}>Delete Track</button>
+            {/* <button onClick={handleDelete}>Delete Track</button> */}
             <button onClick={handlePlay}>Play</button>
           </div>
         </div>
-        <div className="comment-section" onClick={toggleCommentsModal}>
+        {/* <div className="comment-section" onClick={toggleCommentsModal}>
           <span>Comment</span>
-        </div>
+        </div> */}
       </div>
       {showCommentsModal && (
         <CommentsModal trackId={_id} closeModal={toggleCommentsModal} />
