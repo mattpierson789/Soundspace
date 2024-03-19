@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   border-radius: 10px;
-  padding: 10px;
+  padding: 20px;
   margin: 20px;
   /* background-image: linear-gradient(45deg, #657bf6, #6b6b6b); */
   background-color: rgb(108, 108, 255);
@@ -31,7 +31,7 @@
   width: 70%;
   flex-direction: column;
   align-items: center;
-  margin-left: 15%;
+  margin-left: 5%;
   margin-right: 15%;
   margin-top: 20px;
   /* margin: 20px; */
@@ -211,7 +211,7 @@
 }
 
 .main-content-tracks-index .track-item {
-  width: 100%;
+  width: 150%;
   margin-right: 30%;
 }
 .tracks {

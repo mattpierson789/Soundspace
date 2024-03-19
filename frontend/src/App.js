@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import React from 'react';
 import 'normalize.css';
 
@@ -32,19 +32,19 @@ function App() {
   }, [dispatch]);
 
   if (!loaded) {
-    return <h1>Failed to load</h1>
+    return <h1>Loading...</h1>
   }
   
-  return loaded && (
+  return (
     <>
-    {/* <hi>Hi my name is Matt </hi> */}
       <SideBarLinks />
       <MusicBar />
       <Switch>
-        <AuthRoute exact path="/" component={MainFeed} />
+        <Route exact path="/">
+          {loaded ? <Redirect to="/login" /> : <h1>Loading...</h1>}
+        </Route>
         <AuthRoute exact path="/login" component={LoginForm} />
         <AuthRoute exact path="/signup" component={SignupForm} />
-        {/* <Route path="/info" component={GroupInfo} /> */}
         <ProtectedRoute exact path="/tracks" component={MainFeed} />
         <ProtectedRoute exact path="/profile/:username" component={ProfilePage} />
         <ProtectedRoute exact path="/tracks/new" component={MusicUploadForm} />
