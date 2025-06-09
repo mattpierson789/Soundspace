@@ -69,9 +69,14 @@ export const fetchTracks = () => async dispatch => {
     const tracks = await res.json();
     dispatch(receiveTracks(tracks));
   } catch (err) {
-    const resBody = await err.json();
-    if (resBody.statusCode === 400) {
-      dispatch(receiveErrors(resBody.errors));
+    try {
+      const resBody = await err.json();
+      if (resBody.statusCode === 400) {
+        dispatch(receiveErrors(resBody.errors));
+      }
+    } catch (parseErr) {
+      console.error("Could not parse error JSON", parseErr);
+      console.error("Original error:", err);
     }
   }
 };
@@ -82,12 +87,18 @@ export const fetchUserTracks = (username) => async dispatch => {
     const tracks = await res.json();
     dispatch(receiveUserTracks(tracks, username));
   } catch (err) {
-    const resBody = await err.json();
-    if (resBody.statusCode === 400) {
-      return dispatch(receiveErrors(resBody.errors));
+    try {
+      const resBody = await err.json();
+      if (resBody.statusCode === 400) {
+        return dispatch(receiveErrors(resBody.errors));
+      }
+    } catch (parseErr) {
+      console.error("Could not parse error JSON", parseErr);
+      console.error("Original error:", err);
     }
   }
 };
+
 
 export const repostTrack = (id, userId) => async dispatch => {
   console.log(id, userId)
